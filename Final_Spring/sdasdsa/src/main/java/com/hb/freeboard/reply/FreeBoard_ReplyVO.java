@@ -1,7 +1,6 @@
 package com.hb.freeboard.reply;
 
-import javax.validation.constraints.Max;
-
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import lombok.Data;
@@ -11,7 +10,8 @@ public class FreeBoard_ReplyVO {
 	private int num;
 	@NotBlank
 	private String nickname;
-	@NotBlank @Max(100)
+	@NotBlank
+	@Length(max=100)
 	private String content;
 	private String writeDate;
 	@NotBlank
