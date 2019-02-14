@@ -5,10 +5,11 @@ import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/freeboardReply")
+@RequestMapping(value="/freeboardReply",method= {RequestMethod.GET,RequestMethod.POST})
 public class FreeBoardReplyController {
 	
 	@Inject
