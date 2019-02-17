@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hb.freeboard.FreeBoardVO;
 import com.hb.freeboard.like.ILikeService;
@@ -50,8 +52,9 @@ public class FreeBoardDetailController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/edit.do")
-	public void edit(@Valid FreeBoardVO dto) {
+	@PostMapping(value="/edit.do", produces="application/json; charset=utf-8")
+	public void edit(@RequestPart("serialData") @Valid FreeBoardVO dto, @RequestPart(value="file",required=false) MultipartFile file) {
+		dto.setMultipartFile(file);
 		datailService.board_DetailEdit(dto);
 	}
 	
