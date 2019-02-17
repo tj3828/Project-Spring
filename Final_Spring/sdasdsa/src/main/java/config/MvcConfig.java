@@ -3,8 +3,8 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.Validator;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,13 +13,13 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import interceptor.AutoLoginAndGetSessionInterceptor;
+import interceptor.AutoLoginInterceptor;
 import interceptor.LoggerInterceptor;
 import interceptor.LoginCheckInterceptor;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.hb.*")
+@ComponentScan(basePackages= {"com.hb.*"})
 public class MvcConfig implements WebMvcConfigurer {
 	
 
@@ -42,7 +42,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loggerInterceptor())
 			.addPathPatterns("/**/*.do");
-		registry.addInterceptor(autoLoginAndGetSessionInterceptor())
+		registry.addInterceptor(autoLoginInterceptor())
 			.addPathPatterns("/freeboard/**.do")
 			.excludePathPatterns("/freeboard/replyEdit.do","/freeboard/delete.do","/freeboard/replyDelete.do","/freeboard/write.do");
 		registry.addInterceptor(loginCheckInterceptor())
@@ -59,14 +59,16 @@ public class MvcConfig implements WebMvcConfigurer {
 
 	@Bean(name = "multipartResolver") 
 	public CommonsMultipartResolver createMultipartResolver() { 
-		CommonsMultipartResolver resolver=new CommonsMultipartResolver(); 
-		resolver.setDefaultEncoding("utf-8"); 
+		CommonsMultipartResolver resolver=new CommonsMultipartResolver();
+		resolver.setDefaultEncoding("utf-8");
+		resolver.setMaxInMemorySize(1048576);	// 1MB
+		resolver.setMaxUploadSize(20971520);	// 20MB
 		return resolver;
 	}
 	
 	@Bean
-	public AutoLoginAndGetSessionInterceptor autoLoginAndGetSessionInterceptor() {
-		return new AutoLoginAndGetSessionInterceptor();
+	public AutoLoginInterceptor autoLoginInterceptor() {
+		return new AutoLoginInterceptor();
 	}
 	
 	@Bean
