@@ -27,7 +27,7 @@ public class FreeBoardServiceImpl implements IFreeBoardService {
 	
 	@Override
 	public void board_write(FreeBoardVO dto) {
-		if(!dto.getMultipartFile().isEmpty()) {
+		if(dto.getMultipartFile() != null && !dto.getMultipartFile().isEmpty()) {
 			String path=application.getRealPath("/resources/upload");
 			String img=dto.getMultipartFile().getOriginalFilename();
 			
@@ -35,7 +35,10 @@ public class FreeBoardServiceImpl implements IFreeBoardService {
 			String extension = img.substring(img.lastIndexOf("."));
 			
 			String filename = uuid + extension;
-			
+			File temp = new File(path);
+			if(!temp.exists()) {
+				temp.mkdirs();
+			}
 			File file = new File(path, filename);
 			System.out.println(file + " / " + img);
 			try{
@@ -52,6 +55,7 @@ public class FreeBoardServiceImpl implements IFreeBoardService {
 			dto.setUpload_file_size((long)0.0);
 		}
 		iBoardDAOMapper.dbInsert(dto);
+		System.out.println(dto.getContent());
 	}
 
 	@Override
