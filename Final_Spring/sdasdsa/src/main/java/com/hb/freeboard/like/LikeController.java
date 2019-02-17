@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class LikeController {
 	ILikeService likeService;
 	
 	@PostMapping("/change.do")
-	public Map<String,String> change(@RequestParam("Like") int like, LikeVO ldto) {
+	public Map<String,String> change(@RequestParam("Like") int like,@Valid LikeVO ldto) {
 		System.out.println(ldto.getId());
 		Map<String,String> map = new HashMap<String, String>();
 		if(like == 1) {
