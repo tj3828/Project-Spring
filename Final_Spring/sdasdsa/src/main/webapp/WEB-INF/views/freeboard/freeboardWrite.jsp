@@ -7,9 +7,13 @@
 <title>자유게시판 - 글쓰기</title>
 	<link rel="stylesheet" href="../resources/css/freeboard.css">
 </head>
+
 <body>
 	<div class="wrap">
 		<jsp:include page="../common/top.jsp"></jsp:include>
+		<script type="text/javascript">
+	
+</script>
 		<div class="container">
 			<div class="title_label_div">
 				<span class="fas fa-edit"></span>
@@ -18,7 +22,7 @@
 			<div class="panel panel-default"> 
 				<div class="panel-body">
 					<div class="container"> 
-						<form id="writeForm" action="write.do" enctype="multipart/form-data" method="post">  
+						<form id="writeForm" >  
 							<div class="row"> 
 								<div class="col-md-12">
 									<div class="form-group"> 
@@ -34,15 +38,15 @@
 							</div> 
 							<div class="form-group content-div"> 
 								<label for="content">Comment:</label> 
-								<textarea class="form-control" rows="10" name="content" id="content" placeholder="- 300글자까지 입력가능합니다.&#13;&#10;- 비방,욕설,음란내용이 포함된 경우 강제로 삭제될 수 있습니다." maxlength="300"></textarea> 
-								<span class="counter" id="counter">###</span>
+								<textarea class="form-control" rows="10" name="content" id="content" style="width:auto; !important;"></textarea> 
+								<span class="counter" id="counter" style="bottom: 30px; right:25px;">###</span>
 							</div>
 							<br>
 							<div class="form-group"> 
 								<label for="File">File input : &nbsp;</label> 
-								<input type="file" name="multipartFile"> 
+								<input type="file" name="multipartFile" id="multipartFile"> 
 							</div>
-							<br>
+							 <br>
 							<hr>
 							<br>
 							<div align="center"> 
@@ -55,50 +59,75 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	    //전역변수
+	    var obj = [];              
+	    //스마트에디터 프레임생성
+	    nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: obj,
+	        elPlaceHolder: "content",
+	        sSkinURI: "../resources/editor/SmartEditor2Skin.html",
+	        htParams : {
+	            // 툴바 사용 여부
+	            bUseToolbar : true,            
+	            // 입력창 크기 조절바 사용 여부
+	            bUseVerticalResizer : true,    
+	            // 모드 탭(Editor | HTML | TEXT) 사용 여부
+	            bUseModeChanger : false,
+	        }
+	    });
+	
+	
 		$('#save').on('click',function(){
+			
+			obj.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+			$('#content').val($('#content').val().replace(/[\u200B-\u200D\uFEFF]/g, '')); 
 			var title =  $('#title').val();
 			var content = $('#content').val();
 			
 			if( title == null || title.trim() == "" ) {
 				swal('글쓰기 오류','제목을 입력해주세요.','error');
 				return false;
-			} 
+			}
 			
 			if( content == null || content.trim() == "") {
 				swal('글쓰기 오류','내용을 입력해주세요.','error');
 				return false;
 			}
 			
-			var form = $('form')[0];
-	        var formData = new FormData(form);
-	        
+			var formData = new FormData();
+			var json = $('form').serializeObject();
+			var file = $('#multipartFile').val();
+			formData.append("serialData",new Blob([JSON.stringify(json)], {
+			    type: "application/json"
+			})); 
+			
+			formData.append("file",$("#multipartFile")[0].files[0]);
+			
 	        $.ajax({
 				type:"POST",
 				url:"../freeboard/write.do",
 				processData: false,
-	            contentType: false,
+				contentType: false,
 				data: formData,
 				success: function() {
-					location.href="../freeboard/freeboard.do"
+					location.href="../freeboard/freeboard.do";
 				},
-				error: function () {
-					swal('글쓰기 오류','관리자에게 문의하세요.','error');
+				error: function (request) {
+					swal('글쓰기 오류',request.responseText+"\n관리자에게 문의하세요.",'error');
 				}
 			});
 			
 		});
-		
-		$('#content').keyup(function (e){
-		    var content = $(this).val();
-		    $('#counter').html(content.length + '/300');
-		});
-		$('#content').keyup();
 		
 		$('#title').keyup(function (e){
 		    var title = $(this).val();
 		    $('#counter1').html(title.length + '/30');
 		});
 		$('#title').keyup();
+		
+		function setCounter(a) {
+			 $('#counter').html(a + '/300');
+		}
 	</script>
 </body>
 </html>

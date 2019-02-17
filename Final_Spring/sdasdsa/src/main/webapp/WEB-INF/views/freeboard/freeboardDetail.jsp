@@ -9,6 +9,11 @@
 <title>자유게시판 - ${dto.title}</title>
 	<link rel="stylesheet" href="../resources/css/freeboard.css">
 </head>
+<style>
+	p {
+		margin-bottom: 0 !important;
+	}
+</style>
 <body>
 	<div class="wrap">
 		<jsp:include page="../common/top.jsp"></jsp:include>
@@ -25,7 +30,7 @@
 						</div>
 						<hr>
 						<div class="form-group content-div"> 
-							<textarea class="form-control readOnlyContent" rows="10" readonly="readonly">${dto.content}</textarea>
+							<div class="form-control readOnlyContent" style="height: auto;" readonly="readonly">${dto.content}</div>
 						</div>
 						<br> 
 						<c:if test="${dto.upload_file != '' }">
@@ -189,14 +194,14 @@
 			$.ajax({
 				url: "../freeboardReply/replySave.do",
 				type: "POST",
-				data: formData,	
+				data: JSON.stringify($('form').serializeObject()),	
 				processData: false,
-	            contentType: false,
+				contentType: "application/json;", 
 				success: function() {
 					location.href="../freeboardDetail/detail.do?num=" + fr_idx;
 				},
-				error: function () {
-					swal('댓글 작성 오류','관리자에게 문의하세요.','error');
+				error: function (request) {
+					swal('댓글 작성 오류',request.responseText+"\n관리자에게 문의하세요.",'error');
 				}
 			});
 			
@@ -268,7 +273,8 @@
 			$.ajax({
 				type: "POST",
 				url: "../freeboardReply/replyEdit.do",
-				data: {"num":num, "fr_idx":fr_idx, "content": content, "nickname": nickname},
+				data: JSON.stringify({"num":num, "fr_idx":fr_idx, "content": content, "nickname": nickname}),
+				contentType: "application/json;",
 				success: function() {
 					swal({
 						title:"댓글 수정",
@@ -280,8 +286,8 @@
 						}
 					});
 				},
-				error: function () {
-					swal('댓글 수정','댓글 수정에 오류가 발생했습니다.\n관리자에게 문의하세요.','error');
+				error: function (request) {
+					swal('댓글 수정',request.responseText + '\n관리자에게 문의하세요.','error');
 				}
 			});
 		}
