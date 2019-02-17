@@ -14,7 +14,7 @@ import org.springframework.web.util.WebUtils;
 import com.hb.account.AccountVO;
 import com.hb.account.login.ILoginService;
 
-public class AutoLoginAndGetSessionInterceptor extends HandlerInterceptorAdapter{
+public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject
 	ILoginService loginService; 
