@@ -41,6 +41,11 @@ public class JoinServiceImpl implements IJoinService {
 			
 			String filename = uuid + extension;
 			
+			File temp = new File(path);
+			if(!temp.exists()) {
+				temp.mkdirs();
+			}
+			
 			File file = new File(path, filename);
 			System.out.println(file + " / " + img);
 			try{
