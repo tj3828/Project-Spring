@@ -19,7 +19,7 @@
 			<ul class="navbar-nav nav-top" >
 				<c:if test="${sessionScope.id == null}"><li class="nav-item"><a href="../login/login.do">로그인</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li></c:if>
 				<c:if test="${sessionScope.id != null}"><li class="nav-item"><a href="../login/logout.do">로그아웃</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li></c:if>
-				<li class="nav-item"><a href="#">고객센터</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li>
+				<li class="nav-item"><a href="../freeboardDetail/chat.do">고객센터</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li>
 				<li class="nav-item"><a href="#">이용안내</a> </li>
 			</ul>
 		</div>		
@@ -63,5 +63,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="../resources/js/bootstrap/bootstrap.min.js"></script>
+	<script src="../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 </body>
 </html>

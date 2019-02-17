@@ -60,7 +60,9 @@ label {
     line-height:1.6em;
 }
 
-.content-div span {
+
+
+.content-div .counter {
     position: absolute;
     bottom: 5px;
     right: 5px;

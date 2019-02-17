@@ -429,8 +429,15 @@ $(function(){
 	// 회원가입 유효성체크 후 회원가입 요청
 	$('form').on('submit',function(event) {
 		event.preventDefault();
-		var form = $('form')[0];
-        var formData = new FormData(form);
+		
+		var formData = new FormData();
+		var json = $('form').serializeObject();
+		var file = $('#multipartFile').val();
+		formData.append("serialData",new Blob([JSON.stringify(json)], {
+		    type: "application/json"
+		})); 
+		
+		formData.append("file",$("#multipartFile")[0].files[0]);
         
 		$.ajax({
 			type:"POST",
@@ -449,8 +456,8 @@ $(function(){
 					}
 				})
 			},
-			error: function() {
-				swal('회원가입 오류', '관리자에게 문의하세요.','error');
+			error: function(request) {
+				swal('회원가입 오류', request.responseText + '\n관리자에게 문의하세요.','error');
 			}
 		});
 	});

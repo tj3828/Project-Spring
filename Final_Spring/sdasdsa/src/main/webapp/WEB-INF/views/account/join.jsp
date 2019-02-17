@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>회원가입</title>
 	<!-- JQuery -->
-    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="../resources/js/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap -->
 	<!-- font -->
 	<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
@@ -177,7 +177,7 @@
                     <img src="../resources/images/icon/duck3.png" class="profile_image selectImg" alt="choice9">
 					<div class="file_input_div">
 					    <img src="../resources/images/setProfileImg.png" class="file_input_img_btn profile_image" alt="open" />
-					    <input type="file" class="file_input_hidden" name="multipartFile" accept="image/*"/>
+					    <input type="file" class="file_input_hidden" name="multipartFile" id="multipartFile" accept="image/*"/>
 					</div>
                 </div>
             </div>
