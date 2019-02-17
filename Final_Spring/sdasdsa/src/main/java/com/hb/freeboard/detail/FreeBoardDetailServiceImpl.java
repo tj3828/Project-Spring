@@ -32,7 +32,7 @@ public class FreeBoardDetailServiceImpl implements IFreeBoardDetailService {
 
 	@Override
 	public void board_DetailEdit(FreeBoardVO dto) {
-		if(!dto.getMultipartFile().isEmpty()) {
+		if(dto.getMultipartFile() != null && !dto.getMultipartFile().isEmpty()) {
 			String path=application.getRealPath("/resources/upload");
 			String img=dto.getMultipartFile().getOriginalFilename();
 			
@@ -40,7 +40,10 @@ public class FreeBoardDetailServiceImpl implements IFreeBoardDetailService {
 			String extension = img.substring(img.lastIndexOf("."));
 			
 			String filename = uuid + extension;
-			
+			File temp = new File(path);
+			if(!temp.exists()) {
+				temp.mkdirs();
+			}
 			File file = new File(path, filename);
 			System.out.println(file + " / " + img);
 			try{
