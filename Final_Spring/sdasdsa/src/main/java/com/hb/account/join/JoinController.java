@@ -5,7 +5,9 @@ import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hb.account.AccountVO;
 
@@ -25,8 +27,9 @@ public class JoinController {
 		return joinService.checkNick(dto);
 	}
 	
-	@PostMapping("/join.do")
-	public void join(@Valid AccountVO dto) {
+	@PostMapping(value = "/join.do",produces="application/json; charset=utf-8")
+	public void join(@RequestPart("serialData") @Valid AccountVO dto, @RequestPart(value="file", required=false) MultipartFile file) {
+		dto.setMultipartFile(file);
 		joinService.join(dto);
 	}
 }
