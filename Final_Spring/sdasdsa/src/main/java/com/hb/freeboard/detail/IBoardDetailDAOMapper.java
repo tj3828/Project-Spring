@@ -18,7 +18,7 @@ public interface IBoardDetailDAOMapper {
 	@Update("update freeboard set viewCnt = viewCnt +1 where num = #{num}")
 	void dbDetailCount(FreeBoardVO dto);
 	
-	@Update("update freeboard set title=#{title}, content=#{content}, upload_file=#{upload_file} where num = #{num}")
+	@Update("update freeboard set title=#{title}, content=#{content}, upload_file=#{upload_file}, store_upload_file=#{store_upload_file}, upload_file_size=#{upload_file_size}  where num = #{num}")
 	void dbDetailEdit(FreeBoardVO dto);
 	
 	@Delete("delete from freeboard where num = #{num}")
