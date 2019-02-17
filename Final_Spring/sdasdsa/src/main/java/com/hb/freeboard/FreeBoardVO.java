@@ -12,13 +12,12 @@ public class FreeBoardVO {
 
 	private int rn;
 	private int num;
-	@NotBlank
+	@NotBlank(message="로그인해주세요.")
 	private String nickname;
-	@NotBlank 
-	@Length(max=30)
+	@NotBlank(message="제목을 입력하세요.") 
+	@Length(max=30,message="제목을 30자 이내로 작성하세요.")
 	private String title;
-	@NotBlank
-	@Length(max=300)
+	@NotBlank(message="내용을 입력하세요.")
 	private String content;
 	private String writeDate;
 	private String upload_file="";
