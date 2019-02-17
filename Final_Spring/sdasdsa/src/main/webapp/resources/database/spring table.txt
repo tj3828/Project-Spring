@@ -2,6 +2,23 @@
 create sequence freeboard_seq;
 create sequence freeboard_reply_seq;
 
+drop table freeboard_like;
+create table freeboard_like (
+  num number not null,
+  fr_idx number not null,
+  id varchar2(20) not null,
+  primary key(num)
+);
+
+drop table freeboard_reply;
+create table freeboard_reply (
+  num number not null,
+  nickname varchar2(100) not null,
+  content varchar2(900) not null,
+  writeDate date not null,
+  fr_idx number not null,
+  primary key(num)
+);
 
 drop table account;
 create table account (
@@ -24,22 +41,16 @@ create table freeboard (
   nickname varchar2(100) not null,
   title varchar2(90) not null,
   content varchar2(900) not null,
-  writeDate date not null,
+  writeDate DATE not null,
   upload_file varchar2(150),
+  store_upload_file varchar2(150),
+  upload_file_size number default 0,
   viewCnt number default 0,
   likeCnt number default 0,
   primary key(num)
 );
 
-drop table freeboard_reply;
-create table freeboard_reply (
-  num number not null,
-  nickname varchar2(100) not null,
-  content varchar2(900) not null,
-  writeDate date not null,
-  fr_idx number not null,
-  primary key(num)
-);
+
 
 alter table freeboard_reply add constraint freeboard_reply_fk
 foreign key(fr_idx) references freeboard(num) on delete cascade;
@@ -51,13 +62,7 @@ create table login (
   primary key(id)
 );
 
-drop table freeboard_like;
-create table freeboard_like (
-  num number not null,
-  fr_idx number not null,
-  id varchar2(20) not null,
-  primary key(num)
-);
+
 
 create sequence freeboard_like_seq;
 
