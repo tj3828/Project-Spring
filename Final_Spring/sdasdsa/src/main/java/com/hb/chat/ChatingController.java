@@ -1,4 +1,4 @@
-package com.hb.common.chat;
+package com.hb.chat;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -6,18 +6,24 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.http.HttpSession;
+import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
-import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 
-@ServerEndpoint(value="/ws",encoders=ChatEncoder.class)
+@ServerEndpoint(value="/ws",encoders=ChatEncoder.class,configurator=HttpSessionConfigurator.class)
 @Controller
 @Singleton
 public class ChatingController {
@@ -25,18 +31,11 @@ public class ChatingController {
 	private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 	
 	@OnOpen
-	public void onOpen(Session session) {
-		System.out.println("websocket 연결 : " + session.getId());
+	public void onOpen(Session session, EndpointConfig config) {
+		HttpSession httpSession = (HttpSession)config.getUserProperties().get("http");
+		System.out.println("websocket 연결 : " + httpSession.getAttribute("id"));
 		
 		try {
-			final Basic basic = session.getBasicRemote();
-			ChatVO vo = new ChatVO();
-			vo.setFromNick("me");
-			vo.setToNick("you");
-			vo.setContent("안녕하세요! 연결완료!가나다라마바사아자차카타파하");
-			vo.setReadCheck(false);
-			vo.setWriteDate(new SimpleDateFormat("yy/MM/dd HH:mm").format(new Date()));
-			session.getBasicRemote().sendObject(vo);
 			sessions.add(session);
 		}catch (Exception e) {
 			System.out.println(e.toString());
@@ -46,16 +45,10 @@ public class ChatingController {
 	}
 	
 	@OnMessage
-	public void onMessage(String message, Session session) {
-		System.out.println("from : " + session.getId() + ", 내용 : " + message);
+	public void onMessage(String message, Session session){
+		ChatVO vo = parseMessage(message);
+		System.out.println("from : " + session.getId() + ", 내용 : " + vo.getContent());
 		try{
-			Basic basic = session.getBasicRemote();
-			ChatVO vo = new ChatVO();
-			vo.setFromNick("me");
-			vo.setToNick("you");
-			vo.setReadCheck(false);
-			vo.setWriteDate(new SimpleDateFormat("yy/MM/dd HH:mm").format(new Date()));
-			vo.setContent(message);
 			sendMessage(session, vo);
 		} catch(Exception e) {
 			System.out.println(e.toString());
@@ -65,7 +58,7 @@ public class ChatingController {
 	
 	@OnError
 	public void onError(Throwable t) {
-		t.printStackTrace();
+		t.printStackTrace(); 
 	}
 	
 	@OnClose
@@ -85,6 +78,27 @@ public class ChatingController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ChatVO parseMessage(String message) {
+		JSONParser paser = new JSONParser();
+		ChatVO vo = new ChatVO();
+		System.out.println(message);
+		try {
+			JSONObject json = (JSONObject) paser.parse(message);
+			System.out.println(json.get("fromNick"));
+			vo.setFromNick((String)json.get("fromNick"));
+			vo.setToNick((String)json.get("toNick"));
+			String content = (String)json.get("content");
+			content = content.replaceAll("\n", "<br>");
+			vo.setContent(content);
+			vo.setReadCheck(Boolean.parseBoolean((String)json.get("readCheck")));
+			vo.setWriteDate(new SimpleDateFormat("yy/MM/dd HH:mm").format(new Date()));
+		} catch (ParseException e) {
+			System.out.println(e.toString());
+		}
+		
+		return vo;
 	}
  }
 
