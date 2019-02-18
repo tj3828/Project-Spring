@@ -1,4 +1,4 @@
-package com.hb.common.chat;
+package com.hb.chat;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
