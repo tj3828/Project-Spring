@@ -173,6 +173,7 @@
 			</div>
 		</div>
 	</div>
+	<jsp:include page="../common/chatBt.jsp"></jsp:include>
 	<script>	
 		$('.replySave').on('click',function(){
 			if($('#content').val() == null || $('#content').val().trim() == "") {

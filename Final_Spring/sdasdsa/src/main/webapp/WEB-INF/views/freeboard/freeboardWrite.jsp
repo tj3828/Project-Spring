@@ -11,9 +11,6 @@
 <body>
 	<div class="wrap">
 		<jsp:include page="../common/top.jsp"></jsp:include>
-		<script type="text/javascript">
-	
-</script>
 		<div class="container">
 			<div class="title_label_div">
 				<span class="fas fa-edit"></span>
@@ -58,6 +55,7 @@
 			</div>
 		</div>
 	</div>
+	<jsp:include page="../common/chatBt.jsp"></jsp:include>
 	<script type="text/javascript">
 	    //전역변수
 	    var obj = [];              

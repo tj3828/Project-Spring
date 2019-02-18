@@ -55,6 +55,7 @@
 			</div>
 		</div>
 	</div>
+	<jsp:include page="../common/chatBt.jsp"></jsp:include>
 	<script type="text/javascript">
 		//전역변수
 	    var obj = [];              
