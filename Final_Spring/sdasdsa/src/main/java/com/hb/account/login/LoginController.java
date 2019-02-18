@@ -66,13 +66,42 @@ public class LoginController {
 	}
 	
 	@PostMapping("/logout.do")
-	public String logout(HttpSession session, HttpServletResponse response, @CookieValue(value="autoLogin",required=false) Cookie autoLogin) {
+	public String logout(HttpSession session, HttpServletResponse response, 
+						 @CookieValue(value="autoLogin",required=false) Cookie autoLogin,
+						 @CookieValue(value="chatPage",required=false) Cookie chatPage,
+						 @CookieValue(value="chatScroll",required=false) Cookie chatScroll,
+						 @CookieValue(value="chatWho", required=false) Cookie chatWho) {
 		String id = (String)session.getAttribute("id");
 		loginService.logout(id);
 		session.invalidate();
 		if(autoLogin != null) {
-			autoLogin.setMaxAge(0);
-			response.addCookie(autoLogin);
+			System.out.println("autoLogin 호출");
+			Cookie temp = new Cookie("autoLogin", "");
+			temp.setMaxAge(0);
+			temp.setPath("/");
+			response.addCookie(temp);
+		}
+		
+		System.out.println(chatPage != null);
+		if(chatPage != null) {
+			System.out.println("??");
+			Cookie temp = new Cookie("chatPage", "");
+			temp.setMaxAge(0);
+			temp.setPath("/");
+			response.addCookie(temp);
+		}
+		if(chatScroll != null) {
+			Cookie temp = new Cookie("chatScroll", "");
+			temp.setMaxAge(0);
+			temp.setPath("/");
+			response.addCookie(temp);
+		}
+		
+		if(chatWho != null) {
+			Cookie temp = new Cookie("chatWho", "");
+			temp.setMaxAge(0);
+			temp.setPath("/");
+			response.addCookie(temp);
 		}
 		System.out.println("로그아웃 설정됨");
 		return "redirect:/login/login.do";

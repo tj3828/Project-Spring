@@ -1,6 +1,6 @@
 .tab-bar {
   background-color: #f7f7f7;
-  position: absolute;
+  position: fixed;
   width: 100%;
   bottom: 0;
   display: flex;

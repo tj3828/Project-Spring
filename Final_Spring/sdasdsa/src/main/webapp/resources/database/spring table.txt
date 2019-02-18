@@ -1,6 +1,20 @@
 ﻿drop sequence freeboard_seq;
 create sequence freeboard_seq;
+drop sequence freeboard_reply_seq
 create sequence freeboard_reply_seq;
+drop sequence chatting_seq;
+create sequence chatting_seq;
+
+drop table chatting;
+create table chatting (
+	num number not null,
+	fromNick varchar2(100) not null,
+	toNick varchar2(100) not null,
+	writeDate date not null,
+	content varchar2(1000) not null,
+	readCheck varchar2(20) not null,
+	primary key(num)
+)
 
 drop table freeboard_like;
 create table freeboard_like (
@@ -68,6 +82,7 @@ create sequence freeboard_like_seq;
 
 alter table freeboard_like add constraint freeboard_like_fk1
 foreign key(fr_idx) references freeboard(num) on delete cascade;
+
 alter table freeboard_like add constraint freeboard_like_fk2
 foreign key(id) references account(id) on delete cascade;
 commit;

@@ -4,10 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../resources/js/jquery-3.3.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="../resources/chat/css/styles.css">
   <title>Profile</title>
 </head>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var chatScroll = "${cookie.chatScroll.value}";
+		if(chatScroll == null || chatScroll =="") {
+			$(window).scrollTop(0);
+		} else {
+			$(window).scrollTop(chatScroll);
+		}
+		
+		
+	});
+	
+	$(window).on('beforeunload', function() {
+		var login = "${sessionScope.id}";
+		if(login == null || login == "") {
+			return false;
+		}
+		document.cookie = "chatPage=" + escape(5) + "; path=/;";
+		
+		var currentScroll = $(document).scrollTop();
+		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
+	});
+</script>
 <body>
   <header class="top-header top-header--transparent">
     <div class="header__top">
@@ -34,7 +58,7 @@
     </div>
     <div class="header__bottom">
       <div class="header__column">
-        <a href="index.html">
+        <a href="../chat/friend.do">
           <i class="fa fa-times fa-lg"></i>
         </a>
       </div>

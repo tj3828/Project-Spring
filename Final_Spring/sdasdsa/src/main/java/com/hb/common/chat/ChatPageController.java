@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/chat")
-public class ChatController {
+public class ChatPageController {
 	
 	@GetMapping("/chats.do")
 	public String showChats() {
@@ -26,5 +26,15 @@ public class ChatController {
 	@GetMapping("/chat.do")
 	public String showChat() {
 		return "/common/chat/chat";
+	}
+	
+	@GetMapping("/more.do")
+	public String showMore() {
+		return "/common/chat/more";
+	}
+	
+	@GetMapping("/profile.do")
+	public String showProfile() {
+		return "/common/chat/profile";
 	}
 }
