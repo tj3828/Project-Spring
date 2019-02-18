@@ -1,7 +1,6 @@
 package com.hb.account.login;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +13,7 @@ public class LoginServiceImpl implements ILoginService{
 
 	@Inject
 	ILoginDAOMapper loginDAOMapper;
-	@Inject
-	HttpSession session;
+	
 	@Override
 	public AccountVO accountInfo(AccountVO dto) {
 		return loginDAOMapper.accountInfo(dto);
