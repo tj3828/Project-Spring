@@ -1,4 +1,4 @@
-package com.hb.common.chat;
+package com.hb.chat;
 
 import java.io.StringWriter;
 
@@ -19,7 +19,7 @@ public class ChatEncoder implements Encoder.Text<ChatVO> {
               .write("fromNick", chatVO.getFromNick())
               .write("toNick", chatVO.getToNick())
               .write("writeDate", chatVO.getWriteDate())
-              .write("content", chatVO.getContent())
+              .write("content", chatVO.getContent().replaceAll("\\\"", "\""))
               .write("readCheck", chatVO.isReadCheck())
             .writeEnd()
             .flush();
