@@ -58,7 +58,7 @@
     </div>
     <div class="header__bottom">
       <div class="header__column">
-        <a href="../chat/friend.do">
+        <a href="javascript:location.replace('../chat/friend.do')">
           <i class="fa fa-times fa-lg"></i>
         </a>
       </div>

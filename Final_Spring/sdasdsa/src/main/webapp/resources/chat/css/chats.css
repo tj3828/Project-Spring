@@ -20,6 +20,7 @@
 
 .chats__list .chats__chat a {
   display: flex;
+  position: relative;
   justify-content: space-between;
   text-decoration: none;
   color: inherit;
@@ -41,6 +42,8 @@
 }
 
 .chats__chat .chat__date-time {
+  position: absolute;
+  right: 15px;
   font-size: 10px;
   color: #b4b4b4;
 }

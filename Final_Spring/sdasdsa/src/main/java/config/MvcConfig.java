@@ -13,6 +13,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.hb.chat.ChatServiceImpl;
+import com.hb.chat.IChatService;
+
 import interceptor.AutoLoginInterceptor;
 import interceptor.LoggerInterceptor;
 import interceptor.LoginCheckInterceptor;
@@ -79,8 +82,5 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Bean
 	public LoggerInterceptor loggerInterceptor() {
 		return new LoggerInterceptor();
-	}
-	
-	
-	
+	}	
 }

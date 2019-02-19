@@ -3,11 +3,9 @@ package com.hb.chat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -15,28 +13,35 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.stereotype.Controller;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.hb.chat.config.ChatEncoder;
+import com.hb.chat.config.ChatMybatisConfigModule;
+import com.hb.chat.config.HttpSessionConfigurator;
+import com.hb.chat.config.InjectConfig;
 
 @ServerEndpoint(value="/ws",encoders=ChatEncoder.class,configurator=HttpSessionConfigurator.class)
-@Controller
-@Singleton
 public class ChatingController {
 	
-	private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
+	Injector ij = Guice.createInjector(new InjectConfig(), new ChatMybatisConfigModule());
+	IChatService chatService = ij.getInstance(ChatServiceImpl.class);
+		
+	private static final Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<String,Session>());
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config) {
 		HttpSession httpSession = (HttpSession)config.getUserProperties().get("http");
-		System.out.println("websocket 연결 : " + httpSession.getAttribute("id"));
+		String nickname = (String)httpSession.getAttribute("id");
+		System.out.println("websocket 연결 : " + nickname);
 		
 		try {
-			sessions.add(session);
+			sessions.put(nickname,session);
 		}catch (Exception e) {
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
@@ -48,10 +53,11 @@ public class ChatingController {
 	public void onMessage(String message, Session session){
 		ChatVO vo = parseMessage(message);
 		System.out.println("from : " + session.getId() + ", 내용 : " + vo.getContent());
+		chatService.insertMessage(vo);
 		try{
 			sendMessage(session, vo);
 		} catch(Exception e) {
-			System.out.println(e.toString());
+			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -63,17 +69,19 @@ public class ChatingController {
 	
 	@OnClose
 	public void onClose(Session session) {
-		System.out.println("종료 : " + session.getId());
-		sessions.remove(session);
+		for(String s : sessions.keySet()) {
+			if(sessions.get(s).getId() == session.getId()) {
+				sessions.remove(s);				
+			}
+		}
 	}
 	
 	public void sendMessage(Session session, ChatVO vo) {
 		try {
-			for(Session s : sessions) {
-				if(!s.getId().equals(session.getId())) {
-					//s.getBasicRemote().sendObject(vo);
+			for(String s : sessions.keySet()) {
+				if(s.equals(vo.getFromNick()) || s.equals(vo.getToNick())) {
+					sessions.get(s).getBasicRemote().sendObject(vo);
 				}
-				s.getBasicRemote().sendObject(vo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,14 +109,3 @@ public class ChatingController {
 		return vo;
 	}
  }
-
-
-
-
-
-
-
-
-
-
-

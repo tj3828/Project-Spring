@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" style="height: 100%;">
 <head>
@@ -20,10 +21,10 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var chatScroll = "${cookie.chatScroll.value}";
-		if(chatScroll == null || chatScroll =="") {
-			$(window).scrollTop(0);
+		if(chatScroll == null || chatScroll =="" || chatScroll == "0") {
+			$("main").scrollTop($("main")[0].scrollHeight);
 		} else {
-			$(window).scrollTop(chatScroll);
+			$("main").scrollTop(chatScroll);
 		}
 		
 		
@@ -38,6 +39,8 @@
 		document.cookie = "chatWho=" + escape(2) + "; path=/;";
 		
 		var currentScroll = $('main').scrollTop();
+		var opponentNick = "${opponent}";
+		document.cookie = "chatOpponent=" + escape(opponentNick) + "; path=/;";
 		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
@@ -54,7 +57,8 @@
 			$('.chat').append('<div class="chat__message chat__message-from-me">' + 
 					    		  '<span class="chat__message-time">' + msg.writeDate + '</span>' + 
 						    		  '<span class="chat__message-body">' + 
-						    		  	'<pre>' + msg.content + '</pre>' +
+						    		  	 msg.content + 
+						    		  '</span>' +	
 						      	   '</span>' + 
 				  			  '</div>');
 		} else {
@@ -63,8 +67,8 @@
 	              	'<div class="chat__message-center">' +
 	      				'<h3 class="chat__message-username">'+ msg.fromNick + '</h3>' +
 	      				'<span class="chat__message-body">' +
-	      					'<pre>' + msg.content + '</pre>' +
-	      				'</span>' +
+	      					msg.content + 
+	      			    '</span>' +
 	      			'</div>' +
 	      			'<span class="chat__message-time">' + msg.writeDate + '</span>' +
 	      		  '</div>');
@@ -76,7 +80,7 @@
   <header class="top-header chat-header">
     <div class="header__bottom">
       <div class="header__column">
-        <a href="../chat/chats.do">
+        <a href="javascript:location.replace('../chat/chats.do');">
           <i class="fa fa-chevron-left fa-lg"></i>
         </a>
       </div>
@@ -89,22 +93,35 @@
     </div>
   </header>
 <main class="chat" style="overflow-y:scroll; height:100%; animation:none;">
-  <div class="chat__message chat__message-from-me">
-    <span class="chat__message-time">17:55</span>
-    <span class="chat__message-body">
-      Hello! This is a test message.
-    </span>
-  </div>
-  <div class="chat__message chat__message-to-me">
-    <img src="../resources/chat/images/avatar.png" alt="" class="chat-message-avatar">
-    <div class="chat__message-center">
-      <h3 class="chat__message-username">LYNN</h3>
-      <span class="chat__message-body">
-        And this is an answer.
-      </span>
-    </div>
-    <span class="chat__message-time">19:35</span>
-  </div>
+  <c:if test="${list.size() == 0 }">
+  	<div class="date-divider">
+    	<span class="date-divider__text">대화 내용이 존재하지 않습니다. 채팅을 입력하세요.</span>
+  	</div>
+  </c:if>
+  <c:forEach var="list" items="${list}" begin="0" end="${list.size()}">
+  	<c:choose >
+  		<c:when test="${list.fromNick == sessionScope.nickname}">
+		  <div class="chat__message chat__message-from-me">
+		    <span class="chat__message-time">${list.writeDate}</span>
+		    <span class="chat__message-body">
+		      ${list.content}
+		    </span>
+		  </div>
+  		</c:when>
+  		<c:otherwise>
+		  <div class="chat__message chat__message-to-me">
+		    <img src="../resources/chat/images/avatar.png" alt="" class="chat-message-avatar">
+		    <div class="chat__message-center">
+		      <h3 class="chat__message-username">${list.toNick}</h3>
+		      <span class="chat__message-body">
+		        ${list.content}
+		      </span>
+		    </div>
+		    <span class="chat__message-time">${list.writeDate}</span>
+		  </div>
+  		</c:otherwise>
+  	</c:choose>
+  </c:forEach>
 </main>
 <div class="type-message">
   <i class="fa fa-plus fa-lg"></i>
@@ -131,10 +148,11 @@
 		    return this.split(org).join(dest);
 		}
 		var content = $('.chatSendMsg').val();
+		var opponentNick = "${opponent}";
+		
 		content = content.replaceAll('"','\\"');
 		var nickname = "${sessionScope.nickname}";
-		var jsonMsg = '{"fromNick":"'+nickname+'", "toNick":"you", "content":"' + content+'", "readCheck":"false"}';
-		alert(jsonMsg);
+		var jsonMsg = '{"fromNick":"'+nickname+'", "toNick":"'+ opponentNick +'", "content":"' + content+'", "readCheck":"false"}';
 		webSocket.send(jsonMsg);
 		$('.chatSendMsg').val("");
 		$('.chatSendMsg').focus();
