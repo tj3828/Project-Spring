@@ -1,12 +1,21 @@
 package com.hb.chat;
 
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/chat")
 public class ChatPageController {
+	
+	@Inject
+	IChatService chatService;
 	
 	@GetMapping("/chats.do")
 	public String showChats() {
@@ -17,14 +26,17 @@ public class ChatPageController {
 	public String showFriend() {
 		return "/common/chat/index";
 	}
-	
+	 
 	@GetMapping("/find.do")
 	public String showFind() {
 		return "/common/chat/find";
 	}
 	
 	@GetMapping("/chat.do")
-	public String showChat() {
+	public String showChat(HttpSession session, Model model) {
+		/*String id = (String)session.getAttribute("id");
+		ArrayList<ChatVO> list = chatService.selectMessageList(id);
+		model.addAttribute("list",list);*/
 		return "/common/chat/chat";
 	}
 	

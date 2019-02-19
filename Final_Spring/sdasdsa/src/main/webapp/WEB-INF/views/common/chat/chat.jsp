@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" style="height: 100%;">
 <head>
@@ -41,7 +42,7 @@
 		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
-	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
+	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -89,22 +90,30 @@
     </div>
   </header>
 <main class="chat" style="overflow-y:scroll; height:100%; animation:none;">
-  <div class="chat__message chat__message-from-me">
-    <span class="chat__message-time">17:55</span>
-    <span class="chat__message-body">
-      Hello! This is a test message.
-    </span>
-  </div>
-  <div class="chat__message chat__message-to-me">
-    <img src="../resources/chat/images/avatar.png" alt="" class="chat-message-avatar">
-    <div class="chat__message-center">
-      <h3 class="chat__message-username">LYNN</h3>
-      <span class="chat__message-body">
-        And this is an answer.
-      </span>
-    </div>
-    <span class="chat__message-time">19:35</span>
-  </div>
+  <c:forEach var="list" items="${list}" begin="0" end="${list.size()}">
+  	<c:choose >
+  		<c:when test="${list.fromNick == sessionScope.nickname}">
+		  <div class="chat__message chat__message-from-me">
+		    <span class="chat__message-time">${list.writeDate}</span>
+		    <span class="chat__message-body">
+		      <pre>${list.content}</pre>
+		    </span>
+		  </div>
+  		</c:when>
+  		<c:otherwise>
+		  <div class="chat__message chat__message-to-me">
+		    <img src="../resources/chat/images/avatar.png" alt="" class="chat-message-avatar">
+		    <div class="chat__message-center">
+		      <h3 class="chat__message-username">${list.toNick}</h3>
+		      <span class="chat__message-body">
+		        <pre>${list.content}</pre>
+		      </span>
+		    </div>
+		    <span class="chat__message-time">${list.writeDate}</span>
+		  </div>
+  		</c:otherwise>
+  	</c:choose>
+  </c:forEach>
 </main>
 <div class="type-message">
   <i class="fa fa-plus fa-lg"></i>
@@ -134,7 +143,6 @@
 		content = content.replaceAll('"','\\"');
 		var nickname = "${sessionScope.nickname}";
 		var jsonMsg = '{"fromNick":"'+nickname+'", "toNick":"you", "content":"' + content+'", "readCheck":"false"}';
-		alert(jsonMsg);
 		webSocket.send(jsonMsg);
 		$('.chatSendMsg').val("");
 		$('.chatSendMsg').focus();

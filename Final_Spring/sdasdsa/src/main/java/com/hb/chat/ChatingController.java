@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -15,23 +14,34 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.stereotype.Controller;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.hb.chat.config.ChatEncoder;
+import com.hb.chat.config.ChatMybatisConfigModule;
+import com.hb.chat.config.HttpSessionConfigurator;
+import com.hb.chat.config.InjectConfig;
 
 @ServerEndpoint(value="/ws",encoders=ChatEncoder.class,configurator=HttpSessionConfigurator.class)
-@Controller
-@Singleton
 public class ChatingController {
+	
+	Injector ij = Guice.createInjector(new InjectConfig(), new ChatMybatisConfigModule());
+	IChatService chatService = ij.getInstance(ChatServiceImpl.class);
+	
+	@Inject
+	IChatService chat;
 	
 	private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config) {
+		System.out.println("chat null ? : " + chat ==null);
+		System.out.println("chat method null? : ");
 		HttpSession httpSession = (HttpSession)config.getUserProperties().get("http");
 		System.out.println("websocket 연결 : " + httpSession.getAttribute("id"));
 		
@@ -48,10 +58,11 @@ public class ChatingController {
 	public void onMessage(String message, Session session){
 		ChatVO vo = parseMessage(message);
 		System.out.println("from : " + session.getId() + ", 내용 : " + vo.getContent());
+		chatService.insertMessage(vo);
 		try{
 			sendMessage(session, vo);
 		} catch(Exception e) {
-			System.out.println(e.toString());
+			System.out.println(e.getMessage());
 		}
 		
 	}

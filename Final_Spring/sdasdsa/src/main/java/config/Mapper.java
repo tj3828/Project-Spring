@@ -2,13 +2,16 @@ package config;
 
 import java.lang.annotation.*;
 
+import com.google.inject.BindingAnnotation;
+
 /**
  * MyBatis Mapper Marker Annotation
  *
- * {@link org.mybatis.spring.mapper.MapperScannerConfigurer}¿¡ ÀÇÇØ¼­ Mapper BeanÀ¸·Î µî·ÏµÇ¾î¾ßÇÏ´Â ´ë»óÀ¸·Î »ç¿ë
+ * {@link org.mybatis.spring.mapper.MapperScannerConfigurer}ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Mapper Beanï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÏµÇ¾ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
  *
  * @author arawn.kr@gmail.com
  */
+@BindingAnnotation
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
