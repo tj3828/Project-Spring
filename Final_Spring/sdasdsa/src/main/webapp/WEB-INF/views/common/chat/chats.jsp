@@ -39,7 +39,7 @@
 		}
 	});
 	
-	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -121,7 +121,7 @@
 	  	</c:forEach>
     </ul>
     <div class="chat-btn" style="cursor: pointer;">
-      <i class="fa fa-comment"></i>
+      <i class="fa fa-plus fa-lg"></i>
     </div>
   </main>
   <nav class="tab-bar">
