@@ -21,6 +21,18 @@ public interface IChatDAOMapper {
 			+ ")")
 	void insertMessage(ChatVO dto);
 	
-	@Select("select * from chatting where fromNick = #{id} or toNick = #{id}")
-	ArrayList<ChatVO> selectMessageList(@Param("id") String id);
+	@Select("select num, fromNick, toNick, to_char(writeDate,'YY/MM/DD HH24:MI') as writeDate, content, readCheck from ( "
+			+ 	"select * from chatting "
+			+ 		"where (fromNick = #{id} and toNick = #{opponent}) or (fromNick = #{opponent} and toNick = #{id}) "
+			+ ") order by num asc")
+	ArrayList<ChatVO> selectMessageList(@Param("id") String id, @Param("opponent") String opponent);
+	
+	@Select("select num, fromNick, toNick, to_char(writeDate,'YY/MM/DD HH24:MI') as writeDate, content, readCheck from ( "
+			+ 	"select chatting.* from ( "
+			+ 		"select fromNick, toNick, MAX(num) as num from chatting "
+			+ 			"group by fromNick, toNick "
+			+ 			"having fromNick = #{id} or toNick = #{id} "
+			+ 	") c inner join chatting on c.num = chatting.num "
+			+ ") order by writeDate desc ")
+	ArrayList<ChatVO> selectChatsList(@Param("id") String id);
 }

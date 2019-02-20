@@ -56,6 +56,12 @@
 	<button class="chatBt circle"  style="position: fixed; width:66px; height:66px; bottom: 30px; right: 30px;"><i class="fas fa-comment"></i></button>
 	
 	<script type="text/javascript">
+	
+	window.onpageshow = function(event) {
+	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	    	window.location.reload();
+	    }
+	}
 		$('.chatBt').click(function () {
 			var login = "${sessionScope.id}";
 			if(login == "" || login == null) {
@@ -70,29 +76,38 @@
 		});
 		
 		$(document).ready(function () {
+			var iframe = document.getElementById("chatPage");
 			var login = "${sessionScope.id}";
 			
 			var chatPage = "${cookie.chatPage.value}";
 			if(chatPage == null || chatPage == "") {
-				$('#chatPage').attr('src', '../chat/friend.do');
+				iframe.contentWindow.location.replace("../chat/friend.do");
+				//$('#chatPage').attr('src', '../chat/friend.do');
 				$('.chatView').hide();
 			} else if (chatPage ==1) {
-				$('#chatPage').attr('src', '../chat/friend.do');
+				iframe.contentWindow.location.replace("../chat/friend.do");
+				//$('#chatPage').attr('src', '../chat/friend.do');
 				$('.chatView').show();
 			} else if (chatPage == 2) {
-				$('#chatPage').attr('src', '../chat/chats.do');
+				iframe.contentWindow.location.replace("../chat/chats.do");
+				//$('#chatPage').attr('src', '../chat/chats.do');
 				$('.chatView').show();
 			} else if (chatPage == 3) {
-				$('#chatPage').attr('src', '../chat/chat.do');
+				var chatOpponent = "${cookie.chatOpponent.value}";
+				iframe.contentWindow.location.replace('../chat/chat.do?opponent='+chatOpponent);
+				//$('#chatPage').attr('src', '../chat/chat.do?opponent='+chatOpponent);
 				$('.chatView').show();
 			} else if (chatPage == 4) {
-				$('#chatPage').attr('src', '../chat/find.do');
+				iframe.contentWindow.location.replace('../chat/find.do?');
+				//$('#chatPage').attr('src', '../chat/find.do');
 				$('.chatView').show();
 			} else if (chatPage == 5) {
-				$('#chatPage').attr('src', '../chat/profile.do');
+				iframe.contentWindow.location.replace('../chat/profile.do?');
+				//$('#chatPage').attr('src', '../chat/profile.do');
 				$('.chatView').show();
 			} else if (chatPage == 6) {
-				$('#chatPage').attr('src', '../chat/more.do');
+				iframe.contentWindow.location.replace('../chat/more.do?');
+				//$('#chatPage').attr('src', '../chat/more.do');
 				$('.chatView').show();
 			}			
 			

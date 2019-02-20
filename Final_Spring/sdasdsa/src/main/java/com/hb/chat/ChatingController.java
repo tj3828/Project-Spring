@@ -3,10 +3,9 @@ package com.hb.chat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -32,21 +31,17 @@ public class ChatingController {
 	
 	Injector ij = Guice.createInjector(new InjectConfig(), new ChatMybatisConfigModule());
 	IChatService chatService = ij.getInstance(ChatServiceImpl.class);
-	
-	@Inject
-	IChatService chat;
-	
-	private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
+		
+	private static final Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<String,Session>());
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config) {
-		System.out.println("chat null ? : " + chat ==null);
-		System.out.println("chat method null? : ");
 		HttpSession httpSession = (HttpSession)config.getUserProperties().get("http");
-		System.out.println("websocket 연결 : " + httpSession.getAttribute("id"));
+		String nickname = (String)httpSession.getAttribute("id");
+		System.out.println("websocket 연결 : " + nickname);
 		
 		try {
-			sessions.add(session);
+			sessions.put(nickname,session);
 		}catch (Exception e) {
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
@@ -74,17 +69,19 @@ public class ChatingController {
 	
 	@OnClose
 	public void onClose(Session session) {
-		System.out.println("종료 : " + session.getId());
-		sessions.remove(session);
+		for(String s : sessions.keySet()) {
+			if(sessions.get(s).getId() == session.getId()) {
+				sessions.remove(s);				
+			}
+		}
 	}
 	
 	public void sendMessage(Session session, ChatVO vo) {
 		try {
-			for(Session s : sessions) {
-				if(!s.getId().equals(session.getId())) {
-					//s.getBasicRemote().sendObject(vo);
+			for(String s : sessions.keySet()) {
+				if(s.equals(vo.getFromNick()) || s.equals(vo.getToNick())) {
+					sessions.get(s).getBasicRemote().sendObject(vo);
 				}
-				s.getBasicRemote().sendObject(vo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,14 +109,3 @@ public class ChatingController {
 		return vo;
 	}
  }
-
-
-
-
-
-
-
-
-
-
-
