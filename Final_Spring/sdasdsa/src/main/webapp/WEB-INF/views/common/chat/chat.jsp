@@ -44,7 +44,7 @@
 		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
-	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
+	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -53,7 +53,8 @@
 	webSocket.onmessage = function(data) {
 		var msg = JSON.parse(data.data);
 		var nickname = "${sessionScope.nickname}";
-		if(msg.fromNick == nickname) {
+		var opponentNick = "${opponent}";
+		if(msg.fromNick == nickname && msg.toNick == opponentNick) {
 			$('.chat').append('<div class="chat__message chat__message-from-me">' + 
 					    		  '<span class="chat__message-time">' + msg.writeDate + '</span>' + 
 						    		  '<span class="chat__message-body">' + 
@@ -61,7 +62,7 @@
 						    		  '</span>' +	
 						      	   '</span>' + 
 				  			  '</div>');
-		} else {
+		} else if(msg.fromNick == opponentNick && msg.toNick == nickname){
 			$('.chat').append('<div class="chat__message chat__message-to-me">' + 
 				  	'<img src="../resources/chat/images/avatar.png" alt="" class="chat-message-avatar">' +
 	              	'<div class="chat__message-center">' +
@@ -72,7 +73,7 @@
 	      			'</div>' +
 	      			'<span class="chat__message-time">' + msg.writeDate + '</span>' +
 	      		  '</div>');
-		}
+		} 
 		$("main").scrollTop($("main")[0].scrollHeight);
 	} 
 </script>

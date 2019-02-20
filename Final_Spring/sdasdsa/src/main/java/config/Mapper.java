@@ -2,8 +2,6 @@ package config;
 
 import java.lang.annotation.*;
 
-import com.google.inject.BindingAnnotation;
-
 /**
  * MyBatis Mapper Marker Annotation
  *
@@ -11,7 +9,6 @@ import com.google.inject.BindingAnnotation;
  *
  * @author arawn.kr@gmail.com
  */
-@BindingAnnotation
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
