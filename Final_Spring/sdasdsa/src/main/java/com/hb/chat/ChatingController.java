@@ -1,11 +1,12 @@
 package com.hb.chat;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -18,30 +19,31 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.hb.chat.config.ChatEncoder;
-import com.hb.chat.config.ChatMybatisConfigModule;
 import com.hb.chat.config.HttpSessionConfigurator;
-import com.hb.chat.config.InjectConfig;
 
-@ServerEndpoint(value="/ws",encoders=ChatEncoder.class,configurator=HttpSessionConfigurator.class)
+@ServerEndpoint(value="/ws",encoders=ChatEncoder.class,configurator= HttpSessionConfigurator.class)
 public class ChatingController {
-	
-	Injector ij = Guice.createInjector(new InjectConfig(), new ChatMybatisConfigModule());
-	IChatService chatService = ij.getInstance(ChatServiceImpl.class);
 		
-	private static final Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<String,Session>());
+	private static final Logger logger = LoggerFactory.getLogger(ChatingController.class);
+	
+	@Inject
+	IChatService chatService;
+	
+	private static final Map<String, Session> sessions = new ConcurrentHashMap<String, Session>();
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config) {
 		HttpSession httpSession = (HttpSession)config.getUserProperties().get("http");
-		String nickname = (String)httpSession.getAttribute("id");
-		System.out.println("websocket 연결 : " + nickname);
+		String nickname = (String)httpSession.getAttribute("nickname");
+		System.out.println("=================== webSocket 연결 ===================");
 		
 		try {
 			sessions.put(nickname,session);
+			System.out.println(">>>>>>>> 현재 접속자 : " + sessions.toString());
 		}catch (Exception e) {
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
@@ -52,7 +54,7 @@ public class ChatingController {
 	@OnMessage
 	public void onMessage(String message, Session session){
 		ChatVO vo = parseMessage(message);
-		System.out.println("from : " + session.getId() + ", 내용 : " + vo.getContent());
+		logger.debug(">>>>>>>> from : " + vo.getFromNick() + ", 내용 : " + vo.getContent());
 		chatService.insertMessage(vo);
 		try{
 			sendMessage(session, vo);
@@ -69,11 +71,20 @@ public class ChatingController {
 	
 	@OnClose
 	public void onClose(Session session) {
-		for(String s : sessions.keySet()) {
-			if(sessions.get(s).getId() == session.getId()) {
-				sessions.remove(s);				
+		synchronized (sessions) {
+			for(Iterator<String> it = sessions.keySet().iterator(); it.hasNext();) {
+				try {
+					String nick = it.next();
+					if(sessions.get(nick).getId().equals(session.getId())) {
+						sessions.remove(nick);				
+						 System.out.println(">>>>>>>> 웹소켓 종료 후 남은 사용자 : " + sessions.toString());
+					}
+				} catch (Exception e) {
+					System.out.println("웹소켓 닫힘 오류");
+				}
 			}
 		}
+		System.out.println("=================== webSocket 닫힘 ===================");
 	}
 	
 	public void sendMessage(Session session, ChatVO vo) {
@@ -91,10 +102,8 @@ public class ChatingController {
 	public ChatVO parseMessage(String message) {
 		JSONParser paser = new JSONParser();
 		ChatVO vo = new ChatVO();
-		System.out.println(message);
 		try {
 			JSONObject json = (JSONObject) paser.parse(message);
-			System.out.println(json.get("fromNick"));
 			vo.setFromNick((String)json.get("fromNick"));
 			vo.setToNick((String)json.get("toNick"));
 			String content = (String)json.get("content");

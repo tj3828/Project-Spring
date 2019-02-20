@@ -21,9 +21,9 @@
 	$(document).ready(function() {
 		var chatScroll = "${cookie.chatScroll.value}";
 		if(chatScroll == null || chatScroll =="" ) {
-			$(window).scrollTop(0);
+			$("main").scrollTop(0);
 		} else {
-			$(window).scrollTop(chatScroll);
+			$('main').scrollTop(chatScroll);
 		}
 		
 		
@@ -38,6 +38,42 @@
 			document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 		}
 	});
+	
+	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	webSocket.onopen = function(message) {
+	}
+	webSocket.onerror = function() {
+		alert('웹소켓 에러');
+	} 
+	webSocket.onmessage = function(data) {
+		var msg = JSON.parse(data.data);
+		var nickname = "${sessionScope.nickname}";
+		if(msg.toNick == nickname) {
+			$('.chat__user').each(function() {
+				if($(this).text() == msg.fromNick) {
+					$(this).closest("li").remove();
+				}
+			});
+			$('.chats__list').prepend('<li class="chats__chat">' +
+			        				  	'<a href="javascript:location.replace(\'../chat/chat.do?opponent=' + msg.fromNick + '\');">' +
+									          '<div class="chat__content">' + 
+									            	'<img src="../resources/chat/images/avatar.png">' +
+								            		'<div class="chat__preview">' +
+								                		'<h3 class="chat__user">' +
+								            				msg.fromNick	+
+								            			'</h3>' +
+								                		'<span class="chat__last-message">' + 
+								                			msg.content + 
+								                		'</span>' +
+								                	'</div>' +
+									          '</div>' +
+									          '<span class="chat__date-time">' +
+									          		msg.writeDate +
+									          '</span>' +
+									     '</a>' +
+									   '</li>');
+		}
+	} 
 </script>
 <body style="padding-top: 46px; padding-bottom: 45px; height:100%;">
   <header class="top-header">

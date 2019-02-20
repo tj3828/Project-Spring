@@ -20,7 +20,7 @@ public class ChatPageController {
 	
 	@GetMapping("/chats.do")
 	public String showChats(HttpSession session, Model model) {
-		String id = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("nickname");
 		ArrayList<ChatVO> list = chatService.selectChatsList(id);
 		model.addAttribute("list",list);
 		return "/common/chat/chats";
@@ -38,7 +38,7 @@ public class ChatPageController {
 	
 	@GetMapping("/chat.do")
 	public String showChat(HttpSession session, @RequestParam("opponent") String opponent, Model model) {
-		String id = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("nickname");
 		ArrayList<ChatVO> list = chatService.selectMessageList(id,opponent);
 		model.addAttribute("list",list);
 		model.addAttribute("opponent", opponent);

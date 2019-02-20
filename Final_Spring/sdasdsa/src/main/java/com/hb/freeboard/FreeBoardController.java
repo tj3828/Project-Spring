@@ -47,7 +47,6 @@ public class FreeBoardController {
 	@ResponseBody
 	@PostMapping(value="/write.do", produces="application/json; charset=utf-8")
 	public void write(@RequestPart("serialData") @Valid FreeBoardVO dto, @RequestPart(value="file",required=false) MultipartFile file) {
-		System.out.println(dto.getContent());
 		dto.setMultipartFile(file);
 		freeboardservice.board_write(dto);
 	}
