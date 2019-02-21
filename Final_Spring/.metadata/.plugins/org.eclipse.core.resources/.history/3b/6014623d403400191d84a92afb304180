@@ -1,0 +1,10 @@
+package com.hb.chat;
+
+import java.util.List;
+
+
+public interface IChatService {
+	void insertMessage(ChatVO dto);
+	
+	List<ChatVO> selectMessageList(String id);
+}

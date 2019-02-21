@@ -128,7 +128,7 @@
 	}
 	
 	function writeForm() {
-		var session_id = "${sessionScope.id}";
+		var session_id = "${sessionScope.dto.id}";
 		if(session_id == "null" || session_id == "") {
 			swal("글쓰기 오류" , "로그인을 먼저 해주세요.", "error");
 			return;

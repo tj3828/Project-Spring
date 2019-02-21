@@ -32,11 +32,10 @@ public class LoginController {
 	@PostMapping("/loginReq.do")
 	public int loginReq(AccountVO dto,HttpSession session,HttpServletResponse response,
 						@RequestParam("saveId") boolean saveId, @RequestParam("autoLogin") boolean autoLogin) {
-		int i =  loginService.loginReq(dto);
+		int i = loginService.loginReq(dto);
 		dto = loginService.accountInfo(dto);
 		if(i == 3) {
-			session.setAttribute("id", dto.getId());
-			session.setAttribute("nickname",dto.getNickname());
+			session.setAttribute("dto", dto);
 			Cookie cookie = new Cookie("id", dto.getId());
 			cookie.setPath("/");
 			if(saveId == true) {
@@ -60,7 +59,6 @@ public class LoginController {
 				System.out.println("자동로그인 해제됨");
 			}
 			response.addCookie(cookie1);
-			
 		}
 		return i;
 	}
@@ -71,7 +69,7 @@ public class LoginController {
 						 @CookieValue(value="chatPage",required=false) Cookie chatPage,
 						 @CookieValue(value="chatScroll",required=false) Cookie chatScroll,
 						 @CookieValue(value="chatWho", required=false) Cookie chatWho) {
-		String id = (String)session.getAttribute("id");
+		String id = ((AccountVO)session.getAttribute("dto")).getId();
 		loginService.logout(id);
 		session.invalidate();
 		if(autoLogin != null) {

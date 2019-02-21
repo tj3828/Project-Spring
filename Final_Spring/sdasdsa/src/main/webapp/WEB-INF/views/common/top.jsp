@@ -17,8 +17,8 @@
 	<nav class="navbar navbar-expand-sm navbar-light bg-white">
 		<div class="nav-top-div">
 			<ul class="navbar-nav nav-top" >
-				<c:if test="${sessionScope.id == null}"><li class="nav-item"><a href="../login/login.do">로그인</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li></c:if>
-				<c:if test="${sessionScope.id != null}"><li class="nav-item"><a href="../login/logout.do">로그아웃</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li></c:if>
+				<c:if test="${sessionScope.dto.id == null}"><li class="nav-item"><a href="../login/login.do">로그인</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li></c:if>
+				<c:if test="${sessionScope.dto.id != null}">${sessionScope.dto.nickname}님 환영합니다! &nbsp;&nbsp;&nbsp;<li class="nav-item"><a href="../login/logout.do">로그아웃</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li></c:if>
 				<li class="nav-item"><a href="../freeboardDetail/chat.do">고객센터</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li>
 				<li class="nav-item"><a href="#">이용안내</a> </li>
 			</ul>

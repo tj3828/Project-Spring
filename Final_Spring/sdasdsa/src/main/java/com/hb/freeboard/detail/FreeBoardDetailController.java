@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hb.account.AccountVO;
 import com.hb.freeboard.FreeBoardVO;
 import com.hb.freeboard.like.ILikeService;
 import com.hb.freeboard.like.LikeVO;
@@ -69,12 +70,12 @@ public class FreeBoardDetailController {
 		dto = datailService.board_detail(dto);
 		datailService.board_DetailCount(dto);
 		List<FreeBoard_ReplyVO> list = replyService.board_Rdetail(dto, paging);
-		String id = (String)session.getAttribute("id");
+		String id = ((AccountVO)session.getAttribute("dto")).getId();
 		int checked = 1;
 		if(id != null) {
 			LikeVO ldto = new LikeVO();
 			ldto.setFr_idx(dto.getNum());
-			ldto.setId((String)session.getAttribute("id"));
+			ldto.setId(id);
 			checked = likeservice.checkLike(ldto);
 		}
 		model.addAttribute("checkLike",checked);

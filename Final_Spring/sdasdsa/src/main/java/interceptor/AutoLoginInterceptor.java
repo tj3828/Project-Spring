@@ -25,9 +25,9 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 		
 		// auto Login
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
-		System.out.println("a:" + id);
-		if(id == null) {
+		AccountVO vo = (AccountVO)session.getAttribute("dto");
+		if(vo != null) {
+			String id = vo.getId();
 			Cookie cookie = WebUtils.getCookie(request, "autoLogin");
 			if(cookie != null && cookie.getValue().equals("true")) {
 				System.out.println("b:" + cookie.getValue());
@@ -36,8 +36,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 				dto.setId(id);
 				System.out.println("c:" + id);
 				dto = loginService.autoLoginReq(dto);
-				session.setAttribute("id", id);
-				session.setAttribute("nickname", dto.getNickname());
+				session.setAttribute("dto", dto);
 			}
 		}
 		

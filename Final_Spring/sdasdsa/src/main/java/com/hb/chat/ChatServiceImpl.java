@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ChatServiceImpl implements IChatService {
 
-	@Inject	// Inject 사용시 에러
+	@Inject
 	IChatDAOMapper chatDAOMapper;
 	
 	@Override
@@ -31,5 +29,10 @@ public class ChatServiceImpl implements IChatService {
 	@Override
 	public ArrayList<ChatVO> selectChatsList(String id) {
 		return chatDAOMapper.selectChatsList(id);
+	}
+
+	@Override
+	public void updateMessageRead(String nickname, String opponentNick) {
+		chatDAOMapper.updateMessageRead(nickname, opponentNick);
 	}
 }

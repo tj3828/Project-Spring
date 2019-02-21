@@ -11,7 +11,7 @@ import config.Mapper;
 @Mapper
 public interface ILoginDAOMapper {
 	
-	@Select("select * from account where id=#{id}")
+	@Select("select id, name, nickname, email, phone, addr1, addr2, gender, profile_img from account where id=#{id}")
 	AccountVO accountInfo(AccountVO dto);
 	
 	@Select("select count(*) as cnt from account where id = #{id}")

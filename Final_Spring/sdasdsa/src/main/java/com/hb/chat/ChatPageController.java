@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hb.account.AccountVO;
+
 @Controller
 @RequestMapping("/chat")
 public class ChatPageController {
@@ -20,7 +22,7 @@ public class ChatPageController {
 	
 	@GetMapping("/chats.do")
 	public String showChats(HttpSession session, Model model) {
-		String id = (String)session.getAttribute("nickname");
+		String id = ((AccountVO)session.getAttribute("dto")).getNickname();
 		ArrayList<ChatVO> list = chatService.selectChatsList(id);
 		model.addAttribute("list",list);
 		return "/common/chat/chats";
@@ -38,7 +40,7 @@ public class ChatPageController {
 	
 	@GetMapping("/chat.do")
 	public String showChat(HttpSession session, @RequestParam("opponent") String opponent, Model model) {
-		String id = (String)session.getAttribute("nickname");
+		String id = ((AccountVO)session.getAttribute("dto")).getNickname();
 		ArrayList<ChatVO> list = chatService.selectMessageList(id,opponent);
 		model.addAttribute("list",list);
 		model.addAttribute("opponent", opponent);

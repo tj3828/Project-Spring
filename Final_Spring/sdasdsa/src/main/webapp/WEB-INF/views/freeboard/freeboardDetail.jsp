@@ -69,7 +69,7 @@
 							<form role="form" >
 								<div class="form-group content-div">
 									<!-- 세션 히든값 --> 
-									<input type="hidden" id="nickname" name="nickname" value="${sessionScope.nickname}">
+									<input type="hidden" id="nickname" name="nickname" value="${sessionScope.dto.nickname}">
 									<input type="hidden" id="fr_idx" name="fr_idx" value="${dto.num}" >
 									<textarea class="form-control" rows="3" name="content" id="content" placeholder="- 100글자까지 입력가능합니다.&#13;&#10;- 비방,욕설,음란내용이 포함된 경우 강제로 삭제될 수 있습니다." maxlength="100"></textarea> 
 									<span class="counter" id="counter">###</span>
@@ -99,13 +99,13 @@
 											</td>
 											<td style="vertical-align:middle" class="th-s"><i class="far fa-clock"></i>&nbsp;${list.writeDate}</td>
 											<td style="vertical-align:middle">
-												<c:if test="${sessionScope.nickname == list.nickname}">
+												<c:if test="${sessionScope.dto.nickname == list.nickname}">
 													<input type="button" class="btn btn-primary replyEdit${list.num}" onclick="changeBt(${list.num},'${list.content}');" value="댓글 수정"> 
 													<input type="button" class="btn btn-primary replyEditComplete${list.num}" onclick="changeReply(${list.num},${list.fr_idx});" style="display: none;" value="수정 완료">
 												</c:if>
 											</td>
 											<td style="vertical-align:middle">
-												<c:if test="${sessionScope.nickname == list.nickname}">
+												<c:if test="${sessionScope.dto.nickname == list.nickname}">
 													<input type="button" class="btn btn-danger replyDelete${list.num}" onclick="replyDelete(${list.num},${list.fr_idx});" value="댓글 삭제">
 													<input type="button" class="btn btn-danger replyCancel${list.num}" onclick="changeBtCancel(${list.num},'${list.content}');" style="display: none;" value="수정 취소">
 												</c:if>
@@ -182,7 +182,7 @@
 				return false;
 			}
 			 
-			var session_id = "<%=(String)session.getAttribute("id")%>";
+			var session_id = "{sessionScope.dto.id}";
 			if(session_id == undefined || session_id == "null" || session_id == "") {
 				swal('댓글 입력','로그인을 먼저 해주세요.','error');
 				return false;
@@ -270,7 +270,7 @@
 		
 		function changeReply(num, fr_idx) {
 			var content = $('#content'+num).val();
-			var nickname = "${sessionScope.nickname}";
+			var nickname = "${sessionScope.dto.nickname}";
 			$.ajax({
 				type: "POST",
 				url: "../freeboardReply/replyEdit.do",

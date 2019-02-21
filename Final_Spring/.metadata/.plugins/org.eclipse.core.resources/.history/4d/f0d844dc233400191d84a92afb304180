@@ -1,0 +1,8 @@
+package com.hb.chat;
+
+import javax.enterprise.context.RequestScoped;
+
+
+public interface IChatService {
+	void insertMessage(ChatVO dto);
+}

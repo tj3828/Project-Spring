@@ -9,10 +9,12 @@ drop table chatting;
 create table chatting (
 	num number not null,
 	fromNick varchar2(100) not null,
+	fromNick_profileImg varchar2(150) not null,
 	toNick varchar2(100) not null,
+	toNick_profileImg varchar2(150),
 	writeDate date not null,
 	content varchar2(1000) not null,
-	readCheck varchar2(20) not null,
+	readCheck number not null,
 	primary key(num)
 )
 

@@ -1,0 +1,89 @@
+﻿drop sequence freeboard_seq;
+create sequence freeboard_seq;
+drop sequence freeboard_reply_seq
+create sequence freeboard_reply_seq;
+drop sequence chatting_seq;
+create sequence chatting_seq;
+
+drop table chatting;
+create table chatting (
+	num number not null,
+	fromNick varchar2(100) not null,
+	fromNick_profileImg varchar2(150) not null,
+	toNick varchar2(100) not null,
+	writeDate date not null,
+	content varchar2(1000) not null,
+	readCheck number not null,
+	primary key(num)
+)
+
+drop table freeboard_like;
+create table freeboard_like (
+  num number not null,
+  fr_idx number not null,
+  id varchar2(20) not null,
+  primary key(num)
+);
+
+drop table freeboard_reply;
+create table freeboard_reply (
+  num number not null,
+  nickname varchar2(100) not null,
+  content varchar2(900) not null,
+  writeDate date not null,
+  fr_idx number not null,
+  primary key(num)
+);
+
+drop table account;
+create table account (
+  id varchar2(100) not null,
+  pw varchar2(20) not null,
+  name varchar2(50) not null,
+  nickname varchar2(50) not null,
+  email varchar2(100) not null,
+  phone varchar2(50) not null,
+  addr1 varchar2(150) not null,
+  addr2 varchar2(150) not null,
+  gender varchar2(10) not null,
+  profile_img varchar2(150) not null,
+  primary key(id)
+);
+
+drop table freeboard;
+create table freeboard (
+  num number not null,
+  nickname varchar2(100) not null,
+  title varchar2(90) not null,
+  content varchar2(900) not null,
+  writeDate DATE not null,
+  upload_file varchar2(150),
+  store_upload_file varchar2(150),
+  upload_file_size number default 0,
+  viewCnt number default 0,
+  likeCnt number default 0,
+  primary key(num)
+);
+
+
+
+alter table freeboard_reply add constraint freeboard_reply_fk
+foreign key(fr_idx) references freeboard(num) on delete cascade;
+commit;
+
+drop table login;
+create table login (
+  id varchar2(100) not null,
+  primary key(id)
+);
+
+
+
+create sequence freeboard_like_seq;
+
+alter table freeboard_like add constraint freeboard_like_fk1
+foreign key(fr_idx) references freeboard(num) on delete cascade;
+
+alter table freeboard_like add constraint freeboard_like_fk2
+foreign key(id) references account(id) on delete cascade;
+commit;

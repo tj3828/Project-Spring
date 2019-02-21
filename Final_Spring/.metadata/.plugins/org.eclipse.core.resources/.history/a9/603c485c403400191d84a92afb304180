@@ -1,0 +1,25 @@
+package com.hb.chat;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
+@Service
+@Transactional
+public class ChatServiceImpl implements IChatService {
+	
+	@Inject @Named("chatMapper")
+	SqlSession sqlSession;
+
+	@Inject
+	IChatDAOMapper chatDAOMapper;
+	
+	@Override
+	public void insertMessage(ChatVO dto) {
+		sqlSession.insert("insertMessage", dto);
+		System.out.println("ㅎㅎ");
+	}
+}

@@ -1,0 +1,10 @@
+package com.hb.chat;
+
+import config.Mapper;
+
+@Mapper
+public interface IChatDAOMapper {
+	
+	@insert("")
+	void insertMessage(ChatVO dto);
+}

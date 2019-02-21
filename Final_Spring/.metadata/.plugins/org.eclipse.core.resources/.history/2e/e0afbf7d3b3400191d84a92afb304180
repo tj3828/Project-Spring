@@ -1,0 +1,19 @@
+package com.hb.chat;
+
+import org.apache.ibatis.annotations.Insert;
+
+import config.Mapper;
+
+@Mapper
+public class ChatDAOMapper {
+	
+	@Insert("insert into chatting values("
+			+ "chatting_seq.nextval, "
+			+ "#{fromNick}, "
+			+ "#{toNick},"
+			+ "to_date(#{writeDate},'YY/MM/DD HH24:MI'),"
+			+ "#{content},"
+			+ "#{readCheck}"
+			+ ")")
+	void insertMessage(ChatVO dto) {}
+}

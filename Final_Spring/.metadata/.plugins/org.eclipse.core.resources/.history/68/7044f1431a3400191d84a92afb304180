@@ -1,0 +1,17 @@
+package com.hb.chat;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+@Service(value="chat")
+public class ChatServiceImpl implements IChatService {
+	
+	@Inject
+	IChatDAOMapper chatDAOMapper;
+
+	@Override
+	public void insertMessage(ChatVO dto) {
+		chatDAOMapper.insertMessage(dto);
+	}
+}

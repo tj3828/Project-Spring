@@ -1,0 +1,21 @@
+package com.hb.chat;
+
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.google.inject.Inject;
+
+@Service
+@Transactional
+public class ChatServiceImpl implements IChatService {
+	
+	@Inject
+	IChatDAOMapper chatDAOMapper;
+
+	@Override
+	public void insertMessage(ChatVO dto) {
+		chatDAOMapper.insertMessage(dto);
+		System.out.println("ㅎㅎ");
+	}
+}

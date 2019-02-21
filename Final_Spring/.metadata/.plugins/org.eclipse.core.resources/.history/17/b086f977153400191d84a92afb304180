@@ -1,0 +1,12 @@
+package com.hb.chat;
+
+import org.apache.ibatis.annotations.Insert;
+
+import config.Mapper;
+
+@Mapper
+public interface IChatDAOMapper {
+	
+	@Insert("")
+	void insertMessage(ChatVO dto);
+}

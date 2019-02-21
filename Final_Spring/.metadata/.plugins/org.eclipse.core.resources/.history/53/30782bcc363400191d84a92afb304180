@@ -1,0 +1,29 @@
+package com.hb.chat;
+
+public class ChatMybatisConfigModule extends PrivateModule implements DBInfoSettable{
+    
+   @Override
+   protected void configure() {
+       install(new MyBatisModule() {
+           @Override
+           protected void initialize() {
+               bindDataSourceProviderType(PooledDataSourceProvider.class);
+               bindTransactionFactoryType(JdbcTransactionFactory.class);
+                
+               /**
+                * 사용할 쿼리가 있는 MapperInterface 정의
+                */
+               addMapperClass(FruitMapper.class);
+           }
+       });
+        
+       bindProperties(this.binder(), createProperties("test"));
+        
+       bind(SqlSession.class)
+           .annotatedWith(Names.named("fruitDB"))
+           .toProvider(SqlSessionManagerProvider.class)
+           .in(Scopes.SINGLETON);
+       expose(SqlSession.class).annotatedWith(Names.named("fruitDB"));
+   }
+    
+}
