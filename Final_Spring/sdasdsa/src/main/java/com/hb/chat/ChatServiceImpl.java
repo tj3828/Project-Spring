@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hb.account.AccountVO;
+
 @Service
 @Transactional
 public class ChatServiceImpl implements IChatService {
@@ -22,6 +24,7 @@ public class ChatServiceImpl implements IChatService {
 
 	@Override
 	public ArrayList<ChatVO> selectMessageList(String id, String opponent) {
+		chatDAOMapper.updateMessageRead(id, opponent);
 		List<ChatVO> list = chatDAOMapper.selectMessageList(id, opponent);
 		return (ArrayList<ChatVO>)list;
 	}
@@ -34,5 +37,10 @@ public class ChatServiceImpl implements IChatService {
 	@Override
 	public void updateMessageRead(String nickname, String opponentNick) {
 		chatDAOMapper.updateMessageRead(nickname, opponentNick);
+	}
+
+	@Override
+	public int selectNotReadCheck(AccountVO vo) {
+		return chatDAOMapper.selectNotReadCheck(vo);
 	}
 }

@@ -19,13 +19,12 @@
 		-webkit-border-radius: 7.5em;
 		-moz-border-radiud: 7.5e,;
 		text-align: center;
-		box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
-		
 	}
 	.chatBt {
 		border: 0;
 		outline: 0;
 		cursor: pointer;
+		box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
 	}
 	.chatBt:focus {
 		outline: none;
@@ -43,10 +42,23 @@
 		transition: color 0.3s, background 0.3s, transform 0.5s ease-in-out;
 	}
 	
-	.circle:hover {
+	.chatBt:hover {
 	  color: white;
 	  background: #523737;
 	  transform: rotateY(1turn);
+	}
+	.chatBt_notReadCounter {
+		text-align: center;
+	    position: fixed;
+	    right: 30px;
+	    bottom: 80px;
+	    height: 1.5em;
+	    background-color: red;
+	    width: 1.5em;
+	    font-size: 15px;
+	    padding: 0;
+	    border-radius: 8px;
+	    font-weight: 900;
 	}
 </style>
 <body style="height: 100%;">
@@ -54,7 +66,6 @@
 		<iframe id="chatPage" style="overflow-x:hidden; width: 100%; height: 100%;"></iframe>
 	</div>
 	<button class="chatBt circle"  style="position: fixed; width:66px; height:66px; bottom: 30px; right: 30px;"><i class="fas fa-comment"></i></button>
-	
 	<script type="text/javascript">
 	
 	window.onpageshow = function(event) {
@@ -78,7 +89,9 @@
 		$(document).ready(function () {
 			var iframe = document.getElementById("chatPage");
 			var login = "${sessionScope.dto.id}";
-			
+			if(login == "" || login == null) {
+				return false;
+			}
 			var chatPage = "${cookie.chatPage.value}";
 			if(chatPage == null || chatPage == "") {
 				iframe.contentWindow.location.replace("../chat/friend.do");
@@ -109,12 +122,7 @@
 				iframe.contentWindow.location.replace('../chat/more.do?');
 				//$('#chatPage').attr('src', '../chat/more.do');
 				$('.chatView').show();
-			}			
-			
-			if(login == "" || login == null) {
-				$('.chatView').hide();
-				return false;
-			}
+			}		
 		});
 	</script> 
 </body>

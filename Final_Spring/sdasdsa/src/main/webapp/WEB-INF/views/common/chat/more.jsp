@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="../resources/js/jquery-3.3.1.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../resources/chat/css/styles.css">
   <title>More</title>
@@ -17,8 +18,6 @@
 		} else {
 			$(window).scrollTop(chatScroll);
 		}
-		
-		
 	});
 	
 	$(window).on('beforeunload', function() {
@@ -166,6 +165,7 @@
     </a>
     <a href="javascript:location.replace('../chat/chats.do')" class="tab-bar__tab">
       <i class="fa fa-comment"></i>
+      <span class="notReadCounter">12</span>
       <span class="tab-bar__title">Chats</span>
     </a>
       <a href="javascript:location.replace('../chat/find.do')" class="tab-bar__tab">

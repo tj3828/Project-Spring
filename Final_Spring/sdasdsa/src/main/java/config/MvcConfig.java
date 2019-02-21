@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import interceptor.AutoLoginInterceptor;
+import interceptor.ChatNotReadCheckInterceptor;
 import interceptor.LoggerInterceptor;
 import interceptor.LoginCheckInterceptor;
 
@@ -45,8 +46,11 @@ public class MvcConfig implements WebMvcConfigurer {
 			.addPathPatterns("/freeboard/**.do")
 			.excludePathPatterns("/freeboard/replyEdit.do","/freeboard/delete.do","/freeboard/replyDelete.do","/freeboard/write.do");
 		registry.addInterceptor(loginCheckInterceptor())
-			.addPathPatterns("/freeboard/**.do")
+			.addPathPatterns("/freeboard/**.do","/chat/**.do","/chatting/**.do")
 			.excludePathPatterns("/freeboard/freeboard.do","/freeboard/detail.do");
+		registry.addInterceptor(chatNotReadCheckInterceptor())
+			.addPathPatterns("/chat/**.do","/chatting/**.do")
+			.excludePathPatterns("/chatting/chatReading.do");
 		
 	}
 
@@ -79,4 +83,9 @@ public class MvcConfig implements WebMvcConfigurer {
 	public LoggerInterceptor loggerInterceptor() {
 		return new LoggerInterceptor();
 	}	
+	
+	@Bean
+	public ChatNotReadCheckInterceptor chatNotReadCheckInterceptor() {
+		return new ChatNotReadCheckInterceptor();
+	}
 }

@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="../resources/js/jquery-3.3.1.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../resources/chat/css/styles.css">
   <title>Chats</title>
@@ -26,7 +27,20 @@
 			$('main').scrollTop(chatScroll);
 		}
 		
+		var notReadCount = "${notReadCount}";
 		
+		if(notReadCount != "0" && notReadCount != null && notReadCount != "" && notReadCount != 0)	{
+			if(parent.$('body').find('.chatBt_notReadCounter').length == 0) {
+				parent.$('button.chatBt').after('<span class="chatBt_notReadCounter">' + notReadCount + '</span>');
+			} else {
+				parent.$('.chatBt_notReadCounter').html(notReadCount);
+			}
+			$('.fa-comment').after('<span class="Bottom_notReadCounter">' + notReadCount + '</span>');
+		} else {
+			if(parent.$('body').find('.chatBt_notReadCounter').length == 1) {
+				parent.$('.chatBt_notReadCounter').remove();
+			}
+		}
 	});
 
 	$(window).on('beforeunload', function() {
@@ -39,7 +53,7 @@
 		}
 	});
 	
-	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -50,11 +64,27 @@
 			var msg = JSON.parse(data.data);
 			var nickname = "${sessionScope.dto.nickname}";
 			if(msg.toNick == nickname) {
+				var notReadCount = 1; 
 				$('.chat__user').each(function() {
 					if($(this).text() == msg.fromNick) {
+						var exist = $(this).closest("li").find('.notReadCounter').html() * 1;
+						if(exist == null || exist == "" || exist == 0 || isNaN(exist)) {
+							exist = 0;
+						}
+						notReadCount = exist + 1;
 						$(this).closest("li").remove();
 					}
 				});
+				var Bottom_notReadCounter = $('.Bottom_notReadCounter').html() *1;
+				if(Bottom_notReadCounter == null || Bottom_notReadCounter == "" || Bottom_notReadCounter == 0 || isNaN(Bottom_notReadCounter)) {
+					$('.fa-comment').after('<span class="Bottom_notReadCounter"></span>');
+					parent.$('button.chatBt').after('<span class="chatBt_notReadCounter"></span>');
+					Bottom_notReadCounter = 0;
+				}
+				Bottom_notReadCounter += 1;
+				parent.$('.chatBt_notReadCounter').html(Bottom_notReadCounter);
+				$('.Bottom_notReadCounter').html(Bottom_notReadCounter);
+				
 				
 				var path = "${pageContext.request.contextPath}";
 				$('.chats__list').prepend('<li class="chats__chat">' +
@@ -71,6 +101,7 @@
 									                	'</div>' +
 										          '</div>' +
 										          '<span class="chat__date-time">' +
+										          		'<span class="notReadCounter" style="position: inherit; left:0px;">' + notReadCount + '</span>&nbsp;&nbsp;' +
 										          		msg.writeDate +
 										          '</span>' +
 										     '</a>' +
@@ -125,6 +156,9 @@
 		            </div>
 		          </div>
 		          <span class="chat__date-time">
+		          	<c:if test="${list.notReadCheck != 0}">
+		          		<span class="notReadCounter" style="position: inherit; left:0px;">${list.notReadCheck}</span>&nbsp;&nbsp;
+		          	</c:if>
 		            ${list.writeDate}
 		          </span>
 		        </a>
@@ -153,9 +187,6 @@
       <span class="tab-bar__title">More</span>
     </a>
   </nav>
-  <div class="bigScreenText">
-    Please make your screen smaller
-  </div>
   <script type="text/javascript">
   	$('.chat-btn').click(function() {
   		var opponentNick = prompt( '닉네임 입력', '' );

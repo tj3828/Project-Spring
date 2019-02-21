@@ -1,0 +1,111 @@
+@charset "UTF-8";
+
+/* list */
+tbody::before {
+	content: '';
+	display: block;
+	height: 10px;
+}
+
+thead {
+	font-size: 3vmin;
+}
+
+tbody{
+	font-size: 2.2vmin;
+}
+thead tr {
+	border-top: 2px solid; 
+	border-bottom: 3px solid gray;
+}
+
+table {
+	box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
+}
+
+.th-xs{
+	width: 10%;
+	text-align: center;
+}
+
+.th-s{
+	width: 20%;
+	text-align: center;
+}
+
+.th-l {
+	width: 30%;
+	text-align: center;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th { 
+	background-color: #D76161; 
+}
+
+/* writeform */
+
+label {
+	font-size: 2.5vmin;
+	font-weight: bold;
+}
+
+.content-div {
+    position: relative;
+}
+
+.content-div textarea {
+    width: 100%;
+    resize: none;
+    min-height: 4.5em;
+    line-height:1.6em;
+}
+
+.content-div .counter {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.counter {
+	background:rgba(255,0,0,0.5);
+	border-radius: 0.5em;
+	padding: 0 .5em 0 .5em;
+	font-size: 0.75em;
+}
+
+.fas {
+	padding-left: 3%;
+	font-size: 2rem;
+}
+
+.title_label{
+	font-size: 4vmin; 
+	padding-left:2%;
+}
+
+.title_label_div{
+	position: relative;
+	box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
+	background: #8B0000; 
+	color: white; 
+	border-radius: 5px; 
+	padding:7px; 
+	margin-bottom: 3%;
+}
+.reply-div {
+	position: relative;
+	left:10%;
+	width:80%;
+}
+.reply_label_div{
+	position: relative;
+	box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
+	background: #ff8000; 
+	color: white; 
+	border-radius: 5px; 
+	padding:7px; 
+	margin-bottom: 3%;
+}
+.readOnlyContent{
+	box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
+}

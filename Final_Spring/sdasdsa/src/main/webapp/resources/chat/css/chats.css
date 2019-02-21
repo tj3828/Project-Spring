@@ -44,6 +44,8 @@
 .chats__chat .chat__date-time {
   position: absolute;
   right: 15px;
+  width:100px;
+  text-align: right;
   font-size: 10px;
   color: #b4b4b4;
 }
@@ -69,4 +71,18 @@
   color: white;
   background: #523737;
   transform: rotateY(1turn);
+}
+
+.notReadCounter {
+    position: relative;
+    background-color: red;
+    height: 15px;
+    width: 15px;
+    font-size: 16px;
+    padding: 0;
+    text-align: center;
+    border-radius: 5px;
+    left:0;	    
+    font-family: 'Nanum Pen Script', cursive;
+    color: black;
 }

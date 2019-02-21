@@ -12,4 +12,6 @@ public class ChatVO {
 	private String writeDate;
 	private String content;
 	private int readCheck;
+	// 채팅방 목록에서 쓰기 위한 변수
+	private int notReadCheck;
 }

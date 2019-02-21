@@ -27,6 +27,19 @@
 			$("main").scrollTop(chatScroll);
 		}
 		
+		var notReadCount = "${notReadCount}";
+		
+		if(notReadCount != "0" && notReadCount != null && notReadCount != "" && notReadCount != 0)	{
+			if(parent.$('body').find('.chatBt_notReadCounter').length == 0) {
+				parent.$('button.chatBt').after('<span class="chatBt_notReadCounter">' + notReadCount + '</span>');
+			} else {
+				parent.$('.chatBt_notReadCounter').html(notReadCount);
+			}
+		} else {
+			if(parent.$('body').find('.chatBt_notReadCounter').length == 1) {
+				parent.$('.chatBt_notReadCounter').remove();
+			}
+		}
 		
 	});
 
@@ -44,7 +57,7 @@
 		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
-	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
 	webSocket.onopen = function() {
 		var opponentNick = "${opponent}";
 		webSocket.send("connected with " + opponentNick);
@@ -106,8 +119,7 @@
         </a>
       </div>
       <div class="header__column">
-        <span class="header__text">Friends</span>
-        <span class="header__number">1</span>
+        <span class="header__text">${opponent}</span>
       </div>
       <div class="header__column">
       </div>

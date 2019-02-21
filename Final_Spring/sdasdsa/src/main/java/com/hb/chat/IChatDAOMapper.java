@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.hb.account.AccountVO;
+
 import config.Mapper;
 
 @Mapper
@@ -30,7 +32,8 @@ public interface IChatDAOMapper {
 			+ ") order by num asc")
 	ArrayList<ChatVO> selectMessageList(@Param("id") String id, @Param("opponent") String opponent);
 	
-	@Select("select c.*, (select profile_img from account where c.toNick = account.nickname) as toNick_profileImg from (" + 
+	@Select("select c.*, (select profile_img from account where c.toNick = account.nickname) as toNick_profileImg, (select count(*) from chatting where ((fromNick = c.fromNick and toNick = #{id}) or (fromNick = c.toNick and toNick = #{id})) and readCheck = 0) as notReadCheck   " + 
+			"from (" + 
 			"	select b.num, b.fromNick, b.toNick, to_char(b.writeDate,'YY/MM/DD HH24:MI') as writeDate, b.content, b.readCheck, b.fromNick_profileImg " + 
 			"	from ( " + 
 			"    	select Max(num) as num " + 
@@ -47,6 +50,11 @@ public interface IChatDAOMapper {
 			"	on a.num = b.num " +
 			"	order by b.num desc ) c " )
 	ArrayList<ChatVO> selectChatsList(@Param("id") String id);
+	
+	@Select("select count(*) " + 
+			"from chatting " + 
+			"where toNick = #{nickname} and readcheck = 0")
+	int selectNotReadCheck(AccountVO dto);
 	
 	@Update("update chatting " + 
 			"set readCheck = 1 " +

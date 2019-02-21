@@ -1,0 +1,11 @@
+package com.hb.chat;
+
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Service;
+
+public interface IChatService {
+	void insertMessage(ChatVO dto);
+	
+	ArrayList<ChatVO> selectMessageList(String id);
+}
