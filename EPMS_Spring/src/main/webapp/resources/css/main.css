@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+html,body {
+   	height:100%;
+   	background-color: #f4f5f7;
+}
+
+.wrap {
+   	margin: 0; 
+   	padding: 0; 
+   	background-color: #f4f5f7;
+   	padding-bottom: 5%;
+}
+
+/* 폰트 설정 */
+@font-face { 
+	font-family: MyFont; 
+	src: url(http://myhome.com/fonts/myfont.ttf); 
+	font-weight: bold; 
+} 
+
+* { 
+	font-family: 'Indie Flower', cursive;
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+/* 메인 가장 상단 nav */
+.nav-top {
+	float: right !important;
+	padding-left: inherit !important;
+	flex-direction: row;
+	margin-right: 15%;
+	font-size: 1.4rem;
+}
+
+.nav-top a {
+	color: black;
+	font-size: 1.5rem;
+}
+
+.nav-top-div {
+   	width:100%; 
+   	float:right !important;
+}
+
+/* 메인 2번째 nav */
+.nav {
+   	box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
+   	width:100%;
+   	margin-bottom:5% ;
+}
+
+.navbar-brand {
+	padding-top: 0;
+    padding-bottom: 0;
+    font-size:4rem; 
+   	margin-left:10%; 
+   	line-height:0.5vmin
+}
+
+.dropdown-menu {
+   	top:70px;
+}
+
+.nav-item a{
+	font-size: 1.5rem;
+}
+
+.navbar-nav {
+	margin-left: 5%;
+}
+
+/* 메인 중간 소개 화면 */
+.main-content {
+   	height:50%;
+}
+
+.main-content .content_top {
+   	height:100%; 
+   	background-image: url('../images/main2.jpg'); 
+   	background-size: 100% 100%; 
+   	min-height:50%; 
+   	z-index:100; 
+   	background-repeat: no-repeat;
+}
+
+.main-content .content_top .main-text1 {
+  	position: relative; 
+  	top:25%; 
+  	float: right; 
+  	right: 20%; 
+  	font-size:4.5vmin; 
+  	font-weight: bold;
+  	margin-bottom: 0; 
+  	line-height:0.5vmin;
+}
+    
+.main-content .content_top .main-text2 {
+   	position: relative; 
+   	top:30%; 
+   	float: right; 
+   	right: 20%; 
+   	font-size:6.5vmin; 
+   	font-weight: bold;
+   	line-height:0.5vmin;
+}
+
+
+
+
+
+
+
+
+
