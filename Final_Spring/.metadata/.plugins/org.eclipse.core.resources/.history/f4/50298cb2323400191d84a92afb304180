@@ -1,8 +1,0 @@
-package com.hb.chat;
-
-import org.springframework.stereotype.Service;
-
-
-public interface IChatService {
-	default void insertMessage(ChatVO dto);
-}

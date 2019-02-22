@@ -1,5 +1,0 @@
-package com.hb.chat;
-
-public interface IChatService {
-	void sendMessage(ChatVO dto);
-}
