@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script type="text/javascript">
-		location.href="./freeboard/freeboard.do";
+		location.href="./main/main.do";
 	</script>
 </body>
 </html>

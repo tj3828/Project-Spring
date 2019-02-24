@@ -53,7 +53,7 @@
 	});
 	
 	// 웹소켓 연결
-	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {

@@ -1,0 +1,140 @@
+.main-body {
+	background-image : url('../images/mainIcon/mainBackground3.PNG'); 
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	padding-bottom: 0;
+	height: inherit;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+}
+
+nav {
+	margin-bottom: 0 !important;
+	z-index: 5000 !important;
+}
+
+
+.container {
+  top: 45% !important;
+  left: 50% !important;
+  -webkit-transform: translate(-50%, -50%) !important ;
+  transform: translate(-50%, -50%) !important;
+  margin-left: 0 !important;
+  position: relative;
+  width: 70%;
+  height: 50%;
+}
+
+.box
+{
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4.5vmin;
+  background-color: white; /* gold */
+  /* Single pixel data uri image http://jsfiddle.net/LPxrT/ 
+  /* background-image: gold, gold, white */
+  background-image: 
+  url('data:image/gif;base64,R0lGODlhAQABAPAAAP///////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='),
+  url('data:image/gif;base64,R0lGODlhAQABAPAAAP///////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='),
+  url('../images/mainIcon/mainBackground3.PNG');
+  background-repeat: no-repeat;
+  background-size: 0 4.5vmin, 0 100%, 0% 4.5vmin;
+  background-position: top center, top center, bottom center;
+  -webkit-animation: drawBorderFromCenter 3s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes drawBorderFromCenter {
+    0% {
+      background-size: 0 20vmin, 0 0, 100% 100%;
+    }
+    20% {
+      background-size: 100% 4.5vmin, 100% 0, 100% 100%;
+    }
+    66%
+    {
+      background-size: 100% 4.5vmin, 100% 90%, 100% 100%;
+    }
+    99%
+    {
+      background-size: 100% 4.5vmin, 100% 90%, 0 4.5vmin;
+    }
+}
+
+
+
+.content
+{
+  height:100%;
+  background-image: url('../images/mainIcon/mainBackground3.PNG');
+  padding: 4em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* .main-logo-left-hr {
+	height:10px;
+	background-color: red;
+	width:0px;
+	float: right;
+	-webkit-animation: main-logo-left 3s;
+} */
+
+.main-logo {
+	display: block;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	margin-bottom: 3%;
+}
+
+.main-logo > span {
+	position: relative;
+	display: inline-block;
+}
+
+.left {
+	display: inline-flex;
+	flex: 1;
+	content: "";
+	top:50%;
+	height: 4.5vmin;
+	width: 39%;
+	background: #FFE500; 
+	margin-right: 3%;
+	-webkit-animation: main-logo 3s;
+	vertical-align: bottom;
+}
+
+.right {
+	display: inline-flex;
+	flex: 1;
+	content: "";
+	top:50%;
+	height: 4.5vmin;
+	width: 39%;
+	background: #FFE500; 
+	margin-left: 3%;
+	-webkit-animation: main-logo 3s;
+	vertical-align: bottom;
+}
+
+
+@-webkit-keyframes main-logo {
+    from {
+    	width:0%;
+    }
+    to
+    {
+      width: 39%;
+    }
+}
+
+@media(max-width: 766px)  {
+	.container{
+		top:50% !important;
+	}
+}

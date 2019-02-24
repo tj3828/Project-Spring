@@ -70,9 +70,10 @@ public class FreeBoardDetailController {
 		dto = datailService.board_detail(dto);
 		datailService.board_DetailCount(dto);
 		List<FreeBoard_ReplyVO> list = replyService.board_Rdetail(dto, paging);
-		String id = ((AccountVO)session.getAttribute("dto")).getId();
+		AccountVO vo = (AccountVO)session.getAttribute("dto");
 		int checked = 1;
-		if(id != null) {
+		if(vo != null) {
+			String id = vo.getId();
 			LikeVO ldto = new LikeVO();
 			ldto.setFr_idx(dto.getNum());
 			ldto.setId(id);

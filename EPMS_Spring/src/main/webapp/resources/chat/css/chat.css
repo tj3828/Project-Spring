@@ -16,7 +16,7 @@ pre {
 	padding: 10px;
 }
 
-.chatSendMsg::placeholer {
+.chatSendMsg::placeholder {
 	font-size: 13px;
 }
 

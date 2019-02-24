@@ -1,4 +1,4 @@
-* {
+ {
   margin: 0;
   padding: 0;
 }
@@ -70,4 +70,7 @@ body {
   -moz-border-radius: 50%;
   border-radius: 50%;
   background: #e51c23;
+}
+.fas {
+	font-size: 2rem;
 }

@@ -1,14 +1,20 @@
 @charset "UTF-8";
 
 html,body {
-   	height:100%;
    	background-color: #f4f5f7;
+   	background-image: url('../images/mainIcon/mainBackground3.PNG');
+   	background-repeat: no-repeat;
+   	background-size: 100% 100%;
+   	height: 100%;
 }
 
 .wrap {
    	margin: 0; 
    	padding: 0; 
    	background-color: #f4f5f7;
+   	background-image: url('../images/mainIcon/mainBackground3.PNG');
+   	background-repeat: no-repeat;
+   	background-size: cover;
    	padding-bottom: 5%;
 }
 
@@ -26,16 +32,15 @@ html,body {
 
 /* 메인 가장 상단 nav */
 .nav-top {
-	float: right !important;
-	padding-left: inherit !important;
+	justify-content: flex-end;
 	flex-direction: row;
-	margin-right: 15%;
 	font-size: 1.4rem;
 }
 
 .nav-top a {
 	color: black;
-	font-size: 1.5rem;
+	font-size: 1.4rem;
+	margin-left: 0 !important;
 }
 
 .nav-top-div {
@@ -45,7 +50,7 @@ html,body {
 
 /* 메인 2번째 nav */
 .nav {
-   	box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
+   	box-shadow: 1px 10px 5px rgba(0,0,0,0.5), 6px 11px 5px rgba(0,0,0,0.5);
    	width:100%;
    	margin-bottom:5% ;
 }
@@ -55,7 +60,7 @@ html,body {
     padding-bottom: 0;
     font-size:4rem; 
    	margin-left:10%; 
-   	line-height:0.5vmin
+   	line-height:0.5vmin;
 }
 
 .dropdown-menu {
@@ -63,11 +68,14 @@ html,body {
 }
 
 .nav-item a{
-	font-size: 1.5rem;
+	font-size: 1.4rem;
 }
 
 .navbar-nav {
 	margin-left: 5%;
+}
+.nav-top {
+	margin-left: 0 !important;
 }
 
 /* 메인 중간 소개 화면 */
@@ -105,11 +113,44 @@ html,body {
    	line-height:0.5vmin;
 }
 
+.table {
+	background-color: white;
+}
 
+.nav-top .top_side {
+	text-align: right;
+}
 
+.top_loginState {
+	width: fit-content; 
+	border: 1px solid; 
+	border-radius: 10px; 
+	color: white; 
+	background: green; 
+	padding-left: 1%; 
+	padding-right: 1%;
+}
 
+@media (max-width:550px) {
+	.nav-top {
+		margin-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.nav-top .nav-item a{
+		font-size: 5vmin !important;
+	}
+	
+	.navbar-brand {
+		width:100px !important;
+	}
+	.nav-top-div .container {
+		padding: 0 !important;
+	}
+}
 
-
-
-
+@media (max-width: 330px) {
+	.nav-top .nav-item a{
+		font-size: 15px !important;
+	}
+}
 

@@ -17,14 +17,14 @@
 <body>
 	<div class="wrap">
 		<jsp:include page="../common/top.jsp"></jsp:include>
-		<div class="container">
+		<div class="container" >
 			<div class="title_label_div">
 				<span class="fas fa-file-alt"></span>
 				<font class="title_label" >${dto.title}</font>
 			</div>
 			<div class="panel panel-default"> 
 				<div class="panel-body">
-					<div class="container">  
+					<div class="container container-out">  
 						<div class="form-group" style="font-size: 2.5vmin;">
 							<strong>작성자 :</strong> <img src="${pageContext.request.contextPath}/resources/upload/${dto.profile_img}" width="50px;" height="50px;">&nbsp;${dto.nickname} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>작성일 :</strong> ${dto.writeDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>조회수 :</strong> ${dto.viewCnt}
 						</div>
@@ -52,7 +52,7 @@
 						</div> 
 						<br>
 						<div align="center"> 
-							<c:if test="${nickname == dto.nickname}">
+							<c:if test="${sessionScope.dto.nickname == dto.nickname}">
 								<input type="button" class="btn btn-outline-success" id="save" onclick="location.href='../freeboardDetail/editPre.do?num=${dto.num}';" value="수정하기">&nbsp;&nbsp;
 								<input type="reset" class="btn btn-outline-danger" onclick="detail_Del(${dto.num});" value="삭제하기">&nbsp;&nbsp;
 							</c:if>
@@ -74,7 +74,9 @@
 									<textarea class="form-control" rows="3" name="content" id="content" placeholder="- 100글자까지 입력가능합니다.&#13;&#10;- 비방,욕설,음란내용이 포함된 경우 강제로 삭제될 수 있습니다." maxlength="100"></textarea> 
 									<span class="counter" id="counter">###</span>
 								</div>
-								<input type="button" class="btn btn-success replySave" style="float:right;" value="댓글 저장">
+								<div class="form-group content-div" style="text-align: right;">
+								<input type="button" class="btn btn-success replySave" value="댓글 저장">
+								</div>
 							</form>
 							<br><br>
 							<c:if test="${list.size() != 0}">

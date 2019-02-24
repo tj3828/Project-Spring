@@ -8,64 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="../resources/css/chat.css">
+<link rel="stylesheet" href="../resources/chat/css/chatBt.css">
 </head>
-<style>
-	.circle {
-		background-color: yellow;
-		color: #534737;
-		height: 6em;
-		width: 6em;
-		border-radius: 7.5em;
-		-webkit-border-radius: 7.5em;
-		-moz-border-radiud: 7.5e,;
-		text-align: center;
-	}
-	.chatBt {
-		border: 0;
-		outline: 0;
-		cursor: pointer;
-		box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);
-	}
-	.chatBt:focus {
-		outline: none;
-	}
-	.chatView:after {
-	    content: '';
-	    position: absolute;
-	    border-top: 20px solid ;
-	    border-right: 20px solid transparent;
-	    border-left: 20px solid transparent;
-	    bottom: -20px;
-		right: 10px;
-	}
-	.circle{
-		transition: color 0.3s, background 0.3s, transform 0.5s ease-in-out;
-	}
-	
-	.chatBt:hover {
-	  color: white;
-	  background: #523737;
-	  transform: rotateY(1turn);
-	}
-	.chatBt_notReadCounter {
-		text-align: center;
-	    position: fixed;
-	    right: 30px;
-	    bottom: 80px;
-	    height: 1.5em;
-	    background-color: red;
-	    width: 1.5em;
-	    font-size: 15px;
-	    padding: 0;
-	    border-radius: 8px;
-	    font-weight: 900;
-	}
-</style>
 <body style="height: 100%;">
-	<div class="chatView" style="display: none; position: fixed; height:50%; width:348px; bottom:120px;right:30px; background-color: white; border: 1px solid; box-shadow: 1px 10px 5px rgba(0,0,0,0.2), 6px 11px 5px rgba(0,0,0,0.2);">
-		<iframe id="chatPage" style="overflow-x:hidden; width: 100%; height: 100%;"></iframe>
+	<div class="chatView">
+		<iframe id="chatPage"></iframe>
 	</div>
-	<button class="chatBt circle"  style="position: fixed; width:66px; height:66px; bottom: 30px; right: 30px;"><i class="fas fa-comment"></i></button>
+	<button class="chatBt circle"><i class="fas fa-comment"></i></button>
 	<script type="text/javascript">
 	
 	window.onpageshow = function(event) {

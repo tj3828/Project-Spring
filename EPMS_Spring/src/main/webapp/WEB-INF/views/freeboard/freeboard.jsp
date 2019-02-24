@@ -63,7 +63,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="5" align="center">
+					<td colspan="6" align="center">
 						<nav aria-label="..." >
 							<ul class="pagination justify-content-center">
 								<c:choose>
@@ -113,7 +113,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="5" align="center">
+					<td colspan="6" align="center">
 						<input type=button class="btn btn-outline-success" value="글쓰기" onclick="return writeForm();">
 					</td>
 				</tr>

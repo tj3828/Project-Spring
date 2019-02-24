@@ -18,13 +18,13 @@
 			</div>
 			<div class="panel panel-default"> 
 				<div class="panel-body">
-					<div class="container"> 
+					<div class="container container-out"> 
 						<form id="writeForm" >  
 							<div class="row"> 
 								<div class="col-md-12">
 									<div class="form-group"> 
 										<label for="name">NAME</label> 
-										<input type="text" class="form-control" name="nickname" id="nickname" value="${nickname}" readonly="readonly" placeholder="Enter name"> 
+										<input type="text" class="form-control" name="nickname" id="nickname" value="${sessionScope.dto.nickname}" readonly="readonly" placeholder="Enter name"> 
 									</div> 
 								</div>
 							</div>

@@ -17,7 +17,7 @@
 			</div>
 			<div class="panel panel-default"> 
 				<div class="panel-body">
-					<div class="container"> 
+					<div class="container container-out">  
 						<form name="writeForm" id="writeForm" enctype="multipart/form-data" method="post">  
 							<div class="row"> 
 								<div class="col-md-12">

@@ -16,28 +16,32 @@
 	<!-- top 부가기능 -->
 	<nav class="navbar navbar-expand-sm navbar-light bg-white">
 		<div class="nav-top-div">
-			<ul class="navbar-nav nav-top" >
-				<c:if test="${sessionScope.dto.id == null}">
-					<li class="nav-item">
-						<a href="../login/login.do">로그인</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-					</li>
-				</c:if>
-				<c:if test="${sessionScope.dto.id != null}">
-					<img src="${pageContext.request.contextPath}/resources/upload/${sessionScope.dto.profile_img}" width="30px;" height="30px;">
-					${sessionScope.dto.nickname}님 환영합니다! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<li class="nav-item">
-						<a href="../login/logout.do">로그아웃</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-					</li>
-				</c:if>
-				<li class="nav-item"><a href="../freeboardDetail/chat.do">고객센터</a> &nbsp;&nbsp;|&nbsp;&nbsp;</li>
-				<li class="nav-item"><a href="#">이용안내</a> </li>
-			</ul>
+			<div class="container"> 
+				<ul class="navbar-nav nav-top" >
+					<c:if test="${sessionScope.dto.id == null}">
+						<li class="nav-item top_side" style="width: fit-content;">
+							<a href="../login/login.do">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						</li>
+					</c:if>
+					<c:if test="${sessionScope.dto.id != null}">
+						<li class="nav-item top_loginState">
+							<img src="${pageContext.request.contextPath}/resources/upload/${sessionScope.dto.profile_img}" width="25px" height="25px">
+							<a>${sessionScope.dto.nickname}</a>
+						</li>&nbsp;&nbsp;
+						<li class="nav-item top_side" style="width: fit-content">
+							<a href="../login/logout.do">로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						</li>
+					</c:if>
+					<li class="nav-item top_side" style="width: fit-content;"><a href="../freeboardDetail/chat.do">고객센터</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+					<li class="nav-item top_side" style="width: fit-content;"><a href="#">이용안내</a> </li>
+				</ul>
+			</div>
 		</div>		
 	</nav>
 
 	<!-- 네비게이션 바 -->
 	<nav class="navbar nav navbar-expand-xl navbar-light bg-dark">
-		<a class="navbar-brand mb-0 text-warning" href="#">Navbar</a>
+		<a class="navbar-brand mb-0 text-warning" href="../main/main.do"><img class="img-fluid" src="../resources/images/mainIcon/navlogo1.png" width="250"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    	<span class="navbar-toggler-icon"></span>
 		</button>
@@ -57,7 +61,7 @@
 					</div>
 				</li>
 	     		<li class="nav-item">
-	        		<a class="nav-link text-white" href="freeboard/freeboard.do">&nbsp;&nbsp;|&nbsp;&nbsp; FreeBoard &nbsp;&nbsp;|&nbsp;&nbsp;</a>
+	        		<a class="nav-link text-white" href="../freeboard/freeboard.do">&nbsp;&nbsp;|&nbsp;&nbsp; FreeBoard &nbsp;&nbsp;|&nbsp;&nbsp;</a>
 	      		</li>
 	      		<li class="nav-item">
 	        		<a class="nav-link disabled text-muted">Disabled</a>
