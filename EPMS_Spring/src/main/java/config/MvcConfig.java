@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import org.springframework.web.servlet.view.xml.MappingJackson2XmlView;
 
 import interceptor.AutoLoginInterceptor;
 import interceptor.ChatNotReadCheckInterceptor;
@@ -30,6 +32,11 @@ public class MvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
+		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
+		jsonView.setPrettyPrint(true);
+		
+		registry.enableContentNegotiation(jsonView);
+		
 		registry.jsp("/WEB-INF/views/", ".jsp");
 	}
 

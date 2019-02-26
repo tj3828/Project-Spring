@@ -1,3 +1,13 @@
+@font-face {
+	font-family: 'sangsangBody';
+	src: url('../font/SangSangBodyL.ttf');
+}
+
+@font-face {
+	font-family: 'sangsangTitle';
+	src: url('../font/SangSangTitleB.ttf')
+}
+
 .main-body {
 	background-image : url('../images/mainIcon/mainBackground3.PNG'); 
 	background-repeat: no-repeat;
@@ -72,8 +82,8 @@ nav {
   background-image: url('../images/mainIcon/mainBackground3.PNG');
   padding: 4em;
   padding-top: 30px;
-  padding-left: 20%;
-  padding-right: 20%;
+  padding-left: 10%;
+  padding-right: 10%;
   padding-bottom: 10px;
   text-align: center;
   text-transform: uppercase;
@@ -144,14 +154,35 @@ nav {
 }
 
 .main_right table td {
-	padding: 0.3rem;
-	font-size: 2.5vmin;
+	padding: 0.2rem;
+	font-size: 1.5vmin;
 	border-top: 0;
+	padding-top: 0.8rem;
+	padding-bottom: 0.8rem;
+	border-radius: 10px;
+	
+}
+.main_right table a, table tbody td {
+	color: black;
+	font-family: sangsangBody !important;
 }
 
-.kr_Seoul {left:25px;top:22px;float:none;width:220px;height:169px;background:url(../images/map2/bg_seoul.png) 0 0 no-repeat;}
-.kr_Seoul .imgMap {position:inherit; top:0; left:0; z-index:100;}
-.kr_Seoul ul {position:relative; top:0; left:0; z-index:0; list-style: none;}
+.pagination a span {
+	font-family: sangsangBody !important;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover a{ 
+	background-color: #D76161;
+	color: white; 
+	text-decoration: none;
+}
+table tfoot td {
+	padding-bottom: 0 !important;
+}
+
+.kr_Seoul {position:sticky; left:25px;top:22px;float:none;width:220px;height:169px;margin-left:auto; margin-right:auto; background:url(../images/map2/bg_seoul.png) 0 0 no-repeat;}
+.kr_Seoul .imgMap {position:absolute; top:0; left:0; z-index:100;}
+.kr_Seoul ul {position:absolute; top:0; left:0; z-index:0; list-style: none;}
 .kr_Seoul ul li {display:none; position:absolute;}
 .kr_Seoul ul li.map1 {top:-22px; left:109px;}
 .kr_Seoul ul li.map2 {top:-24px; left:99px;}
