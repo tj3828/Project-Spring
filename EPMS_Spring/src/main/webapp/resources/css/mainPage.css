@@ -42,7 +42,7 @@ nav {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  padding: 4.5vmin;
+  padding: 3vmin;
   background-color: white; /* gold */
   /* Single pixel data uri image http://jsfiddle.net/LPxrT/ 
   /* background-image: gold, gold, white */
@@ -51,7 +51,7 @@ nav {
   url('data:image/gif;base64,R0lGODlhAQABAPAAAP///////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='),
   url('../images/mainIcon/mainBackground3.PNG');
   background-repeat: no-repeat;
-  background-size: 0 4.5vmin, 0 100%, 0% 4.5vmin;
+  background-size: 0 3vmin, 0 100%, 0% 3vmin;
   background-position: top center, top center, bottom center;
   -webkit-animation: drawBorderFromCenter 3s;
 }
@@ -62,15 +62,15 @@ nav {
       background-size: 0 20vmin, 0 0, 100% 100%;
     }
     20% {
-      background-size: 100% 4.5vmin, 100% 0, 100% 100%;
+      background-size: 100% 3vmin, 100% 0, 100% 100%;
     }
     66%
     {
-      background-size: 100% 4.5vmin, 100% 90%, 100% 100%;
+      background-size: 100% 3vmin, 100% 94%, 100% 100%;
     }
     99%
     {
-      background-size: 100% 4.5vmin, 100% 90%, 0 4.5vmin;
+      background-size: 100% 3vmin, 100% 94%, 0 3vmin;
     }
 }
 
