@@ -7,72 +7,50 @@
 <meta charset="UTF-8">
 <title>주차공간- EPMS</title>
 </head>
-<link rel="stylesheet" href="../resources/css/mainPage.css">
-<script src="../resources/js/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="../resources/test/main.css">
-<script type="text/javascript" src="../resources/test/cms.js?v=1"></script>
-<script src="../resources/test/include.js"></script>
-<script src="../resources/test/three.min.js"></script>
-<script src="../resources/test/CanvasRenderer.js"></script>
-<script src="../resources/test/Projector.js"></script>
-<script src="../resources/test/TweenMax.min.js"></script>
-<script src="../resources/test/jquery-1.11.2.min.js"></script>
-<script src="../resources/test/jquery.history.js"></script>
-<script src="../resources/test/common.js"></script>
-<script src="../resources/test/cmsPolygon.js"></script>
-<script src="../resources/test/cmsMain.js"></script>
-<script src="../resources/test/slick.js"></script>
-
-
-
+<link rel="stylesheet" href="../resources/css/reservation.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<jsp:include page="../common/top.jsp"></jsp:include>
 <body style="height: inherit; padding: 0; margin: 0; position: relative;">
 	<div class="main-body">
 		<div class="container main-container">
 			<div class="main-logo">
 				<div class="main-logo-img">
-					<div class="left"></div>
+					<div class="logo_left"></div>
 					<img class="img-fluid" src="../resources/images/mainIcon/mainlogo3.png" width="15%" height="auto">
-					<div class="right"></div>
+					<div class="logo_right"></div>
 				</div>
 			</div>
 			<div class="box">
-				<div id="sub_container">
-            <!-- sub iframe -->
-            <iframe id="sub_iframe" src="" frameborder="0" border="0" marginheight="0" marginwidth="0">
-
-            </iframe>
-        </div>
 				<div class="content reservation_first" style="display: flex;">
 					<div class="main_left" style="width: 50%; ">
-						<h1 style="color: #F3C209; font-size: 5vmin; margin-bottom: 2rem; font-family: sangsangTitle;">二쇱감援ъ�� ����</h1>
+						<h1 style="color: #F3C209; font-size: 5vmin; margin-bottom: 2rem; font-family: sangsangTitle;">예약 서비스</h1>
 						<div class="mapSelect kr_Seoul" >
 							<ul> 
-								<li class="map1" style="display: none; "><img src="../resources/images/map2/img_map_01.png" alt="���명�밸��� �몄��援�""></li>
-								<li class="map2" style="display: none;"><img src="../resources/images/map2/img_map_02.png" alt="���명�밸��� ��遊�援�"></li>
-								<li class="map3" style="display: none;"><img src="../resources/images/map2/img_map_03.png" alt="���명�밸��� 媛�遺�援�"></li>
-								<li class="map4" style="display: none;"><img src="../resources/images/map2/img_map_04.png" alt="���명�밸��� 以���援�"></li>
-								<li class="map5" style="display: none;"><img src="../resources/images/map2/img_map_05.png" alt="���명�밸��� ����臾멸뎄"></li>
-								<li class="map6" style="display: none;"><img src="../resources/images/map2/img_map_06.png" alt="���명�밸��� �깅�援�"></li>
-								<li class="map7" style="display: none;"><img src="../resources/images/map2/img_map_07.png" alt="���명�밸��� 醫�濡�援�"></li>
-								<li class="map8" style="display: none;"><img src="../resources/images/map2/img_map_08.png" alt="���명�밸��� ����臾멸뎄"></li>
-								<li class="map9" style="display: none;"><img src="../resources/images/map2/img_map_09.png" alt="���명�밸��� ����援�"></li>
-								<li class="map10" style="display: none;"><img src="../resources/images/map2/img_map_10.png" alt="���명�밸��� 愿�吏�援�"></li>
-								<li class="map11" style="display: none;"><img src="../resources/images/map2/img_map_11.png" alt="���명�밸��� �깅��援�"></li>
-								<li class="map12" style="display: none;"><img src="../resources/images/map2/img_map_12.png" alt="���명�밸��� 以�援�"></li>
-								<li class="map13" style="display: none;"><img src="../resources/images/map2/img_map_13.png" alt="���명�밸��� �⑹�곌뎄"></li>
-								<li class="map14" style="display: none;"><img src="../resources/images/map2/img_map_14.png" alt="���명�밸��� 留��ш뎄"></li>
-								<li class="map15" style="display: none;"><img src="../resources/images/map2/img_map_15.png" alt="���명�밸��� 媛���援�"></li>
-								<li class="map16" style="display: none;"><img src="../resources/images/map2/img_map_16.png" alt="���명�밸��� �≫��援�"></li>
-								<li class="map17" style="display: none;"><img src="../resources/images/map2/img_map_17.png" alt="���명�밸��� 媛��④뎄"></li>
-								<li class="map18" style="display: none;"><img src="../resources/images/map2/img_map_18.png" alt="���명�밸��� ��珥�援�"></li>
-								<li class="map19" style="display: none;"><img src="../resources/images/map2/img_map_19.png" alt="���명�밸��� ����援�"></li>
-								<li class="map20" style="display: none;"><img src="../resources/images/map2/img_map_20.png" alt="���명�밸��� 愿���援�"></li>
-								<li class="map21" style="display: none;"><img src="../resources/images/map2/img_map_21.png" alt="���명�밸��� 湲�泥�援�"></li>
-								<li class="map22" style="display: none;"><img src="../resources/images/map2/img_map_22.png" alt="���명�밸��� ���깊�ш뎄"></li>
-								<li class="map23" style="display: none;"><img src="../resources/images/map2/img_map_23.png" alt="���명�밸��� 援щ�援�"></li>
-								<li class="map24" style="display: none;"><img src="../resources/images/map2/img_map_24.png" alt="���명�밸��� ��泥�援�"></li>
-								<li class="map25" style="display: none;"><img src="../resources/images/map2/img_map_25.png" alt="���명�밸��� 媛���援�"></li>
+								<li class="map1" style="display: none; "><img src="../resources/images/map2/img_map_01.png" alt="서울특별시 노원구"></li>
+								<li class="map2" style="display: none;"><img src="../resources/images/map2/img_map_02.png" alt="서울특별시 도봉구"></li>
+								<li class="map3" style="display: none;"><img src="../resources/images/map2/img_map_03.png" alt="서울특별시 강북구"></li>
+								<li class="map4" style="display: none;"><img src="../resources/images/map2/img_map_04.png" alt="서울특별시 중랑구"></li>
+								<li class="map5" style="display: none;"><img src="../resources/images/map2/img_map_05.png" alt="서울특별시 동대문구"></li>
+								<li class="map6" style="display: none;"><img src="../resources/images/map2/img_map_06.png" alt="서울특별시  성북구"></li>
+								<li class="map7" style="display: none;"><img src="../resources/images/map2/img_map_07.png" alt="서울특별시 종로구"></li>
+								<li class="map8" style="display: none;"><img src="../resources/images/map2/img_map_08.png" alt="서울특별시 서대문구"></li>
+								<li class="map9" style="display: none;"><img src="../resources/images/map2/img_map_09.png" alt="서울특별시 은평구"></li>
+								<li class="map10" style="display: none;"><img src="../resources/images/map2/img_map_10.png" alt="서울특별시 광진구"></li>
+								<li class="map11" style="display: none;"><img src="../resources/images/map2/img_map_11.png" alt="서울특별시  성동구"></li>
+								<li class="map12" style="display: none;"><img src="../resources/images/map2/img_map_12.png" alt="서울특별시 중구"></li>
+								<li class="map13" style="display: none;"><img src="../resources/images/map2/img_map_13.png" alt="서울특별시 용산구"></li>
+								<li class="map14" style="display: none;"><img src="../resources/images/map2/img_map_14.png" alt="서울특별시 마포구"></li>
+								<li class="map15" style="display: none;"><img src="../resources/images/map2/img_map_15.png" alt="서울특별시 강동구"></li>
+								<li class="map16" style="display: none;"><img src="../resources/images/map2/img_map_16.png" alt="서울특별시 송파구"></li>
+								<li class="map17" style="display: none;"><img src="../resources/images/map2/img_map_17.png" alt="서울특별시 강남구"></li>
+								<li class="map18" style="display: none;"><img src="../resources/images/map2/img_map_18.png" alt="서울특별시 서초구"></li>
+								<li class="map19" style="display: none;"><img src="../resources/images/map2/img_map_19.png" alt="서울특별시 동작구"></li>
+								<li class="map20" style="display: none;"><img src="../resources/images/map2/img_map_20.png" alt="서울특별시 관악구"></li>
+								<li class="map21" style="display: none;"><img src="../resources/images/map2/img_map_21.png" alt="서울특별시 금천구"></li>
+								<li class="map22" style="display: none;"><img src="../resources/images/map2/img_map_22.png" alt="서울특별시 영등포구"></li>
+								<li class="map23" style="display: none;"><img src="../resources/images/map2/img_map_23.png" alt="서울특별시 구로구"></li>
+								<li class="map24" style="display: none;"><img src="../resources/images/map2/img_map_24.png" alt="서울특별시 양천구"></li>
+								<li class="map25" style="display: none;"><img src="../resources/images/map2/img_map_25.png" alt="서울특별시 강서구"></li>
 							</ul>
 							<img src="../resources/images/map2/img_map_area.png" alt="" usemap="#Map2" class="imgMap" border="0" width="220" height="169">
 							<map name="Map2" id="Map2">
@@ -103,11 +81,11 @@
 								<area shape="poly" coords="18,65,16,69,16,73,12,77,10,79,8,83,7,86,7,89,5,91,2,91,0,91,1,94,4,96,17,96,16,96,15,98,15,99,16,101,17,102,20,103,20,98,24,98,29,100,31,99,34,97,36,97,37,101,39,105,40,106,42,108,46,107,49,106,51,105,51,103,51,100,51,96,51,94,54,92,55,95,57,95,56,92,53,90,50,86,42,84,41,83,39,79,35,78,32,75,29,71,25,69,22,67,19,64,18,62"  title="���명�밸��� 媛���援�">
 							</map>
 						</div>
-						<h4 style="color: white; margin-top: 30px; font-family: sangsangTitle; font-size: 1.1rem;">* <a href="#" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">濡�洹몄��</a> ���� �댁�⑺�댁＜�몄��.</h4>
-						<h4 style="color: white; bottom:0px; font-family: sangsangTitle; font-size: 1.1rem;">* 泥��� �댁�⑺������ 遺��� <a href="#" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">�댁�⑹����</a>瑜� ���명���몄��.</h4>
+						<h4 style="color: white; margin-top: 30px; font-family: sangsangTitle; font-size: 1.1rem;">* <a href="#" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">로그인</a> 후에 사용하세요.</h4>
+						<h4 style="color: white; bottom:0px; font-family: sangsangTitle; font-size: 1.1rem;">* 처음 이용이시라면 <a href="#" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">이용안내</a>를 먼저 참고하세요.</h4>
 					</div>
 					<div class="main_right" style="width: 60%; padding-left: 10%; font-family: sangsangBody;"> 
-						<input type="text" class="form-control" placeholder="��泥� 吏������� 寃����⑸����." id="searchAreaText" name="searchAreaText" value="" style="width:100%; margin-bottom: 0.5rem; margin-top: 0.5rem; display:unset;">
+						<input type="text" class="form-control" placeholder="찾으시는 장소를 입력하세요." id="searchAreaText" name="searchAreaText" value="" style="width:100%; margin-bottom: 0.5rem; margin-top: 0.5rem; display:unset;">
 						<table class="table table-striped table-hover" style="border-radius: 10px;">
 							<tbody>
 							</tbody>
@@ -126,7 +104,7 @@
 				</div>
 				<div class="content reservation_second" style="display: none; padding-left:5%; padding-right:13%;">
 					<div style="width:fit-content; display: inline-block; ">
-						<input type="button" class="btn btn-success" value="�ㅻ�媛�湲�" onclick="reservationSearchBack();">
+						<input type="button" class="btn btn-success" value="뒤로가기" onclick="reservationSearchBack();">
 					</div>
 					<div id="map" style="width:90%;height:inherit; display: inline-block; float:right;">
 					</div>				
@@ -136,8 +114,10 @@
 	</div>
 	<jsp:include page="../common/chatBt.jsp"></jsp:include>
 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n4uke1efwk&submodules=panorama"></script>
+	<!-- daterangepicker -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<script src="../resources/js/reservation_map.js"></script>
 	<script src="../resources/js/mainPage.js"></script>	
-	<div id="canvas"><canvas width="776" height="436" style="width: 776.667px; height: 436.875px; margin: -218.438px 0px 0px -388.333px;"></canvas><div class="sub-main-menu-container"></div></div>
 </body>
 </html>

@@ -8,7 +8,8 @@
 <title>주차관리시스템 - EPMS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
+<script src="../resources/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <body style="height:100%; margin: 0;
   text-align: center;
   background-image: url('/b/resources/images/main-01.jpg'); 
@@ -20,20 +21,25 @@
 	    font-weight: bold;
 	    font-size: 14px;
 	    color: #fff;">LOGIN</a>
-   <div class="main-image" style="left:50%;top:50%;transform: translate(-50%,-50%); position: relative;">
+   <div class="main-image" style="left:50%;top:50%;transform: translate(-50%,-50%); position: relative; display: none;">
 		<div style="display: inline-flex; margin-bottom: 30px;">
-    		<img src="../resources/images/mainIcon/mainlogo3.png" style="width: 100%; height: auto;">
+    		<img src="../resources/images/mainIcon/mainlogo_ch.png" style="width: 100%; height: auto;">
     	</div>
     	<br>
 		<div style="display: inline-flex; margin-bottom:20px;">
-			<img src="../resources/images/main_button4.png" onclick="alert('ㅇㅇ');" style="cursor:pointer; margin-right: 10px; width: 48%;">
+			<img src="../resources/images/main_button4.png" onclick="location.href='../reservation/showPage.do'" style="cursor:pointer; margin-right: 10px; width: 48%;">
 			<img src="../resources/images/main_button4.png" style="margin-left: 10px; width: 48%;">
 		</div>
 		<br>
 		<div style="display: inline-flex;">
-			<img src="../resources/images/main_button4.png" onclick="alert('ㅇㅇ');" style="cursor:pointer; margin-right: 10px; width: 48%;">
+			<img src="../resources/images/main_button4.png" onclick="" style="cursor:pointer; margin-right: 10px; width: 48%;">
 			<img src="../resources/images/main_button4.png" style="margin-left: 10px; width: 48%;">
 		</div>
    </div>
+   <jsp:include page="../common/chatBt.jsp"></jsp:include>
+ 
+   <script>
+		$('.main-image').slideDown(1000);
+   </script>
 </body>
 </html>

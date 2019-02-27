@@ -24,6 +24,7 @@
 						</li>
 					</c:if>
 					<c:if test="${sessionScope.dto.id != null}">
+						<input type="hidden" name="sessionScopeNick" id="sessionScopeNick" value="${sessionScope.dto.nickname}">
 						<li class="nav-item top_loginState">
 							<img src="${pageContext.request.contextPath}/resources/upload/${sessionScope.dto.profile_img}" width="25px" height="25px">
 							<a>${sessionScope.dto.nickname}</a>
@@ -32,7 +33,7 @@
 							<a href="../login/logout.do">로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 						</li>
 					</c:if>
-					<li class="nav-item top_side" style="width: fit-content;"><a href="../freeboardDetail/chat.do">고객센터</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+					<li class="nav-item top_side" style="width: fit-content;"><a href="#">고객센터</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
 					<li class="nav-item top_side" style="width: fit-content;"><a href="#">이용안내</a> </li>
 				</ul>
 			</div>
@@ -41,17 +42,20 @@
 
 	<!-- 네비게이션 바 -->
 	<nav class="navbar nav navbar-expand-xl navbar-light bg-dark">
-		<a class="navbar-brand mb-0 text-warning" href="../main/main.do"><img class="img-fluid" src="../resources/images/mainIcon/navlogo1.png" width="250"></a>
+		<a class="navbar-brand mb-0 text-warning" href="../main/main.do"><img class="img-fluid" src="../resources/images/mainIcon/navlogo_ch2.png" width="250"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    	<span class="navbar-toggler-icon"></span>
 		</button>
 		
 	  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    	<ul class="navbar-nav mr-auto">
+	     		<li class="nav-item active">
+	     			<a class="nav-link text-muted">Intro</a>
+	      		</li>
 				<li class="nav-item active">
 					<div class="dropdown">
 					  <a class="dropdown-toggle nav-link text-white" href="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  	Home 
+					  	&nbsp;&nbsp;|&nbsp;&nbsp; Reservation 
 					  </a>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					    <a class="dropdown-item" href="#">Action</a>
@@ -60,11 +64,11 @@
 					  </div>
 					</div>
 				</li>
-	     		<li class="nav-item">
-	        		<a class="nav-link text-white" href="../freeboard/freeboard.do">&nbsp;&nbsp;|&nbsp;&nbsp; FreeBoard &nbsp;&nbsp;|&nbsp;&nbsp;</a>
+				<li class="nav-item active">
+					<a class="nav-link text-white" href="../freeboard/freeboard.do">&nbsp;&nbsp;|&nbsp;&nbsp; FreeBoard &nbsp;&nbsp;|&nbsp;&nbsp;</a>
 	      		</li>
-	      		<li class="nav-item">
-	        		<a class="nav-link disabled text-muted">Disabled</a>
+	      		<li class="nav-item active">
+	        		<a class="nav-link text-muted">FAQ</a>
 	      		</li>
 	    	</ul>
 	  	</div>

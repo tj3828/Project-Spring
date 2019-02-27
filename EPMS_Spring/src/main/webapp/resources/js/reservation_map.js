@@ -1,3 +1,5 @@
+var session = $('#sessionScopeNick').val();
+
 var lat = new Array;
 var lon = new Array;
 var add = new Array;
@@ -62,14 +64,14 @@ function setDateTimePicker() {
 // 모달 내용 생성
 function modalContentCreate(i){
 	var contentString = [
-		'<h1 style="margin-top:10px;"><span class="badge badge-danger" >'+ add[i] +'</span></h1>' ,
-		'<table style="width:800px;" >',
+		'<h1 style="margin-top:10px; width:80%;"><span class="badge badge-danger" >'+ add[i] +'</span></h1>' ,
+		'<table style="width:100%; height:40%;" >',
 		'<tr style="border-top: 1px solid #444444;">',
 		'<td style="width:50%; height:auto; vertical-align: top; padding-top: 10px; padding-left:10px;"><h2 style="display:inline-block;"><span class="badge badge-danger" >기간 선택</span></h2><font style="font-size: 12px; font-weight:bold;">&nbsp;&nbsp;① 원하는 날짜와 시간을 선택한 후 검색을 누르세요.</font> <br><input type="text" style="width:70%;  display: inline-block;" class="datetimes form-control" name="datetimes" onchange="resetSearchList();" />&nbsp;&nbsp;<input type="button" class="btn btn-outline-primary" style=" display: inline-block;"value="검색" onclick="searchList();"></td>',
-		'<td style="border-left: 1px solid #444444; width:50%; vertical-align: top; padding-top: 10px; padding-left:10px;padding-right:10px;" rowspan="2"><div id="pano" style="width:100%;height:360px;"></div></td>',
+		'<td style="border-left: 1px solid #444444; width:50%; vertical-align: top; padding-top: 10px; padding-left:10px;padding-right:10px;" rowspan="2"><div id="pano" style="width:100%;height:50%;"></div></td>',
 		'</tr>',
 	    '<tr>',
-	    '<td style="border-top: 1px solid #444444; vertical-align: top; padding-top: 10px; padding-left:10px;" height="270" valign="top"><h2 style="display:inline-block;"><span class="badge badge-danger" >자리 선택</span></h2><font style="font-size: 12px; font-weight:bold;">&nbsp;&nbsp;② 희망 자리를 우측 로드뷰에서 확인 후 선택하세요.</font><br><div style="overflow-y:scroll; margin:10px; margin-top:15px; height:200px; width:100%; display:inline-block;" class="reservationList"></div></td>',
+	    '<td style="border-top: 1px solid #444444; vertical-align: top; padding-top: 10px; padding-left:10px; height:20%;" align="top"><h2 style="display:inline-block;"><span class="badge badge-danger" >자리 선택</span></h2><font style="font-size: 12px; font-weight:bold;">&nbsp;&nbsp;② 희망 자리를 우측 로드뷰에서 확인 후 선택하세요.</font><br><div style="overflow-y:scroll; margin:10px; margin-top:15px; height:10%; width:100%; display:inline-block;" class="reservationList"></div></td>',
 	    '</tr>',
 	    '</table>'
 	].join('');
@@ -175,7 +177,6 @@ function inputMarker(ad) {
 		marker.setMap(map);
 		var infoWindow = new naver.maps.InfoWindow({
 			content: modalContentCreate(i),
-		    maxWidth:900,
 		    backgroundColor: '#ddd ',
 		    borderColor: '#190707',
 		    anchorColor: '#333',

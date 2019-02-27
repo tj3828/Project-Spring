@@ -23,6 +23,11 @@ public class ParkingAreaController {
 	@Inject
 	IParkingAreaService parkingAreaService;
 	
+	@GetMapping("/showPage.do")
+	public String viewMainPage() {
+		return "/common/reservation";
+	}
+	
 	@GetMapping("/searchList.do")
 	public ModelAndView selectSearchList(Paging paging) {
 		ModelAndView modelAndView = new ModelAndView();
