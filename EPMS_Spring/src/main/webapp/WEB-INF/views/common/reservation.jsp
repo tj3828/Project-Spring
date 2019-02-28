@@ -12,6 +12,27 @@
 	<jsp:include page="../common/top.jsp"></jsp:include>
 <body style="height: inherit; padding: 0; margin: 0; position: relative;">
 	<div class="main-body">
+		<!-- ModalRequest -->
+		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" style="left:50%; top:50%; transform:translate(-50%,-50%); margin: 0;" role="document"> 
+		    <div class="modal-content"> 
+		      <div class="modal-header">
+		        <h3 class="modal-title" style="font-family: sangsangBody;" id="exampleModalLabel1">예약 요청하기</h3>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" style="text-align: left; font-family: sangsangBody; font-size: 1rem;">
+		      		<input type="hidden" class="hostName" value="">
+			      	<strong style="font-family: sangsangBody;">요청 시간 : </strong><span class="requestTime" style="font-family: sangsangBody;"></span><br><br>
+			      	<strong style="font-family: sangsangBody;">요청 지역 : </strong><span class="requestAddress" style="font-family: sangsangBody;"></span><br><br>
+			      	<strong style="font-family: sangsangBody;">주차 구역 : </strong><span class="requestArea" style="font-family: sangsangBody;"></span><br> <br>
+			      	<strong style="font-family: sangsangBody;">메시지 : </strong><textarea class="requestMessage" style="font-family: sangsangBody; width: 100%; resize: none;" rows="3" placeholder="전송하고자하는 메시지를 입력하세요."></textarea><br><br>
+			      	<input type="button" class="btn btn-primary" value="예약 요청하기" style="font-family: sangsangBody; float:right;" onclick="requestReservation();">
+		      </div>
+		    </div>
+		  </div>
+		</div>
 		<div class="container main-container">
 			<div class="main-logo">
 				<div class="main-logo-img">
@@ -112,12 +133,13 @@
 			</div>
 		</div>
 	</div>
+	
 	<jsp:include page="../common/chatBt.jsp"></jsp:include>
 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n4uke1efwk&submodules=panorama"></script>
 	<!-- daterangepicker -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<script src="../resources/js/reservation_map.js"></script>
-	<script src="../resources/js/mainPage.js"></script>	
+	<script src="../resources/js/reservation.js"></script>	
 </body>
 </html>

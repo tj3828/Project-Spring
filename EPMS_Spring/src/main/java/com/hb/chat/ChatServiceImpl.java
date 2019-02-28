@@ -53,4 +53,9 @@ public class ChatServiceImpl implements IChatService {
 	public int selectChatUserSearch(String nickname) {
 		return chatDAOMapper.selectChatUserSearch(nickname);
 	}
+
+	@Override
+	public int selectReservationNotReadCheck(AccountVO vo) {
+		return 0;
+	}
 }

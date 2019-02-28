@@ -1,5 +1,5 @@
 var session = $('#sessionScopeNick').val();
-
+var sessionImg = $('#sessionScopeImg').val();
 var lat = new Array;
 var lon = new Array;
 var add = new Array;
@@ -85,24 +85,27 @@ function resetSearchList(){
 function searchList() {
 	var from = document.getElementsByName('datetimes')[0].value.split(' - ')[0].trim();
 	var to = document.getElementsByName('datetimes')[0].value.split(' - ')[1].trim();
-	var data = {"from" : from, "to" : to, "address" : add[selectNum]};
+	var data = {"r_from" : from, "r_to" : to, "r_address" : add[selectNum]};
 	$.ajax({
-		url:'./searchlist.do',
-		type:'GET',
+		url:'../reservationPage/personalAreaList.do',
+		type:'POST',
 		data: data,
 		dataType: "JSON",
 		success:function(data){
-			var list = data["list"];
+			var list = data.list;
 			if(list.length == 0) {
 				$(".reservationList").html('예약할 수 있는 자리가 없습니다.');
 			} else {
 				var s = "";
+				jQuery.each(list, function(index, entry) {
+					var b = "<input type='button'  class='btn btn-success' id='" + entry["pap_host"] + "' onclick='modalRequestOpen(this);' data-toggle='modal' data-target='#exampleModal1' value='" + entry["pap_area"] +"'>&nbsp;&nbsp;";
+					if((index+1)%4 == 0) {
+						b += "<br><br>";
+					}
+					s += b;
+				});
 				for(var i = 0; i<list.length;i++){
-					  var b = "<input type='button'  class='btn btn-success' onclick='modalRequestOpen(this);' data-toggle='modal' data-target='#exampleModal1' value='" + list[i] +"'>&nbsp;&nbsp;";
-					  if((i+1)%4 == 0) {
-						  b += "<br><br>";
-					  }
-					  s += b;
+					  
 				}
 				$(".reservationList").html(s);
 			}
@@ -117,9 +120,11 @@ function searchList() {
 // 요청 모달 오픈
 function modalRequestOpen(t) {
 	var s = t.value;
+	var host = t.id;
 	var from = document.getElementsByName('datetimes')[0].value.split(' - ')[0].trim();
 	var to = document.getElementsByName('datetimes')[0].value.split(' - ')[1].trim();
 	var date = from + " ~ " + to;
+	$('.hostName').val(host);
 	$('#exampleModal1').modal('show');
 	$('.requestArea').html(s);
 	$('.requestAddress').html(add[selectNum]);
@@ -214,34 +219,42 @@ function requestReservation() {
 	var area = $('.requestArea').html();
 	var address = $('.requestAddress').html();
 	var message = $('.requestMessage').val();
+	var host = $('.hostName').val();
 	
-	var data = {"from" : from, "to" : to, "address" : address, "area" : area, "message" :message};
+	var data = {"r_from" : from, "r_to" : to, "r_address" : address, "r_area" : area, "r_content" :message, "r_host" : host};
 	
 	$.ajax({
-		url:'./reservation_request.do',
-		type:'GET',
+		url:'../reservation/reservationRequest.do',
+		type:'POST',
 		data: data,
 		dataType: "JSON",
 		success:function(t){
-			if(t.result == true) {
+			if(t.result != -1) {
 				swal({
 					title : "예약신청 완료",
 					text : '이용시간 : ' + from + " ~ " + to +'\n요청지역 : ' + address + '\n주차구역 : ' + area,
 					icon : "success"
 				}).then((willDelete) => {
 					if(willDelete) {
-						location.href = './reservation_searchboard.do?';
+						swal('예약완료후 내정보 페이지로 이동');
+						reservationRequestAlram(t.result);
+						// location.href = './reservation_searchboard.do?';
 					}
 				})
-			//	location.href = './reservation_searchboard.do?';	// 이후에 이동할 페이지 수정
 			} else {
 				swal("예약 실패",'이미 예약된 구역입니다. 다른 구역을 검색하세요.','error');
 			}
 		},
 		error:function(jqXHR, textStatus, errorThrown){
-			swal("에러 발생~~ \n" , textStatus + " : " + errorThrown, "error");
+			swal("에러 발생 " , "관리자에게 문의하세요.", "error");
 	    }
 	});
+}
+
+function reservationRequestAlram(data) {
+	var webSocket = $('#chatPage').get(0).contentWindow.webSocket;
+	var jsonMsg = 'ReservationRequest#'+ data;
+	webSocket.send(jsonMsg);
 }
 
 function reservationSearchBack() {

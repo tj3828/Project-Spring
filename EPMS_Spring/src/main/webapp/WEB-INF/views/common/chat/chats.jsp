@@ -65,7 +65,9 @@
 			var msg = JSON.parse(data.data);
 			var nickname = "${sessionScope.dto.nickname}";
 			if(msg.toNick == nickname) {
+				
 				var notReadCount = 1; 
+				
 				$('.chat__user').each(function() {
 					if($(this).text() == msg.fromNick) {
 						// 나에게 온 메세지인데 방나갔다는 메세지 일 경우
@@ -84,16 +86,43 @@
 				
 				// 메세지이지만 방나간 메세지를 제외하고
 				if(msg.content != '#$%Room Out#$%') {
+					var Bottom_ReservationNotReadCounter = $('.Bottom_ReservationNotReadCounter').html() *1;
+					var chatBt_notReadCounter = parent.$('.chatBt_notReadCounter').html() *1;
 					var Bottom_notReadCounter = $('.Bottom_notReadCounter').html() *1;
-					if(Bottom_notReadCounter == null || Bottom_notReadCounter == "" || Bottom_notReadCounter == 0 || isNaN(Bottom_notReadCounter)) {
-						$('.fa-comment').after('<span class="Bottom_notReadCounter"></span>');
+
+					if(chatBt_notReadCounter == null || chatBt_notReadCounter == "" || chatBt_notReadCounter == 0 || isNaN(chatBt_notReadCounter)) {
 						parent.$('button.chatBt').after('<span class="chatBt_notReadCounter"></span>');
-						Bottom_notReadCounter = 0;
+						chatBt_notReadCounter = 0;
 					}
-					Bottom_notReadCounter += 1;
-					parent.$('.chatBt_notReadCounter').html(Bottom_notReadCounter);
-					$('.Bottom_notReadCounter').html(Bottom_notReadCounter);
-				
+					
+					// 예약 요청 메세지 왔을 때
+					if(msg.content.startsWith("#$%Reservation#$%")) {
+						
+						if(Bottom_ReservationNotReadCounter == null || Bottom_ReservationNotReadCounter == "" || Bottom_ReservationNotReadCounter == 0 || isNaN(Bottom_ReservationNotReadCounter)) {
+							$('.fa-search').after('<span class="Bottom_ReservationNotReadCounter"></span>');
+							
+							Bottom_ReservationNotReadCounter = 0;
+						}
+						Bottom_ReservationNotReadCounter += 1;
+						chatBt_notReadCounter += 1;
+						
+						$('.Bottom_ReservationNotReadCounter').html(Bottom_ReservationNotReadCounter);
+						parent.$('.chatBt_notReadCounter').html(Bottom_notReadCounter);
+						msg.content.replace("#$%Reservation#$%","");
+						
+					} else {
+						
+						if(Bottom_notReadCounter == null || Bottom_notReadCounter == "" || Bottom_notReadCounter == 0 || isNaN(Bottom_notReadCounter)) {
+							$('.fa-comment').after('<span class="Bottom_notReadCounter"></span>');
+							parent.$('button.chatBt').after('<span class="chatBt_notReadCounter"></span>');
+							Bottom_notReadCounter = 0;
+						}
+						Bottom_notReadCounter += 1;
+						chatBt_notReadCounter += 1;
+						
+						parent.$('.chatBt_notReadCounter').html(chatBt_notReadCounter);
+						$('.Bottom_notReadCounter').html(Bottom_notReadCounter);
+					}
 				
 					var path = "${pageContext.request.contextPath}";
 					$('.chats__list').prepend('<li class="chats__chat">' +

@@ -9,6 +9,7 @@ public interface IChatService {
 	ArrayList<ChatVO> selectMessageList(String id,String opponent);
 	ArrayList<ChatVO> selectChatsList(String id);
 	int selectNotReadCheck(AccountVO vo);
+	int selectReservationNotReadCheck(AccountVO vo);
 	
 	void updateMessageRead(String nickname, String opponentNick);
 	void deleteMessageAll(ChatVO dto);

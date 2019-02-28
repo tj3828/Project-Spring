@@ -142,7 +142,7 @@
 				<img src="../resources/images/infoBtn.png" onclick="#" style="cursor:pointer;">
 			</figure> 
 			<figure class="swing2">
-				<img src="../resources/images/reservationBtn.png" onclick="location.href='../reservation/showPage.do'" style="cursor:pointer;">
+				<img src="../resources/images/reservationBtn.png" onclick="location.href='../reservationPage/showPage.do'" style="cursor:pointer;">
 			</figure> 
 		</div>
    </div>

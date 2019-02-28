@@ -9,15 +9,16 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.hb.reservation.ReservationVO;
 
 import common.Paging;
 
 @Controller
-@RequestMapping("/reservation")
+@RequestMapping("/reservationPage")
 public class ParkingAreaController {
 	
 	@Inject
@@ -44,5 +45,17 @@ public class ParkingAreaController {
 		modelAndView.addAllObjects(resultMap);
 		
 		return modelAndView;
+	}
+	
+	@PostMapping("/personalAreaList.do")
+	public ModelAndView selectPersonalAreaList(ReservationVO dto) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("jsonView");
+		
+		List<PersonalParkingAreaVO> list = parkingAreaService.selectPersonalAreaList(dto);
+		mav.addObject("list", list);		
+		
+		return mav;
 	}
 }

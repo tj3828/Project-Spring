@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hb.account.AccountVO;
 import com.hb.chat.config.ChatEncoder;
 import com.hb.chat.config.HttpSessionConfigurator;
+import com.hb.reservation.IReservationService;
+import com.hb.reservation.ReservationVO;
 
 @Controller
 @RequestMapping("/chatting")
@@ -40,6 +42,9 @@ public class ChattingController {
 	
 	@Inject
 	IChatService chatService;
+	
+	@Inject
+	IReservationService reservationService;
 	
 	private static final Map<String, Session> sessions = new ConcurrentHashMap<String, Session>();
 	
@@ -77,7 +82,13 @@ public class ChattingController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if(message.startsWith("ReservationRequest")) {
+			int reservationNum = Integer.valueOf(message.split("#")[1]);
+			System.out.println(reservationNum);
+			ReservationVO vo = reservationService.selectReservationInfo(reservationNum);
+			
 		} else {
+		
 			ChatVO vo = parseMessage(message);
 			System.out.println(">>>>>>>> from : " + vo.getFromNick() + ", 내용 : " + vo.getContent() + ", 읽음 체크 : " + vo.getReadCheck());
 			chatService.insertMessage(vo);

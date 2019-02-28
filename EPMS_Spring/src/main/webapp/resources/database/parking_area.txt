@@ -29,3 +29,33 @@ create table parking_area_personal (
 alter table parking_area_personal add constraint pap_fk
 foreign key(pap_address) references parking_area(pa_address) on delete cascade;
 commit;
+
+-- 대여내역 시퀸스
+drop sequence  r_seq;
+create sequence r_seq
+start with 1
+increment by 1;
+commit;
+
+-- 대여 테이블(예약됨, 예약중, 예약취소, 사용완료)
+drop table reservation;
+create table reservation(
+   r_no number(7) not null,
+   r_guest varchar2(20) not null,
+   r_host varchar2(20) not null,
+   r_address varchar2(100) not null,
+   r_area varchar2(100) not null,
+   r_content varchar2(300) null,
+   r_from date not null,
+   r_to date not null,
+   r_request date not null,
+   r_agree date,
+   r_statusdate date,
+   r_lastdate date,
+   r_guestread varchar2(10),
+   r_hostread varchar2(10),
+   r_status varchar2(20) not null,
+   primary key(r_no)
+);
+
+commit;

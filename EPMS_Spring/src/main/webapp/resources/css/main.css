@@ -154,3 +154,7 @@ html,body {
 	}
 }
 
+.swal-text, .swal-title, .swal-button {
+	font-family: sangsangBody !important;
+}
+

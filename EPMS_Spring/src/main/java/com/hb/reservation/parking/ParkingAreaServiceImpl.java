@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hb.reservation.ReservationVO;
+
 import common.Paging;
 
 @Service
@@ -27,6 +29,11 @@ public class ParkingAreaServiceImpl implements IParkingAreaService{
 			paging.calulate();
 			  
 		return parkingAreaDAOMapper.selectSearchList(paging);
+	}
+	
+	@Override
+	public List<PersonalParkingAreaVO> selectPersonalAreaList(ReservationVO dto) {
+		return parkingAreaDAOMapper.selectPersonalAreaList(dto);
 	}
 
 }

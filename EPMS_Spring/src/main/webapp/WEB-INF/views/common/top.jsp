@@ -25,6 +25,7 @@
 					</c:if>
 					<c:if test="${sessionScope.dto.id != null}">
 						<input type="hidden" name="sessionScopeNick" id="sessionScopeNick" value="${sessionScope.dto.nickname}">
+						<input type="hidden" name="sessionScopeImg" id="sessionScopeImg" value="${sessionScope.dto.profile_img}">
 						<li class="nav-item top_loginState">
 							<img src="${pageContext.request.contextPath}/resources/upload/${sessionScope.dto.profile_img}" width="25px" height="25px">
 							<a>${sessionScope.dto.nickname}</a>

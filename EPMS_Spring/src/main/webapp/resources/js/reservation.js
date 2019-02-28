@@ -20,7 +20,7 @@ function mainSearchAjax(pageNUM) {
 	}
 	
 	$.ajax({
-		url: '../reservation/searchList.do',
+		url: '../reservationPage/searchList.do',
 		data: {"keyfield": selectArea, "keyword": $('#searchAreaText').val(), "pageNum" : pageNum },
 		dataType: "json",
 		success: function(data) {
