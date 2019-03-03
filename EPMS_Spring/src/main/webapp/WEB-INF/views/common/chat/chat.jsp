@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   
   <!-- css -->
+  <link rel="stylesheet" href="../resources/css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="../resources/chat/css/styles.css">
  
   <title>Chat</title>
@@ -32,13 +33,14 @@
 		}
 		
 		// 읽지않은 쪽지 갯수 체크
-		var notReadCount = "${notReadCount}";
-		
-		if(notReadCount != "0" && notReadCount != null && notReadCount != "" && notReadCount != 0)	{
+		var notReadCount = "${notReadCount}"*1;
+		var reservationNotReadCount = "${reservationNotReadCount}"*1;
+		var total = notReadCount + reservationNotReadCount;
+		if(total != "0" && total != null && total != "" && total != 0)	{
 			if(parent.$('body').find('.chatBt_notReadCounter').length == 0) {
-				parent.$('button.chatBt').after('<span class="chatBt_notReadCounter">' + notReadCount + '</span>');
+				parent.$('button.chatBt').after('<span class="chatBt_notReadCounter">' + total + '</span>');
 			} else {
-				parent.$('.chatBt_notReadCounter').html(notReadCount);
+				parent.$('.chatBt_notReadCounter').html(total);
 			}
 		} else {
 			if(parent.$('body').find('.chatBt_notReadCounter').length == 1) {
@@ -73,7 +75,7 @@
 	});
 	
 	// 웹소켓 연결
-	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
 	webSocket.onopen = function() {
 		// 상대방의 채팅 메세지에 읽음 표시 삭제
 		var opponentNick = "${opponent}";
@@ -93,41 +95,55 @@
 			var msg = JSON.parse(data.data);
 			var nickname = "${sessionScope.dto.nickname}";
 			var opponentNick = "${opponent}";
+			var path = "${pageContext.request.contextPath}";
+			
+			// 예약 관련 문자일 때 변수명 통일
+			if(msg.message_type == "reservation") {
+				msg.fromNick = msg.r_guest;
+				msg.toNick = msg.r_host;
+			}
 			// 자신이 보낸 메세지일 때
 			if(msg.fromNick == nickname && msg.toNick == opponentNick) {
-				$('.chat').append('<div class="chat__message chat__message-from-me">' + 
-									  '<font class="readcheck" color="yellow"> 1 &nbsp; </font>' +
-						    		  '<span class="chat__message-time">' + msg.writeDate + '</span>' +   
-						    		  	'<span class="chat__message-body">' +
-		    									msg.content + 
-							    		'</span>' +	
-							      	  '</span>' + 
-					  			  '</div>');
+				// 내가 보낸 메세지가 예약관련 일 때
+				if(msg.message_type == "reservation") {
+					appendChatListFromMe(msg.r_guest + '님의 예약요청입니다.<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
+				// 내가 보낸 메세지가 일반 메세지 일 때
+				} else {
+					appendChatListFromMe(msg.content, msg.writeDate);
+				}
+				
 			// 상대방이 보낸 매세지인데 방나간 메세지가 아닐때	
 			} else if(msg.fromNick == opponentNick && msg.toNick == nickname && msg.content != "#$%Room Out#$%" ) {
-				var path = "${pageContext.request.contextPath}";
-				$('.chat').append('<div class="chat__message chat__message-to-me">' + 
-					  	'<img src="' + path + '/resources/upload/' + msg.fromNick_profileImg + '" alt="" class="chat-message-avatar">' +
-		              	'<div class="chat__message-center">' +
-		      				'<h3 class="chat__message-username">'+ msg.fromNick + '</h3>' +
-		      				'<span class="chat__message-body">' +
-		      					msg.content + 
-		      			    '</span>' +
-		      			'</div>' +
-		      			'<span class="chat__message-time">' + msg.writeDate + '</span>' +
-		      		  '</div>');
-				
-				$.ajax({
-					url: "../chatting/chatReading.do",
-					data : msg,
-					success: function() {
-						webSocket.send("connected with " + opponentNick);
-					}
-				});
-			// 상대방이 보낸 메세지인데 방나감 알림 메세지 일 때 
-			} else if(msg.fromNick == opponentNick && msg.toNick == nickname && msg.content == "#$%Room Out#$%"){
-				$('.chat').append('<div class="date-divider"><span class="date-divider__text">' + opponentNick + '님이 방을 나갔습니다.</span></div>');
-				changeChatState();
+				// 상대방의 메세지가 예약관련 일 때
+				if(msg.message_type == "reservation") {
+					appendChatListToMe(msg.r_guest, msg.r_guest_profileImg, msg.r_guest + '님의 예약요청입니다.<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+					changeChatBtnCounter(1);
+				// 상대방의 메세지가 방나갔다는 메세지 일 때
+				} else if(msg.content == "#$%Room Out#$%") {
+					$('.chat').append('<div class="date-divider"><span class="date-divider__text">' + opponentNick + '님이 방을 나갔습니다.</span></div>');
+					changeChatState();
+				// 일반 메세지 일 때
+				} else {
+					appendChatListToMe(msg.fromNick, msg.fromNick_profileImg, msg.content, msg.writeDate, path);				
+					$.ajax({
+						url: "../chatting/chatReading.do",
+						data : msg,
+						success: function() {
+							webSocket.send("connected with " + opponentNick);
+						}
+					});
+				}
+					
+			// 해당 방의 상대방이 아닌 다른 사용자의 메세지가 왔을 때
+			} else if(msg.fromNick != opponentNick && msg.toNick == nickname) {
+				// 메세지가 예약관련이면 버튼 카운트 +2
+				if(msg.message_type == "reservation") {
+					changeChatBtnCounter(2);
+				// 메세지가 일반 메세지이면 버튼 카운트 +1
+				} else {
+					changeChatBtnCounter(1);
+				}
+				return false;
 			}
 			// 스크롤을 맨 아래로 내림
 			$("main").scrollTop($("main")[0].scrollHeight);
@@ -169,9 +185,13 @@
 		    </span>
 		    <span class="chat__message-body">
 		      ${list.content}
+		      <c:if test="${list.messageType == 'reservationRequest'}">
+		      	<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">
+		      </c:if>
 		    </span>
 		  </div>
   		</c:when>
+  		
   		<c:when test="${list.fromNick != sessionScope.dto.nickname && list.content != '#$%Room Out#$%' }">
 		  <div class="chat__message chat__message-to-me">
 		    <img src="${pageContext.request.contextPath}/resources/upload/${list.fromNick_profileImg}" alt="" class="chat-message-avatar">
@@ -179,6 +199,9 @@
 		      <h3 class="chat__message-username">${list.fromNick}</h3>
 		      <span class="chat__message-body">
 		        ${list.content}
+		        <c:if test="${list.messageType == 'reservationRequest'}">
+		      	  <br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">
+		     	</c:if>
 		      </span>
 		    </div>
 		    <span class="chat__message-time">${list.writeDate}</span>
@@ -213,7 +236,7 @@
 		content = content.replaceAll('"','\\"');
 		var nickname = "${sessionScope.dto.nickname}";
 		var profileImg = "${sessionScope.dto.profile_img}";
-		var jsonMsg = '{"fromNick":"'+nickname+'", "toNick":"'+ opponentNick +'", "content":"' + content+'", "readCheck":"0" , "fromNick_profileImg" : "' + profileImg + '"}';
+		var jsonMsg = '{"messageType": "normal","fromNick":"'+nickname+'", "toNick":"'+ opponentNick +'", "content":"' + content+'", "readCheck":"0" , "fromNick_profileImg" : "' + profileImg + '"}';
 		webSocket.send(jsonMsg);
 		$('.chatSendMsg').val("");
 		$('.chatSendMsg').focus();
@@ -237,7 +260,7 @@
 					  var opponentNick = "${opponent}";
 					  var nickname = "${sessionScope.dto.nickname}";
 					  var profileImg = "${sessionScope.dto.profile_img}";
-					  var jsonMsg = '{"fromNick":"'+nickname+'", "toNick":"'+ opponentNick +'", "content":"' + content+'", "readCheck":"1" , "fromNick_profileImg" : "' + profileImg + '"}';
+					  var jsonMsg = '{"messageType": "normal","fromNick":"'+nickname+'", "toNick":"'+ opponentNick +'", "content":"' + content+'", "readCheck":"1" , "fromNick_profileImg" : "' + profileImg + '"}';
 					  webSocket.send(jsonMsg);
 					  swal("잠시만 기다려주세요....", {
 						  buttons: false,
@@ -255,6 +278,7 @@
 		  });
 	});
 </script>
-<script src="../resources/chat/js/chats.js"></script>
+<script src="../resources/chat/js/chat.js"></script>
+<script src="../resources/js/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>

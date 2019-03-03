@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hb.account.AccountVO;
+import com.hb.reservation.ReservationVO;
 
 @Controller
 @RequestMapping("/chat")
@@ -34,7 +35,10 @@ public class ChatPageController {
 	}
 	 
 	@GetMapping("/find.do")
-	public String showFind() {
+	public String showFind(HttpSession session, Model model) {
+		String nickname = ((AccountVO)session.getAttribute("dto")).getNickname();
+		ArrayList<ReservationVO> list = chatService.selectReservationList(nickname);
+		model.addAttribute("list", list);
 		return "/common/chat/find";
 	}
 	

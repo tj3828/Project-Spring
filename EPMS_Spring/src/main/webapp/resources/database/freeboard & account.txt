@@ -8,6 +8,7 @@ create sequence chatting_seq;
 drop table chatting;
 create table chatting (
 	num number not null,
+	messageType varchar2(50) not null,
 	fromNick varchar2(100) not null,
 	fromNick_profileImg varchar2(150) not null,
 	toNick varchar2(100) not null,

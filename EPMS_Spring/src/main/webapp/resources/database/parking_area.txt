@@ -42,7 +42,9 @@ drop table reservation;
 create table reservation(
    r_no number(7) not null,
    r_guest varchar2(20) not null,
+   r_guest_profileImg varchar2(150),
    r_host varchar2(20) not null,
+   r_host_profileImg varchar2(150),
    r_address varchar2(100) not null,
    r_area varchar2(100) not null,
    r_content varchar2(300) null,

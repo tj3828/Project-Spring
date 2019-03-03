@@ -48,7 +48,7 @@
 		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
-	var webSocket = new WebSocket("ws://localhost:8081/b/ws");
+	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {

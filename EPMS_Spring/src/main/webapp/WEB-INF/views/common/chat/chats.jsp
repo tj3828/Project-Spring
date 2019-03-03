@@ -25,20 +25,10 @@
 		}
 		
 		// 읽지않은 쪽지 갯수 체크
-		var notReadCount = "${notReadCount}";
+		var notReadCount = "${notReadCount}"*1;
+		var reservationNotReadCount = "${reservationNotReadCount}"*1;
+		initNotReadCount(notReadCount, reservationNotReadCount);
 		
-		if(notReadCount != "0" && notReadCount != null && notReadCount != "" && notReadCount != 0)	{
-			if(parent.$('body').find('.chatBt_notReadCounter').length == 0) {
-				parent.$('button.chatBt').after('<span class="chatBt_notReadCounter">' + notReadCount + '</span>');
-			} else {
-				parent.$('.chatBt_notReadCounter').html(notReadCount);
-			}
-			$('.fa-comment').after('<span class="Bottom_notReadCounter">' + notReadCount + '</span>');
-		} else {
-			if(parent.$('body').find('.chatBt_notReadCounter').length == 1) {
-				parent.$('.chatBt_notReadCounter').remove();
-			}
-		}
 	});
 	
 	// 페이지 없어질 때 상태에 따른 쿠키 저장
@@ -52,8 +42,11 @@
 		}
 	});
 	
+
+	var notReadCount; 
+	
 	// 웹소켓 연결
-	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -64,86 +57,55 @@
 			// 메세지형태 일 때만 처리
 			var msg = JSON.parse(data.data);
 			var nickname = "${sessionScope.dto.nickname}";
-			if(msg.toNick == nickname) {
-				
-				var notReadCount = 1; 
-				
-				$('.chat__user').each(function() {
-					if($(this).text() == msg.fromNick) {
-						// 나에게 온 메세지인데 방나갔다는 메세지 일 경우
-						if(msg.content == '#$%Room Out#$%') {
-							$(this).closest("li").find('.chat__last-message').html(msg.fromNick + "님이 나갔습니다.");
-							return false;
-						}
-						var exist = $(this).closest("li").find('.notReadCounter').html() * 1;
-						if(exist == null || exist == "" || exist == 0 || isNaN(exist)) {
-							exist = 0;
-						}
-						notReadCount = exist + 1;
-						$(this).closest("li").remove();
-					}
-				});
-				
-				// 메세지이지만 방나간 메세지를 제외하고
-				if(msg.content != '#$%Room Out#$%') {
-					var Bottom_ReservationNotReadCounter = $('.Bottom_ReservationNotReadCounter').html() *1;
-					var chatBt_notReadCounter = parent.$('.chatBt_notReadCounter').html() *1;
-					var Bottom_notReadCounter = $('.Bottom_notReadCounter').html() *1;
-
-					if(chatBt_notReadCounter == null || chatBt_notReadCounter == "" || chatBt_notReadCounter == 0 || isNaN(chatBt_notReadCounter)) {
-						parent.$('button.chatBt').after('<span class="chatBt_notReadCounter"></span>');
-						chatBt_notReadCounter = 0;
-					}
-					
-					// 예약 요청 메세지 왔을 때
-					if(msg.content.startsWith("#$%Reservation#$%")) {
-						
-						if(Bottom_ReservationNotReadCounter == null || Bottom_ReservationNotReadCounter == "" || Bottom_ReservationNotReadCounter == 0 || isNaN(Bottom_ReservationNotReadCounter)) {
-							$('.fa-search').after('<span class="Bottom_ReservationNotReadCounter"></span>');
-							
-							Bottom_ReservationNotReadCounter = 0;
-						}
-						Bottom_ReservationNotReadCounter += 1;
-						chatBt_notReadCounter += 1;
-						
-						$('.Bottom_ReservationNotReadCounter').html(Bottom_ReservationNotReadCounter);
-						parent.$('.chatBt_notReadCounter').html(Bottom_notReadCounter);
-						msg.content.replace("#$%Reservation#$%","");
-						
+			var path = "${pageContext.request.contextPath}";
+			var notReadCount = 1; 
+			
+			// 메세지가 예약관련 메세지 일 떄
+			if(msg.message_type == "reservation") {
+				// 예약요청 메세지일 때
+				if(msg.r_status == "예약중") {
+					// 내가 예약 요청한 메세지 일 때
+					if(msg.r_guest == nickname) {
+						notReadCount = removeChatsList(msg.r_host);
+						prependList(msg.r_host, msg.r_host_profileImg, msg.r_guest+'님의 예약요청입니다.', msg.r_request, notReadCount, path);
+												
+					// 다른 사람이 요청했을 경우
 					} else {
+						notReadCount = removeChatsList(msg.r_guest);
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+						prependList(msg.r_guest, msg.r_guest_profileImg, msg.r_guest+'님의 예약요청입니다.', msg.r_request, notReadCount, path);
 						
-						if(Bottom_notReadCounter == null || Bottom_notReadCounter == "" || Bottom_notReadCounter == 0 || isNaN(Bottom_notReadCounter)) {
-							$('.fa-comment').after('<span class="Bottom_notReadCounter"></span>');
-							parent.$('button.chatBt').after('<span class="chatBt_notReadCounter"></span>');
-							Bottom_notReadCounter = 0;
-						}
-						Bottom_notReadCounter += 1;
-						chatBt_notReadCounter += 1;
-						
-						parent.$('.chatBt_notReadCounter').html(chatBt_notReadCounter);
-						$('.Bottom_notReadCounter').html(Bottom_notReadCounter);
 					}
+				}
 				
-					var path = "${pageContext.request.contextPath}";
-					$('.chats__list').prepend('<li class="chats__chat">' +
-					        				  	'<a href="javascript:location.replace(\'../chat/chat.do?opponent=' + msg.fromNick + '\');">' +
-											          '<div class="chat__content">' + 
-											          '<img src="' + path + '/resources/upload/' + msg.fromNick_profileImg + '">' + 
-										            		'<div class="chat__preview">' +
-										                		'<h3 class="chat__user">' +
-										            				msg.fromNick	+
-										            			'</h3>' +
-										                		'<span class="chat__last-message">' + 
-										                			msg.content + 
-										                		'</span>' +
-										                	'</div>' +
-											          '</div>' +
-											          '<span class="chat__date-time">' +
-											          		'<span class="notReadCounter" style="position: inherit; left:0px;">' + notReadCount + '</span>&nbsp;&nbsp;' +
-											          		msg.writeDate +
-											          '</span>' +
-											     '</a>' +
-											   '</li>');
+			// 일반 메세지 타입일 경우
+			} else {
+				// 채팅방에서의 상황은 내가 받는 경우 밖에 없기 떄문에
+				if(msg.toNick == nickname) {
+					$('.chat__user').each(function() {
+						if($(this).text() == msg.fromNick) {
+							// 나에게 온 메세지인데 방나갔다는 메세지 일 경우
+							if(msg.content == '#$%Room Out#$%') {
+								$(this).closest("li").find('.chat__last-message').html(msg.fromNick + "님이 나갔습니다.");
+								return false;
+							}
+							var exist = $(this).closest("li").find('.notReadCounter').html() * 1;
+							if(exist == null || exist == "" || exist == 0 || isNaN(exist)) {
+								exist = 0;
+							}
+							notReadCount = exist + 1;
+							$(this).closest("li").remove();
+						}
+					});
+					
+					// 메세지이지만 방나간 메세지를 제외하고
+					if(msg.content != '#$%Room Out#$%') {
+						changeChatBtnCounter(1);
+						changeChatsReadCounter();
+						prependList(msg.fromNick, msg.fromNick_profileImg, msg.content, msg.writeDate, notReadCount, path);
+					}
 				}
 			}
 		}
@@ -234,6 +196,7 @@
       <span class="tab-bar__title">More</span>
     </a>
   </nav>
-  <script src="../resources/chat/js/chat.js"></script>
+  <script src="../resources/chat/js/chats.js"></script>
+  <script src="../resources/chat/js/navigation.js"></script>
 </body>
 </html>

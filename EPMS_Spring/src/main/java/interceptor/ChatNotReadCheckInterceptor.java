@@ -27,6 +27,7 @@ public class ChatNotReadCheckInterceptor extends HandlerInterceptorAdapter {
 			int cnt = chatService.selectNotReadCheck(vo);
 			int reservationNotReadCount = chatService.selectReservationNotReadCheck(vo);
 			modelAndView.addObject("notReadCount", cnt);
+			modelAndView.addObject("reservationNotReadCount", reservationNotReadCount);
 		}
 	}
 

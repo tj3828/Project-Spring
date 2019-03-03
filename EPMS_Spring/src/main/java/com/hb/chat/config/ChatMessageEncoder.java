@@ -9,7 +9,7 @@ import javax.websocket.EndpointConfig;
 
 import com.hb.chat.ChatVO;
 
-public class ChatEncoder implements Encoder.Text<ChatVO> {
+public class ChatMessageEncoder implements Encoder.Text<ChatVO> {
 
   @Override
   public String encode(ChatVO chatVO) throws EncodeException {
@@ -18,6 +18,7 @@ public class ChatEncoder implements Encoder.Text<ChatVO> {
    
     Json.createGenerator(writer)
             .writeStartObject()
+              .write("messageType", chatVO.getMessageType())
               .write("fromNick", chatVO.getFromNick())
               .write("toNick", chatVO.getToNick())
               .write("writeDate", chatVO.getWriteDate())

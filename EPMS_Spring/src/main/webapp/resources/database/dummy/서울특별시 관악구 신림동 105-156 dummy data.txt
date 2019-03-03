@@ -1,0 +1,26 @@
+insert into parking_area values(pa_seq.nextval,'서울','관악','서울특별시 관악구 신림동 105-156',37.474294, 126.937090);
+
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-1','101');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-2','102');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-4','103');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-7','104');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-8','105');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-9','106');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-34','107');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-5','108');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-3','109');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-35','110');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-33','111');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-6','112');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-32','113');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-22','114');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-23','115');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-27','116');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-28','117');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-10','118');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-11','119');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-12','200');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-13','201');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-14','202');
+insert into parking_area_personal values('서울특별시 관악구 신림동 105-156','15-64-29','203');
+

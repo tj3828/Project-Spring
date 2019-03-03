@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hb.chat.IChatDAOMapper;
 import com.hb.reservation.parking.IParkingAreaDAOMapper;
 import com.hb.reservation.parking.PersonalParkingAreaVO;
 
@@ -15,8 +16,9 @@ import com.hb.reservation.parking.PersonalParkingAreaVO;
 public class ReservationServiceImpl implements IReservationService {
 
 	@Inject
-	IReservationDAOMapper reservationDAOMapper;
-	
+	IReservationDAOMapper reservationDAOMapper;	
+	@Inject
+	IChatDAOMapper chatDAOMapper;	
 	@Inject
 	IParkingAreaDAOMapper parkingAreaDAOMapper;
 	
@@ -36,6 +38,36 @@ public class ReservationServiceImpl implements IReservationService {
 	@Override
 	public ReservationVO selectReservationInfo(int no) {
 		return reservationDAOMapper.selectReservationInfo(no);
+	}
+
+	@Override
+	public void updateChangeGuestReadCheck(ReservationVO dto) {
+		reservationDAOMapper.updateChangeGuestReadCheck(dto);
+	}
+
+	@Override
+	public void updateAcceptReservation(ReservationVO dto) {
+		reservationDAOMapper.updateAcceptReservation(dto);	
+	}
+
+	@Override
+	public void updateChangeHostReadCheck(ReservationVO dto) {
+		reservationDAOMapper.updateChangeHostReadCheck(dto);		
+	}
+
+	@Override
+	public void updateInjectReservation(ReservationVO dto) {
+		reservationDAOMapper.updateInjectReservation(dto);
+	}
+
+	@Override
+	public void updateCancelGuestReservation(ReservationVO dto) {
+		reservationDAOMapper.updateCancelGuestReservation(dto);
+	}
+
+	@Override
+	public void updateCancelHostReservation(ReservationVO dto) {
+		reservationDAOMapper.updateCancelHostReservation(dto);
 	}
 
 }

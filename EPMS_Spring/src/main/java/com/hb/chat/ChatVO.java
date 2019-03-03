@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ChatVO {
 	private int num;
+	private String messageType;
 	private String fromNick;
 	private String fromNick_profileImg;
 	private String toNick;

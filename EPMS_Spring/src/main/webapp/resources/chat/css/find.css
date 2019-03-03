@@ -1,9 +1,20 @@
+@font-face {
+	font-family: 'sangsangBody';
+	src: url('/b/resources/font/SangSangBodyL.ttf');
+}
+
+@font-face {
+	font-family: 'sangsangTitle';
+	src: url('../font/SangSangTitleB.ttf')
+}
+
 .find .find__options {
   background-color: #eeeeee;
   display: flex;
   justify-content: space-between;
   padding-top: 25px;
   padding-bottom: 15px;
+  border-bottom: 1px solid #c1c1c1;
 }
 
 .find__options .find__option {
@@ -12,8 +23,12 @@
   align-items: center;
   justify-content: space-between;
   padding-left: 30px;
-  padding-right: 5px;
-  color: #523737;
+  padding-right: 30px;
+  color: #c1c1c1;
+}
+
+.find__option .find__option--selected {
+  color: #523737 !important;
 }
 
 .find__option i {
@@ -32,9 +47,16 @@
 }
 
 .recommended__none {
-  padding: 20px 0;
+  padding: 10px;
+  padding-top:0px;
   text-align: center;
   border-bottom: 1px solid #ebebeb;
   color: #b4b4b4;
   font-size: 14px;
+}
+
+.reservation_RequestBt .btn {
+	padding-top:3px;
+	padding-bottom: 3px;
+	font-family: sangsangBody;
 }

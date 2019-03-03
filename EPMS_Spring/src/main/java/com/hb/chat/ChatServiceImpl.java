@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hb.account.AccountVO;
+import com.hb.reservation.IReservationDAOMapper;
+import com.hb.reservation.ReservationVO;
 
 @Service
 @Transactional
@@ -16,6 +18,9 @@ public class ChatServiceImpl implements IChatService {
 
 	@Inject
 	IChatDAOMapper chatDAOMapper;
+	
+	@Inject
+	IReservationDAOMapper reservationDAOMapper;
 	
 	@Override
 	public void insertMessage(ChatVO dto) {
@@ -56,6 +61,11 @@ public class ChatServiceImpl implements IChatService {
 
 	@Override
 	public int selectReservationNotReadCheck(AccountVO vo) {
-		return 0;
+		return reservationDAOMapper.selectReservationNotReadCheck(vo);
+	}
+
+	@Override
+	public ArrayList<ReservationVO> selectReservationList(String nickname) {
+		return reservationDAOMapper.selectReservationList(nickname);
 	}
 }
