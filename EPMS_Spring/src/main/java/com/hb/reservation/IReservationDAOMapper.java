@@ -91,7 +91,7 @@ public interface IReservationDAOMapper {
 			"	r_status "	+ 
 			"from reservation "	+ 
 			"where r_guest = #{nickname} or r_host = #{nickname} " + 
-			"order by r_statusdate desc" )
+			"order by r_lastdate desc" )
 	ArrayList<ReservationVO> selectReservationList(@Param("nickname") String nickname);
 
 	@Update("update reservation set r_guestRead = 'true' where r_no = #{r_no} ")
@@ -124,7 +124,7 @@ public interface IReservationDAOMapper {
 				before=false, resultType=ReservationVO.class)
 	void updateAcceptReservation(ReservationVO dto);
 	
-	@Update("update reservation set r_guestRead = 'false', r_hostRead = 'true',r_agree = sysdate, r_lastdate = sysdate, r_status='예약취소' where r_no = #{r_no}")
+	@Update("update reservation set r_guestRead = 'false', r_hostRead = 'true', r_lastdate = sysdate, r_status='예약취소' where r_no = #{r_no}")
 	@SelectKey(statement="select " + 
 						"	r_no, "	+ 
 						"	r_guest, "	+ 

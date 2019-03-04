@@ -115,7 +115,7 @@ nav {
 	flex: 1;
 	content: "";
 	top:50%;
-	height: 4.5vmin;
+	height: 4vmin;
 	width: 39%;
 	background: #FFE500; 
 	margin-right: 3%;
@@ -128,7 +128,7 @@ nav {
 	flex: 1;
 	content: "";
 	top:50%;
-	height: 4.5vmin;
+	height: 4vmin;
 	width: 39%;
 	background: #FFE500; 
 	margin-left: 3%;

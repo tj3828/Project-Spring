@@ -53,7 +53,7 @@ function prependList(fromNick, fromNick_profileImg, content, writeDate, notReadC
 	                	'</div>' +
 		          '</div>' +
 		          '<span class="chat__date-time">' +
-		          		'<span class="notReadCounter" style="position: inherit; left:0px;">' + notReadCount + '</span>&nbsp;&nbsp;' +
+		          	(notReadCount != 0 ? '<span class="notReadCounter" style="position: inherit; left:0px;">' + notReadCount + '</span>&nbsp;&nbsp;' : "") +
 		          		writeDate +
 		          '</span>' +
 		     '</a>' +

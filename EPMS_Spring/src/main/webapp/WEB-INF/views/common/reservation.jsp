@@ -37,7 +37,7 @@
 			<div class="main-logo">
 				<div class="main-logo-img">
 					<div class="logo_left"></div>
-					<img class="img-fluid" src="../resources/images/mainIcon/mainlogo3.png" width="15%" height="auto">
+					<img class="img-fluid" src="../resources/images/mainIcon/mainlogo_ch.png" width="15%" height="auto"> 
 					<div class="logo_right"></div>
 				</div>
 			</div>

@@ -15,6 +15,7 @@
   <title>Chats</title>
 </head>
 <script type="text/javascript">
+	window.show_leaving_warning = false;
 	$(document).ready(function() {
 		// 페이지 이동간 채팅 상태 유지
 		var chatScroll = "${cookie.chatScroll.value}";
@@ -46,7 +47,7 @@
 	var notReadCount; 
 	
 	// 웹소켓 연결
-	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
+	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -62,21 +63,104 @@
 			
 			// 메세지가 예약관련 메세지 일 떄
 			if(msg.message_type == "reservation") {
-				// 예약요청 메세지일 때
+				// 메세지 구분
+				var content = "";
 				if(msg.r_status == "예약중") {
-					// 내가 예약 요청한 메세지 일 때
-					if(msg.r_guest == nickname) {
-						notReadCount = removeChatsList(msg.r_host);
-						prependList(msg.r_host, msg.r_host_profileImg, msg.r_guest+'님의 예약요청입니다.', msg.r_request, notReadCount, path);
-												
-					// 다른 사람이 요청했을 경우
-					} else {
-						notReadCount = removeChatsList(msg.r_guest);
+					content += msg.r_guest + "님의 예약요청입니다.";
+				} else if(msg.r_status == "예약완료") {
+					content += msg.r_host + "님이 예약을 승인했습니다.";
+				} else if(msg.r_status == "예약취소") {
+					if(msg.r_agree != "") {
+						if(msg.r_hostRead == 'false') {
+							content += msg.r_guest + "님이 예약을 취소했습니다.";
+						} else if (msg.r_guestRead == 'false') {
+							content += msg.r_host + "님이 예약을 취소했습니다.";
+						}
+					} else { 
+						if(msg.r_hostRead == 'false') {
+							content += msg.r_guest + "님이 예약을 취소했습니다.";
+						} else if(msg.r_guestRead == 'false') {
+							content += msg.r_host + "님이 예약을 거절했습니다.";
+						}
+					}
+				} else if(msg.r_status == "사용완료") {
+					content += msg.r_guest + "님이 사용완료하였습니다.";
+				}
+				
+				// 내가 예약 요청한 메세지 일 때
+				if(msg.r_guest == nickname) {
+					notReadCount = removeChatsList(msg.r_host);
+					if(msg.r_status == "예약중") {
+						prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount -1, path);
+					} else if(msg.r_status == "예약완료") {
+						prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount, path);
 						changeChatBtnCounter(2);
 						changeChatsReadCounter();
 						changeReservationReadCounter(1);
-						prependList(msg.r_guest, msg.r_guest_profileImg, msg.r_guest+'님의 예약요청입니다.', msg.r_request, notReadCount, path);
+					} else if(msg.r_status == "예약취소") {
+						if(msg.r_agree != "") {
+							if(msg.r_hostRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount-1, path);
+							} else if(msg.r_guestRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount, path);
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							}
+							
+						} else {
+							if(msg.r_hostRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount-1, path);
+							} else if(msg.r_guestRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount, path);
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							}
+						}
+					} else if(msg.r_status == "사용완료") {
+						prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount, path);
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+					}
 						
+				// 다른 사람이 요청했을 경우
+				} else if(msg.r_host == nickname ) {
+					notReadCount = removeChatsList(msg.r_guest);
+					if(msg.r_status == "예약중") {
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+						prependList(msg.r_guest, msg.r_guest_profileImg, content, msg.r_request, notReadCount, path);
+					} else if(msg.r_status == "예약완료") {
+						prependList(msg.r_guest, msg.r_guest_profileImg, content, msg.r_request, notReadCount-1, path);
+					} else if(msg.r_status == "예약취소") {
+						if(msg.r_agree != "") {
+							if(msg.r_hostRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount, path);
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							} else if (msg.r_guestRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount-1, path);
+							}
+							prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount-1, path);
+						} else {
+							if(msg.r_hostRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount, path);
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							} else if(msg.r_guestRead == 'false') {
+								prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount-1, path);
+							}
+						}
+					} else if(msg.r_status == "사용완료") {
+						prependList(msg.r_host, msg.r_host_profileImg, content , msg.r_request, notReadCount, path);
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
 					}
 				}
 				
@@ -189,7 +273,7 @@
     </a>
     <a href="javascript:location.replace('../chat/find.do')" class="tab-bar__tab">
       <i class="fa fa-search"></i>
-      <span class="tab-bar__title">Find</span>
+      <span class="tab-bar__title">Reservation</span>
     </a>
     <a href="javascript:location.replace('../chat/more.do')" class="tab-bar__tab">
       <i class="fa fa-ellipsis-h"></i>

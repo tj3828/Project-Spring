@@ -16,6 +16,7 @@
   <title>Find</title>
 </head>
 <script type="text/javascript">
+	window.show_leaving_warning = false;
 	$(document).ready(function() {
 		var chatScroll = "${cookie.chatScroll.value}";
 		if(chatScroll == null || chatScroll =="") {
@@ -32,16 +33,15 @@
 	
 	$(window).on('beforeunload', function() {
 		var login = "${sessionScope.dto.id}";
-		if(login == null || login == "") {
-			return false;
+		if(login != null && login != "") {
+			document.cookie = "chatPage=" + escape(4) + "; path=/;";
+			
+			var currentScroll = $(document).scrollTop();
+			document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 		}
-		document.cookie = "chatPage=" + escape(4) + "; path=/;";
-		
-		var currentScroll = $(document).scrollTop();
-		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
-	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
+	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -62,7 +62,7 @@
 						changeChatBtnCounter(2);
 						changeReservationReadCounter(1);
 					} else if(msg.r_guest == nickname) {
-						var html = prependReservationList(1, msg.r_host, msg.r_host_profileImg, path, msg.r_status, msg.r_nom, msg.r_from + " ~ " + msg.r_to, msg.r_lastDate, msg.r_content);
+						var html = prependReservationList(1, msg.r_host, msg.r_host_profileImg, path, msg.r_status, msg.r_no, msg.r_from + " ~ " + msg.r_to, msg.r_lastDate, msg.r_content);
 						$('.find_Request ul').prepend(html);
 					}
 				
@@ -75,21 +75,38 @@
 						var html = prependReservationList(1, msg.r_host, msg.r_host_profileImg, path, msg.r_status, msg.r_no, msg.r_from + " ~ " + msg.r_to, msg.r_lastDate, msg.r_content);
 						$('.find_Request ul').prepend(html);
 						changeRequestNotReadCount(1);
+						changeReservationReadCounter(1);
 						changeChatsReadCounter();
 						changeChatBtnCounter(2);
 					}
 				} else if(msg.r_status == "예약취소" || msg.r_status == "사용완료") {
 					$(".list"+msg.r_no).closest("li").remove();
 					var html = prependReservationListEx(msg, nickname, path);
-					prependReservationListEx(html);
+					$('.find_Expiration ul').prepend(html);
 					
-					if(msg.r_guest == nickname && msg.r_guestRead == 'false') {
+					if(msg.r_guest == nickname && msg.r_agree != "") {
+						if(msg.r_guestRead == 'false') {
+							changeExpirationNotReadCount(1);
+							changeRequestNotReadCount(-1);
+							changeChatsReadCounter();
+							changeChatBtnCounter(1);
+						} else if(msg.r_guestRead == 'true') {
+							changeExpirationNotReadCount(1);
+							changeChatsReadCounter();
+							changeReservationReadCounter(1);
+							changeChatBtnCounter(2);
+						}
+						
+					} else if(msg.r_guest == nickname && msg.r_guestRead == 'false' && msg.r_agree == ""){
 						changeExpirationNotReadCount(1);
 						changeChatsReadCounter();
+						changeReservationReadCounter(1);
 						changeChatBtnCounter(2);
+						
 					} else if (msg.r_host == nickname && msg.r_hostRead == 'false') {
 						changeExpirationNotReadCount(1);
 						changeChatsReadCounter();
+						changeReservationReadCounter(1);
 						changeChatBtnCounter(2);
 					}
 				} 
@@ -128,10 +145,10 @@
   		<c:when test="${list.r_guest == sessionScope.dto.nickname && ((list.r_status == '예약중' && list.r_guestRead == 'false') || (list.r_status == '예약완료' && list.r_guestRead == 'false'))}">
   			<c:set var="requestNotReadCount" value="${requestNotReadCount +1 }"/>
   		</c:when>
-  		<c:when test="${list.r_host == sessionScope.dto.nickname  && (list.r_status == '사용완료' || list.r_status == '예약취소') && list.r_host == 'false' }">
+  		<c:when test="${list.r_host == sessionScope.dto.nickname  && (list.r_status == '사용완료' || list.r_status == '예약취소') && list.r_hostRead == 'false' }">
   			<c:set var="expirationNotReadCount" value="${expirationNotReadCount +1 }"/>
   		</c:when>
-  		<c:when test="${list.r_guest == sessionScope.dto.nickname  && (list.r_status == '사용완료' || list.r_status == '예약취소') && list.r_guest == 'false' }">
+  		<c:when test="${list.r_guest == sessionScope.dto.nickname  && (list.r_status == '사용완료' || list.r_status == '예약취소') && list.r_guestRead == 'false' }">
   			<c:set var="expirationNotReadCount" value="${expirationNotReadCount +1 }"/>
   		</c:when>
   	</c:choose>	
@@ -297,12 +314,12 @@
 			    	<div style="padding-bottom:10px;">
 			        	<span class="recommended__text">${list.r_from} ~ ${list.r_to}</span>
 			        </div>
-			        <c:if test="${list.r_guestRead == 'false' }">
-				        <div class="reservation_RequestBt">
-				        	<input type="button" class="btn btn-primary expirationNotReadCount" onclick="changeGuestReadCheckEx(${list.r_no});" value="확인">
+			        <div class="reservation_RequestBt">
+				        <c:if test="${list.r_guestRead == 'false' }">
+				        	<input type="button" class="btn btn-primary changeExReadCheck" onclick="changeGuestReadCheckEx(${list.r_no});" value="확인">
 				        	<input type="hidden" class="list${list.r_no}" value="${list.r_no}">
-				        </div>
-			        </c:if>
+				        </c:if>
+			        </div>
 			    </div>
 		    </li>
       	</c:if>
@@ -336,12 +353,12 @@
 			    	<div style="padding-bottom:10px;">
 			        	<span class="recommended__text">${list.r_from} ~ ${list.r_to}</span>
 			        </div>
-			        <c:if test="${list.r_hostRead == 'false' }">
-				        <div class="reservation_RequestBt">
-				        	<input type="button" class="btn btn-primary expirationNotReadCount" onclick="changeHostReadCheckEx(${list.r_no});"  value="확인">
+			        <div class="reservation_RequestBt">
+			        	<c:if test="${list.r_hostRead == 'false' }">
+				        	<input type="button" class="btn btn-primary changeExReadCheck" onclick="changeHostReadCheckEx(${list.r_no});"  value="확인">
 				        	<input type="hidden" class="list${list.r_no}" value="${list.r_no}">
-				        </div>
-			        </c:if>
+				        </c:if>
+			        </div>
 			    </div>
 		    </li>
       	</c:if>

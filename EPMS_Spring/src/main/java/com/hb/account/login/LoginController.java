@@ -67,6 +67,7 @@ public class LoginController {
 	public String logout(HttpSession session, HttpServletResponse response, 
 						 @CookieValue(value="autoLogin",required=false) Cookie autoLogin,
 						 @CookieValue(value="chatPage",required=false) Cookie chatPage,
+						 @CookieValue(value="chatPageOpen",required=false) Cookie chatPageOpen,
 						 @CookieValue(value="chatScroll",required=false) Cookie chatScroll,
 						 @CookieValue(value="chatWho", required=false) Cookie chatWho) {
 		String id = ((AccountVO)session.getAttribute("dto")).getId();
@@ -84,6 +85,14 @@ public class LoginController {
 		if(chatPage != null) {
 			System.out.println("??");
 			Cookie temp = new Cookie("chatPage", "");
+			temp.setMaxAge(0);
+			temp.setPath("/");
+			response.addCookie(temp);
+		}
+		
+		if(chatPageOpen != null) {
+			System.out.println("??");
+			Cookie temp = new Cookie("chatPageOpen", "");
 			temp.setMaxAge(0);
 			temp.setPath("/");
 			response.addCookie(temp);

@@ -13,6 +13,7 @@
   <title>Friends</title>
 </head>
 <script type="text/javascript">
+	window.show_leaving_warning = false;
 	$(document).ready(function() {
 		var chatScroll = "${cookie.chatScroll.value}";
 		if(chatScroll == null || chatScroll =="") {
@@ -39,16 +40,15 @@
 	
 	$(window).on('beforeunload', function() {
 		var login = "${sessionScope.dto.id}";
-		if(login == null || login == "") {
-			return false;
+		if(login != null && login != "") {
+			document.cookie = "chatPage=" + escape(1) + "; path=/;";
+			
+			var currentScroll = $(document).scrollTop();
+			document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 		}
-		document.cookie = "chatPage=" + escape(1) + "; path=/;";
-		
-		var currentScroll = $(document).scrollTop();
-		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
-	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
+	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -136,7 +136,7 @@
     </a>
     <a href="javascript:location.replace('../chat/find.do')" class="tab-bar__tab">
       <i class="fa fa-search"></i>
-      <span class="tab-bar__title">Find</span>
+      <span class="tab-bar__title">Reservation</span>
     </a>
     <a href="javascript:location.replace('../chat/more.do')" class="tab-bar__tab">
       <i class="fa fa-ellipsis-h"></i>

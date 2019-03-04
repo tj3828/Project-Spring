@@ -17,11 +17,25 @@
 	<button class="chatBt circle"><i class="fas fa-comment"></i></button>
 	<script type="text/javascript">
 	
-	window.onpageshow = function(event) {
-	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-	    	window.location.reload();
-	    }
-	}
+		window.onpageshow = function(event) {
+		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+		    	window.location.reload();
+		    }
+		}
+		
+		$(window).on('beforeunload', function() {
+			var login = "${sessionScope.dto.id}";
+			if(login != null && login != "") {
+				var flag = "";
+				if($('.chatView').is(":visible")) {
+					flag += "true";
+				} else {
+					flag += "false";
+				}
+				document.cookie = "chatPageOpen=" + flag + "; path=/;";
+			}
+		});
+	
 		$('.chatBt').click(function () {
 			var login = "${sessionScope.dto.id}";
 			if(login == "" || login == null) {
@@ -42,35 +56,30 @@
 				return false;
 			}
 			var chatPage = "${cookie.chatPage.value}";
+			var chatPageOpen = "${cookie.chatPageOpen.value}";
+			if(chatPageOpen == "true") {
+				$('.chatView').show();
+			} else {
+				$('.chatView').hide();
+			}
+			
 			if(chatPage == null || chatPage == "") {
 				iframe.contentWindow.location.replace("../chat/friend.do");
 				//$('#chatPage').attr('src', '../chat/friend.do');
 				$('.chatView').hide();
 			} else if (chatPage ==1) {
 				iframe.contentWindow.location.replace("../chat/friend.do");
-				//$('#chatPage').attr('src', '../chat/friend.do');
-				$('.chatView').show();
 			} else if (chatPage == 2) {
 				iframe.contentWindow.location.replace("../chat/chats.do");
-				//$('#chatPage').attr('src', '../chat/chats.do');
-				$('.chatView').show();
 			} else if (chatPage == 3) {
 				var chatOpponent = "${cookie.chatOpponent.value}";
 				iframe.contentWindow.location.replace('../chat/chat.do?opponent='+chatOpponent);
-				//$('#chatPage').attr('src', '../chat/chat.do?opponent='+chatOpponent);
-				$('.chatView').show();
 			} else if (chatPage == 4) {
 				iframe.contentWindow.location.replace('../chat/find.do?');
-				//$('#chatPage').attr('src', '../chat/find.do');
-				$('.chatView').show();
 			} else if (chatPage == 5) {
 				iframe.contentWindow.location.replace('../chat/profile.do?');
-				//$('#chatPage').attr('src', '../chat/profile.do');
-				$('.chatView').show();
 			} else if (chatPage == 6) {
 				iframe.contentWindow.location.replace('../chat/more.do?');
-				//$('#chatPage').attr('src', '../chat/more.do');
-				$('.chatView').show();
 			}		
 		});
 	</script> 

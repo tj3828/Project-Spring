@@ -10,6 +10,7 @@
   <title>Profile</title>
 </head>
 <script type="text/javascript">
+	window.show_leaving_warning = false;
 	$(document).ready(function() {
 		var chatScroll = "${cookie.chatScroll.value}";
 		if(chatScroll == null || chatScroll =="") {
@@ -24,7 +25,7 @@
 	$(window).on('beforeunload', function() {
 		var login = "${sessionScope.dto.id}";
 		if(login == null || login == "") {
-			return false;
+			return;
 		}
 		document.cookie = "chatPage=" + escape(5) + "; path=/;";
 		

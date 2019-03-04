@@ -23,14 +23,10 @@
   <title>Chat</title>
 </head>
 <script type="text/javascript">
+	window.show_leaving_warning = false;	
 	$(document).ready(function() {
-		// 페이지 이동간 채팅 상태 유지
-		var chatScroll = "${cookie.chatScroll.value}";
-		if(chatScroll == null || chatScroll =="" || chatScroll == "0") {
-			$("main").scrollTop($("main")[0].scrollHeight);
-		} else {
-			$("main").scrollTop(chatScroll);
-		}
+		
+		$("main").scrollTop($("main")[0].scrollHeight);
 		
 		// 읽지않은 쪽지 갯수 체크
 		var notReadCount = "${notReadCount}"*1;
@@ -62,20 +58,19 @@
 	// 페이지 없어질 때 상태에 따른 쿠키 저장
 	$(window).on('beforeunload', function() {
 		var login = "${sessionScope.dto.id}";
-		if(login == null || login == "") {
-			return false;
+		if(login != null && login != "") {
+			document.cookie = "chatPage=" + escape(3) + "; path=/;";
+			document.cookie = "chatWho=" + escape(2) + "; path=/;";
+			
+			var currentScroll = $('main').scrollTop();
+			var opponentNick = "${opponent}";
+			document.cookie = "chatOpponent=" + escape(opponentNick) + "; path=/;";
+			document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";	
 		}
-		document.cookie = "chatPage=" + escape(3) + "; path=/;";
-		document.cookie = "chatWho=" + escape(2) + "; path=/;";
-		
-		var currentScroll = $('main').scrollTop();
-		var opponentNick = "${opponent}";
-		document.cookie = "chatOpponent=" + escape(opponentNick) + "; path=/;";
-		document.cookie = "chatScroll=" + escape(currentScroll) + "; path=/;";
 	});
 	
 	// 웹소켓 연결
-	var webSocket = new WebSocket("ws://192.168.0.2:8081/b/ws");
+	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
 	webSocket.onopen = function() {
 		// 상대방의 채팅 메세지에 읽음 표시 삭제
 		var opponentNick = "${opponent}";
@@ -97,53 +92,169 @@
 			var opponentNick = "${opponent}";
 			var path = "${pageContext.request.contextPath}";
 			
-			// 예약 관련 문자일 때 변수명 통일
+			// 메세지가 예약관련 메세지 일 떄
 			if(msg.message_type == "reservation") {
-				msg.fromNick = msg.r_guest;
-				msg.toNick = msg.r_host;
-			}
-			// 자신이 보낸 메세지일 때
-			if(msg.fromNick == nickname && msg.toNick == opponentNick) {
-				// 내가 보낸 메세지가 예약관련 일 때
-				if(msg.message_type == "reservation") {
-					appendChatListFromMe(msg.r_guest + '님의 예약요청입니다.<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
-				// 내가 보낸 메세지가 일반 메세지 일 때
-				} else {
-					appendChatListFromMe(msg.content, msg.writeDate);
+				if((msg.r_guest == nickname && msg.r_host == opponentNick) || (msg.r_guest == opponentNick && msg.r_host == nickname)) {
+					// 메세지 구분
+					var content = "";
+					if(msg.r_status == "예약중") {
+						content += msg.r_guest + "님의 예약요청입니다.";
+					} else if(msg.r_status == "예약완료") {
+						content += msg.r_host + "님이 예약을 승인했습니다.";
+					} else if(msg.r_status == "예약취소") {
+						alert(msg.r_agree);
+						if(msg.r_agree != "") {
+							if(msg.r_hostRead == 'false') {
+								content += msg.r_guest + "님이 예약을 취소했습니다.";
+							} else if(msg.r_guestRead == 'false') {
+								content += msg.r_host + "님이 예약을 취소했습니다.";
+							}
+						} else { 
+							if(msg.r_hostRead == 'false') {
+								content += msg.r_guest + "님이 예약을 취소했습니다.";
+							} else if(msg.r_guestRead == 'false') {
+								content += msg.r_host + "님이 예약을 거절했습니다.";
+							}
+						}
+					} else if(msg.r_status == "사용완료") {
+						content += msg.r_guest + "님이 사용완료하였습니다.";
+					}
+					
+					// 내가 예약 요청한 메세지 일 때
+					if(msg.r_guest == nickname) {
+						if(msg.r_status == "예약중") {
+							appendChatListFromMe(content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
+						} else if(msg.r_status == "예약완료") {
+							appendChatListToMe(msg.r_host, msg.r_host_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+							changeChatBtnCounter(1);
+							chatReading(msg.r_host, msg.r_guest, opponentNick);
+						} else if(msg.r_status == "예약취소") {
+							if(msg.r_agree != "") {
+								if(msg.r_hostRead == 'false') {
+									appendChatListFromMe(content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
+								} else if(msg.r_guestRead == 'false') {
+									appendChatListToMe(msg.r_host, msg.r_host_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+									changeChatBtnCounter(1);
+									chatReading(msg.r_host, msg.r_guest, opponentNick);
+								}
+							} else {
+								if(msg.r_hostRead == 'false') {
+									appendChatListFromMe(content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
+								} else if(msg.r_guestRead == 'false') {
+									appendChatListToMe(msg.r_host, msg.r_host_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+									changeChatBtnCounter(1);
+									chatReading(msg.r_host, msg.r_guest, msg, opponentNick);
+								}
+							}
+						} else if(msg.r_status == "사용완료") {
+							appendChatListFromMe(content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
+						}
+							
+					// 다른 사람이 요청했을 경우
+					} else if(msg.r_host == nickname ) {
+						if(msg.r_status == "예약중") {
+							appendChatListToMe(msg.r_guest, msg.r_guest_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+							changeChatBtnCounter(1);
+							chatReading(msg.r_guest, msg.r_host, opponentNick);
+						} else if(msg.r_status == "예약완료") {
+							appendChatListToMe(msg.r_guest, msg.r_guest_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+						} else if(msg.r_status == "예약취소") {
+							if(msg.r_agree != "") {
+								if(msg.r_hostRead == 'false') {
+									appendChatListToMe(msg.r_guest, msg.r_guest_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+									changeChatBtnCounter(1);
+									chatReading(msg.r_guest, msg.r_host, opponentNick);
+								} else if(msg.r_guestRead == 'false') {
+									appendChatListFromMe(content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
+								}
+							} else {
+								if(msg.r_hostRead == 'false') {
+									appendChatListToMe(msg.r_guest, msg.r_guest_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+									changeChatBtnCounter(1);
+									chatReading(msg.r_guest, msg.r_host, opponentNick);
+								} else if(msg.r_guestRead == 'false') {
+									appendChatListFromMe(content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt"  value="요청사항 보기">', msg.r_lastDate);
+								}
+							}
+						} else if(msg.r_status == "사용완료") {
+							appendChatListToMe(msg.r_guest, msg.r_guest_profileImg, content + '<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
+							changeChatBtnCounter(1);
+							chatReading(msg.r_guest, msg.r_host, opponentNick);
+						}
+					}
+				// 해당 방의 상대방이 아닌 다른 사람일 때
+				} else if ((msg.r_guest == nickname && msg.r_host != opponentNick) || (msg.r_guest != opponentNick && msg.r_host == nickname)) {
+					if(msg.r_host == nickname ) {
+						if(msg.r_status == "예약중") {
+							changeChatBtnCounter(2);
+						} else if(msg.r_status == "예약완료") {
+							
+						} else if(msg.r_status == "예약취소") {
+							if(msg.r_agree != "") {
+								if(msg.r_hostRead == 'false') {
+									changeChatBtnCounter(2);
+								} else if(msg.r_guestRead == 'false') {
+								
+								}
+							} else {
+								if(msg.r_hostRead == 'false') {
+									changeChatBtnCounter(2);
+								} else if(msg.r_guestRead == 'false') {
+									
+								}
+							}
+						} else if(msg.r_status == "사용완료") {
+							changeChatBtnCounter(2);
+						}
+					} else if(msg.r_guest == nickname) {
+						if(msg.r_status == "예약중") {
+							
+						} else if(msg.r_status == "예약완료") {
+							changeChatBtnCounter(2);
+						} else if(msg.r_status == "예약취소") {
+							if(msg.r_agree != "") {
+								if(msg.r_hostRead == 'false') {
+									
+								} else if(msg.r_guestRead == 'false') {
+									changeChatBtnCounter(2);
+								}
+							} else {
+								if(msg.r_hostRead == 'false') {
+									
+								} else if(msg.r_guestRead == 'false') {
+									changeChatBtnCounter(2);
+								}
+							}
+						} else if(msg.r_status == "사용완료") {
+							
+						}
+					}
 				}
 				
-			// 상대방이 보낸 매세지인데 방나간 메세지가 아닐때	
-			} else if(msg.fromNick == opponentNick && msg.toNick == nickname && msg.content != "#$%Room Out#$%" ) {
-				// 상대방의 메세지가 예약관련 일 때
-				if(msg.message_type == "reservation") {
-					appendChatListToMe(msg.r_guest, msg.r_guest_profileImg, msg.r_guest + '님의 예약요청입니다.<br><hr class="chatBtHr"><input type="button" class="btn btn-outline-success chatReservationBt" value="요청사항 보기">', msg.r_lastDate, path);
-					changeChatBtnCounter(1);
-				// 상대방의 메세지가 방나갔다는 메세지 일 때
-				} else if(msg.content == "#$%Room Out#$%") {
-					$('.chat').append('<div class="date-divider"><span class="date-divider__text">' + opponentNick + '님이 방을 나갔습니다.</span></div>');
-					changeChatState();
-				// 일반 메세지 일 때
-				} else {
-					appendChatListToMe(msg.fromNick, msg.fromNick_profileImg, msg.content, msg.writeDate, path);				
-					$.ajax({
-						url: "../chatting/chatReading.do",
-						data : msg,
-						success: function() {
-							webSocket.send("connected with " + opponentNick);
-						}
-					});
-				}
+			} else {
+				// 자신이 보낸 메세지일 때
+				if(msg.fromNick == nickname && msg.toNick == opponentNick) {
+					appendChatListFromMe(msg.content, msg.writeDate);
 					
-			// 해당 방의 상대방이 아닌 다른 사용자의 메세지가 왔을 때
-			} else if(msg.fromNick != opponentNick && msg.toNick == nickname) {
-				// 메세지가 예약관련이면 버튼 카운트 +2
-				if(msg.message_type == "reservation") {
-					changeChatBtnCounter(2);
-				// 메세지가 일반 메세지이면 버튼 카운트 +1
-				} else {
+				// 상대방이 보낸 매세지인데 방나간 메세지가 아닐때	
+				} else if(msg.fromNick == opponentNick && msg.toNick == nickname && msg.content) {
+					// 상대방의 메세지가 방나갔다는 메세지 일 때
+					if(msg.content == "#$%Room Out#$%") {
+						$('.chat').append('<div class="date-divider"><span class="date-divider__text">' + opponentNick + '님이 방을 나갔습니다.</span></div>');
+						changeChatState();
+					// 일반 메세지 일 때
+					} else {
+						appendChatListToMe(msg.fromNick, msg.fromNick_profileImg, msg.content, msg.writeDate, path);				
+						chatReading(msg.fromNick, msg.toNick, opponentNick);
+					}
+						
+				// 해당 방의 상대방이 아닌 다른 사용자의 메세지가 왔을 때
+				} else if(msg.fromNick != opponentNick && msg.toNick == nickname) {
+					// 메세지가 일반 메세지이면 버튼 카운트 +1
 					changeChatBtnCounter(1);
+					return false;
 				}
-				return false;
+				
 			}
 			// 스크롤을 맨 아래로 내림
 			$("main").scrollTop($("main")[0].scrollHeight);
@@ -278,6 +389,7 @@
 		  });
 	});
 </script>
+<script src="../resources/chat/js/navigation.js"></script>
 <script src="../resources/chat/js/chat.js"></script>
 <script src="../resources/js/bootstrap/bootstrap.min.js"></script>
 </body>

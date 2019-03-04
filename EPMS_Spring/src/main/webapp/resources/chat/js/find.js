@@ -53,7 +53,7 @@ function changeGuestReadCheckEx(r_no){
 			}
 			changeChatBtnCounter(-1);
 			changeReservationReadCounter(-1);
-			$(".list"+r_no).closest("div").find('.expirationNotReadCount').remove();
+			$(".list"+r_no).closest("div").find('.changeExReadCheck').remove();
 		}
 	});
 }
@@ -89,7 +89,7 @@ function changeHostReadCheckEx(r_no){
 			}
 			changeChatBtnCounter(-1);
 			changeReservationReadCounter(-1);
-			$(".list"+r_no).closest("div").find('.expirationNotReadCount').remove();
+			$(".list"+r_no).closest("div").find('.changeExReadCheck').remove();
 		}
 	});
 }
@@ -159,6 +159,7 @@ function prependReservationList(type, nick, nick_profile_Img, path, status, num,
 			title_html += '<font color="red">예약중...</font>';
 			typeBt_html += '' +
 				'<div class="reservation_RequestBt">' +
+					'<input type="button" class="btn btn-danger" onclick="cancelReservationGuest(' + num + ',\'true\')" value="예약취소">' +
 		        	'<input type="hidden" class="list'+ num +'" value="'+ num +'">' +
 		        '</div>';
 		} else if(type == 2) {
@@ -229,12 +230,12 @@ function prependReservationListEx(msg, nickname, path) {
 	
 	if(msg.r_guest == nickname && msg.r_guestRead == 'false') {
 		typeBt_html += '<div class="reservation_RequestBt">' +
-        					'<input type="button" class="btn btn-primary expirationNotReadCount" onclick="changeGuestReadCheckEx(' + msg.r_no + ');" value="확인">' +
+        					'<input type="button" class="btn btn-primary changeExReadCheck" onclick="changeGuestReadCheckEx(' + msg.r_no + ');" value="확인">' +
         					'<input type="hidden" class="list' + msg.r_no + '" value="' + msg.r_no + '">' +
         				'</div>';
 	} else if(msg.r_host == nickname && msg.r_hostRead == 'false') {
 		typeBt_html += '<div class="reservation_RequestBt">' +
-							'<input ty+pe="button" class="btn btn-primary expirationNotReadCount" onclick="changeHostReadCheckEx(' + msg.r_no + ');" value="확인">' +
+							'<input ty+pe="button" class="btn btn-primary changeExReadCheck" onclick="changeHostReadCheckEx(' + msg.r_no + ');" value="확인">' +
 							'<input type="hidden" class="list' + msg.r_no + '" value="' + msg.r_no + '">' +
 					    '</div>';
 	}

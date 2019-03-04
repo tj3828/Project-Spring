@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html style="height:100%;">
 
@@ -22,7 +23,6 @@
 	
 	.swing1 img  {
 	    display: block;
-	    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
 	}
 	.swing1:after{
 	    content: '';
@@ -64,7 +64,6 @@
 	
 	.swing2 img  {
 	    display: block;
-	    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
 	}
 	
 	.swing2:after{
@@ -112,19 +111,28 @@
 			margin-left: 4%;
 		}
 	}
+	.btn-login {
+		position:absolute; 
+		top:20px; right:20px;
+		width: 78px;height: 33px;
+		border: 1px solid #2e4669; 
+		line-height: 35px; 
+		text-align: center; 
+		font-weight: bold;
+	    font-size: 14px;
+	    color: #fff;
+	    background: transparent;
+	    cursor: pointer;
+	}
 </style>
 
-<body style="height:100%; margin: 0;
-  text-align: center;
-  background-image: url('/b/resources/images/main-01.jpg'); 
-  background-repeat: no-repeat;
-  background-size: cover;">
-		<a href="#" class="btn-login" style="position:absolute; top:20px; right:20px;width: 78px;height: 33px;border: 1px solid #2e4669;
-	    line-height: 35px;
-	    text-align: center;
-	    font-weight: bold;
-	    font-size: 14px;
-	    color: #fff;">LOGIN</a>
+<body style="height:100%; margin: 0; text-align: center; background-image: url('/b/resources/images/main-01.jpg'); background-repeat: no-repeat; background-size: cover;">
+   <c:if test="${sessionScope.dto.id == null }">
+   		<input type="button" class="btn-login" value="LOGIN" onclick="location.href='../login/login.do';">
+   </c:if>
+   <c:if test="${sessionScope.dto.id != null }">
+   		<input type="button" class="btn-login" value="LOGOUT" onclick="location.href='../login/logout.do';">
+   </c:if>
    <div class="main-image" style="left:50%;top:50%;transform: translate(-50%,-70%); position: relative; ">
    		<div class="main-slide-image" style="display: none;">
 			<div style="display: inline-flex; margin-left: 30px; ">

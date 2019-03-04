@@ -47,3 +47,13 @@ function appendChatListToMe(fromNick, fromNick_profileImg, content, writeDate, p
   			'<span class="chat__message-time">' + writeDate + '</span>' +
   		  '</div>');
 }
+
+function chatReading(fromNick, toNick, opponentNick) {
+	$.ajax({
+		url: "../chatting/chatReading.do",
+		data : {"fromNick" : fromNick, "toNick" : toNick},
+		success: function() {
+			webSocket.send("connected with " + opponentNick);
+		}
+	});
+}
