@@ -69,7 +69,7 @@
 					<a class="nav-link text-white" href="../freeboard/freeboard.do">&nbsp;&nbsp;|&nbsp;&nbsp; FreeBoard &nbsp;&nbsp;|&nbsp;&nbsp;</a>
 	      		</li>
 	      		<li class="nav-item active">
-	        		<a class="nav-link text-muted">FAQ</a>
+	        		<a class="nav-link text-white" href="../faq/faq.do">FAQ</a>
 	      		</li>
 	    	</ul>
 	  	</div>

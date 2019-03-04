@@ -39,6 +39,7 @@ nav {
 
 .box
 {
+  border:0;
   height: 100%;
   width: 100%;
   margin: 0 auto;
@@ -59,18 +60,18 @@ nav {
 /* Chrome, Safari, Opera */
 @-webkit-keyframes drawBorderFromCenter {
     0% {
-      background-size: 0 20vmin, 0 0, 100% 100%;
+      background-size: 0 18vmin, 0 0, 100% 100%;
     }
     20% {
       background-size: 100% 3vmin, 100% 0, 100% 100%;
     }
     66%
     {
-      background-size: 100% 3vmin, 100% 94%, 100% 100%;
+      background-size: 100% 3vmin, 100% 93%, 100% 100%;
     }
     99%
     {
-      background-size: 100% 3vmin, 100% 94%, 0 3vmin;
+      background-size: 100% 3vmin, 100% 93%, 0 3vmin;
     }
 }
 

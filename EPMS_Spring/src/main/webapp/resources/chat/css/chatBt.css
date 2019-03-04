@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'sangsangBody';
+	src: url('/b/resources/font/SangSangBodyL.ttf');
+}
+
 .circle {
 	background-color: yellow;
 	color: #534737;
@@ -52,6 +57,8 @@
   transform: rotateY(1turn);
 }
 .chatBt_notReadCounter {
+	line-height: 1.5;
+	font-family: sangsangBody;
 	text-align: center;
     position: fixed;
     right: 30px;
