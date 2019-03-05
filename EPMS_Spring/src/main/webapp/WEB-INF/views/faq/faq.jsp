@@ -16,7 +16,7 @@
 		<div class="title_label_div">
 			<span class="fas fa-align-justify"></span>
 			<font class="title_label" >FAQ</font>
-			<form name="myform" action="../freeboard/freeboard.do" style="display: inline-block; right: 0; text-align:center; width:50%; float: right; margin-top: 0.7%;">
+			<form name="myform" action="../freeboard/freeboard.do" style="display: none; right: 0; text-align:center; width:50%; float: right; margin-top: 0.7%;">
 		  	 	<select class="selectpicker" name="keyfield" onchange="changeclear();" style="height: calc(2.25rem + 2px); width: 15%;">
 		  	 	   <option value="nickname"  <c:if test="${paging.keyfield == 'nickname'}">selected</c:if>> 글쓴이 </option>
 		  	 	   <option value="title" <c:if test="${paging.keyfield == 'title'}">selected</c:if>> 제목 </option>
@@ -39,19 +39,24 @@
 				<c:forEach var="list" items="${list}" begin="0" end="${list.size()}">
 				<tr>
 					<c:choose>
-						<c:when test="${list.lev >= 1}">
-							<td colspan="2" style="width:30%; padding-left: 10px; position: relative; ">
+						<c:when test="${list.lev > 1}">
+							<td class="th-xs"></td>
+							<td colspan="1" style="width:20%; padding-left: 10px; position: relative; ">
 								<c:forEach begin="1" end="${list.lev}">
-									&nbsp;
+									&nbsp;&nbsp;
 								</c:forEach>
 								<span style="text-align: center;">
 									<c:choose>
-										<c:when test="${list.title.length() > 20 }"><a href="../freeboardDetail/detail.do?num=${list.num}">└ RE : ${fn:substring(list.title, 0, 15)}...</a></c:when>
+										<c:when test="${list.title.length() > 20 }"><a href="../faqDetail/faqDetail.do?num=${list.num}">└ RE : ${fn:substring(list.title, 0, 15)}...</a></c:when>
 									<c:otherwise>
-										<a href="../freeboardDetail/detail.do?num=${list.num}">└ RE : ${list.title}</a>
+										<a href="../faqDetail/faqDetail.do?num=${list.num}">└ RE : ${list.title}</a>
 									</c:otherwise>
 									</c:choose>
+									
 								</span>
+								<c:if test="${list.upload_file != '' }">
+									<i class="fas fa-file-download" style="font-size: 22px; position: absolute; right: 1%;"></i>
+								</c:if>
 							</td>
 						</c:when>
 						<c:otherwise>
@@ -59,11 +64,12 @@
 							<td class="th-l" style="padding-left: 10px; position: relative;">
 								<span style="text-align: center;">
 									<c:choose>
-										<c:when test="${list.title.length() > 20 }"><a href="../freeboardDetail/detail.do?num=${list.num}">${fn:substring(list.title, 0, 19)}...</a></c:when>
+										<c:when test="${list.title.length() > 20 }"><a href="../faqDetail/faqDetail.do?num=${list.num}">${fn:substring(list.title, 0, 19)}...</a></c:when>
 									<c:otherwise>
-										<a href="../freeboardDetail/detail.do?num=${list.num}">${list.title}</a>
+										<a href="../faqDetail/faqDetail.do?num=${list.num}">${list.title}</a>
 									</c:otherwise>
 									</c:choose>
+									<c:if test="${list.childCnt != 0 && list.lev == 1}"><span style="color:red;">[${list.childCnt}]</span></c:if>
 								</span>
 								<c:if test="${list.upload_file != '' }">
 									<i class="fas fa-file-download" style="font-size: 22px; position: absolute; right: 1%;"></i>
@@ -84,7 +90,7 @@
 							<ul class="pagination justify-content-center">
 								<c:choose>
 							 		<c:when test="${paging.prev}">
-										<li class='page-item'><a href='../freeboard/freeboard.do?pageNum=1${paging.returnPage}' class="page-link" aria-label='Previous'><span aria-hidden='true'>&lt;&lt;</span></a></li>
+										<li class='page-item'><a href='../faq/faq.do?pageNum=1${paging.returnPage}' class="page-link" aria-label='Previous'><span aria-hidden='true'>&lt;&lt;</span></a></li>
 									</c:when>
 									<c:otherwise>
 										<li class='page-item disabled'><a href='#' class="page-link" aria-label='Previous'><span aria-hidden='true'>&lt;&lt;</span></a></li>
@@ -92,7 +98,7 @@
 								</c:choose>
 								<c:choose>
 							 		<c:when test="${paging.startPage != 1 }">
-										<li class='page-item'><a href='../freeboard/freeboard.do?pageNum=${paging.startPage-1}${paging.returnPage}' class="page-link" aria-label='Previous'><span aria-hidden='true'>&lt;</span></a></li>
+										<li class='page-item'><a href='../faq/faq.do?pageNum=${paging.startPage-1}${paging.returnPage}' class="page-link" aria-label='Previous'><span aria-hidden='true'>&lt;</span></a></li>
 									</c:when>
 									<c:otherwise>
 										<li class='page-item disabled'><a href='#' class="page-link" aria-label='Previous'><span aria-hidden='true'>&lt;</span></a></li>
@@ -101,10 +107,10 @@
 								<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}" step="1">
 									<c:choose>
 										<c:when test="${paging.pageNum ==i }">
-											<li class='page-item active'><a href='../freeboard/freeboard.do?pageNum=${i}${paging.returnPage}' class="page-link"><span>${i}</span><span class='sr-only'>${i}</span></a></li>
+											<li class='page-item active'><a href='../faq/faq.do?pageNum=${i}${paging.returnPage}' class="page-link"><span>${i}</span><span class='sr-only'>${i}</span></a></li>
 										</c:when>
 										<c:otherwise>
-											<li class='page-item'><a href='../freeboard/freeboard.do?pageNum=${i}${paging.returnPage}' class="page-link"><span>${i}</span><span class='sr-only'>${i}</span></a></li>
+											<li class='page-item'><a href='../faq/faq.do?pageNum=${i}${paging.returnPage}' class="page-link"><span>${i}</span><span class='sr-only'>${i}</span></a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -113,12 +119,12 @@
 										<li class='page-item disabled'><a href='#' class="page-link" aria-label='Next'><span aria-hidden='true'>&gt;</span></a></li>
 									</c:when>
 									<c:otherwise>
-										<li class='page-item'><a href='../freeboard/freeboard.do?pageNum=${paging.endPage+1}${paging.returnPage}' class="page-link" aria-label='Next'><span aria-hidden='true'>&gt;</span></a></li>
+										<li class='page-item'><a href='../faq/faq.do?pageNum=${paging.endPage+1}${paging.returnPage}' class="page-link" aria-label='Next'><span aria-hidden='true'>&gt;</span></a></li>
 									</c:otherwise>
 								</c:choose>
 								<c:choose>
 							 		<c:when test="${paging.next}">
-										<li class='page-item'><a href='../freeboard/freeboard.do?pageNum=${paging.pageCount}${paging.returnPage}' class="page-link" aria-label='Previous'><span aria-hidden='true'>&gt;&gt;</span></a></li>
+										<li class='page-item'><a href='../faq/faq.do?pageNum=${paging.pageCount}${paging.returnPage}' class="page-link" aria-label='Previous'><span aria-hidden='true'>&gt;&gt;</span></a></li>
 									</c:when>
 									<c:otherwise>
 										<li class='page-item disabled'><a href='#' class="page-link" aria-label='Previous'><span aria-hidden='true'>&gt;&gt;</span></a></li>

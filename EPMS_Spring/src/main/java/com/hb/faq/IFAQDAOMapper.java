@@ -36,14 +36,14 @@ public interface IFAQDAOMapper {
 	@Select("select count(*) as cnt from faqboard where ${keyfield} like '%'||#{keyword}||'%'")
 	int selectListSearchCount(Paging paging);
 	
-	@Select("select * from ( " +
-			"	select rn, num, nickname, title, content, TO_CHAR(writeDate,'YYYY-MM-DD HH24:MI') as writeDate, upload_file, viewCnt, parentNum, groupNum, level as lev from ( " + 
-			" 	    select rownum as rn, h.* from " + 
-			"   		( select  b.*, level as lev from faqboard b where ${keyfield} like '%' || #{keyword} || '%' " + 
+	@Select("select q.*, (select count(*) from faqboard where parentNum = q.num) as childCnt from ( " +
+			"	select rn, num, nickname,profile_img, title, content, TO_CHAR(writeDate,'YYYY-MM-DD HH24:MI') as writeDate, upload_file, viewCnt, parentNum, groupNum, lev as lev from ( " + 
+			" 	    select  rownum as rn, h.* from " + 
+			"   		( select  b.*, level as lev from (select * from (select  a.* from faqboard a ) order by num asc) b where ${keyfield} like '%' || #{keyword} || '%' " + 
 			"			  start with b.parentNum = 0 " + 
 			"			  connect by prior b.num = b.parentNum " + 
 			"			  order siblings by b.groupNum asc) h " +
-			" 	 ) order by rn desc " + 
-			" )  where rn between #{end} and #{start}  ")
+			" 	) order by rn desc " + 
+			" ) q    ")
 	ArrayList<FAQVO> selectFAQList(Paging paging);
 }

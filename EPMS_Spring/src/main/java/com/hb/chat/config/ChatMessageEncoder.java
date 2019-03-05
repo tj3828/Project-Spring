@@ -27,7 +27,7 @@ public class ChatMessageEncoder implements Encoder.Text<ChatVO> {
               .write("fromNick_profileImg", chatVO.getFromNick_profileImg())
             .writeEnd()
             .flush();
-    System.out.println(writer.toString());
+    System.out.println(writer.toString()); 
     return writer.toString();
   }
 

@@ -76,7 +76,7 @@ label {
 	font-size: 0.75em;
 }
 
-.fas {
+.fas, .fab {
 	padding-left: 3%;
 	font-size: 2rem;
 }

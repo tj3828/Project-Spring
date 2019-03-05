@@ -27,5 +27,8 @@ public class FAQVO {
 	private int viewCnt=0;
 	private int parentNum;
 	private int groupNum;
+	
+	// notDB
 	private int lev;
+	private int childCnt=0;
 }
