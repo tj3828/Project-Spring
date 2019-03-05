@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="title_label_div">
 				<span class="fas fa-edit"></span>
-				<font class="title_label" >RE: ${vo.title} - 답글쓰기</font>
+				<font class="title_label" >${vo.title} - 답글쓰기</font>
 			</div>
 			<div class="panel panel-default"> 
 				<div class="panel-body">

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 - 수정</title>
+<title>FAQ - 수정</title>
 	<link rel="stylesheet" href="../resources/css/freeboard.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<div class="container">
 			<div class="title_label_div">
 				<span class="fas fa-edit"></span>
-				<font class="title_label" >자유게시판 - 수정</font>
+				<font class="title_label" >${vo.title} - 수정</font>
 			</div>
 			<div class="panel panel-default"> 
 				<div class="panel-body">
@@ -23,19 +23,19 @@
 								<div class="col-md-12">
 									<div class="form-group"> 
 										<label for="name">NAME</label> 
-										<input type="hidden" name="num" value="${dto.num}">
-										<input type="text" class="form-control" name="nickname" id="nickname" value="${dto.nickname}" readonly="readonly" placeholder="Enter name"> 
+										<input type="hidden" name="num" value="${vo.num}">
+										<input type="text" class="form-control" name="nickname" id="nickname" value="${vo.nickname}" readonly="readonly" placeholder="Enter name"> 
 									</div> 
 								</div>
 							</div>
 							<div class="form-group content-div"> 
 								<label for="subject">Title</label> 
-								<input type="text" class="form-control" name ="title" id="title" value="${dto.title}" placeholder="30글자까지 입력가능합니다." maxlength="30"> 
+								<input type="text" class="form-control" name ="title" id="title" value="${vo.title}" placeholder="30글자까지 입력가능합니다." maxlength="30"> 
 								<span class="counter" id="counter1">###</span>
 							</div> 
 							<div class="form-group content-div"> 
 								<label for="content">Comment:</label> 
-								<textarea class="form-control" rows="10" name="content" id="content" style="width:auto; !important;">${dto.content}</textarea> 
+								<textarea class="form-control" rows="10" name="content" id="content" style="width:auto; !important;">${vo.content}</textarea> 
 								<span class="counter" id="counter" style="bottom: 30px; right:25px;">###</span>
 							</div>
 							<br>
@@ -99,16 +99,16 @@
 			})); 
 			formData.append("file",$("#multipartFile")[0].files[0]);
 			
-	        var num = "${dto.num}";
+	        var num = "${vo.num}";
 	        
 	        $.ajax({
 				type:"POST",
-				url:"../freeboardDetail/edit.do",
+				url:"../faqDetail/faqEdit.do",
 				processData: false,
 	            contentType: false,
 				data: formData,
-				success: function() {
-					location.href="../freeboardDetail/detail.do?num=" + num;
+				success: function(data) {
+					location.href="../faqDetail/faqDetail.do?num=" + data;
 				},
 				error: function (request) {
 					swal('글수정 오류',request.responseText+"\n관리자에게 문의하세요.",'error');

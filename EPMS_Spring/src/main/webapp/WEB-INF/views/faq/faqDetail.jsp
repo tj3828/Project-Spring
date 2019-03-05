@@ -43,8 +43,8 @@
 							<c:if test="${sessionScope.dto.nickname != null }"> 
 								<input type="button" class="btn btn-outline-primary" id="replyPre" onclick="location.href='../faqReply/faqReplyPre.do?num=${list[0].num}&lev=${list[0].lev}&groupNum=${list[0].groupNum}&title=${list[0].title}';" value="답글달기">&nbsp;&nbsp;
 							</c:if>
-							<c:if test="${sessionScope.dto.nickname == dto.nickname}">
-								<input type="button" class="btn btn-outline-success" id="save" onclick="location.href='../freeboardDetail/editPre.do?num=${list[0].num}';" value="수정하기">&nbsp;&nbsp;
+							<c:if test="${sessionScope.dto.nickname == list[0].nickname}">
+								<input type="button" class="btn btn-outline-success" id="save" onclick="location.href='../faqDetail/faqEditPre.do?num=${list[0].num}';" value="수정하기">&nbsp;&nbsp;
 								<input type="reset" class="btn btn-outline-danger" onclick="detail_Del(${list[0].num});" value="삭제하기">&nbsp;&nbsp;
 							</c:if>
 								<input type="button" class="btn btn-outline-secondary" value="뒤로가기" onclick="history.back(1)">
@@ -106,5 +106,34 @@
 		</div>
 	</div>
 	<jsp:include page="../common/chatBt.jsp"></jsp:include>
+	<script type="text/javascript">
+	function detail_Del(num) {
+		swal({
+			  title: "게시글 삭제",
+			  text: "정말 게시글을 삭제하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+		 })
+		 .then((willDelete) => {
+			  if(willDelete) {
+			      $.ajax({
+						type:"post",
+						url:"../faqDetail/faqDelete.do", 
+						data: {"num" : num},
+						success: function(){
+							location.href='../faq/faq.do';
+						},
+						error: function() {
+							swal('게시글 삭제','게시글 삭제에 오류가 발생했습니다.\n관리자에게 문의하세요.','error');
+						}
+				  });
+			  } else {
+				  
+			  }
+		  });
+
+	}
+	</script>
 </body>
 </html>
