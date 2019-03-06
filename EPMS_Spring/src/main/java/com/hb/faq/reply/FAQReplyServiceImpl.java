@@ -13,7 +13,7 @@ import com.hb.faq.FAQVO;
 
 @Service
 @Transactional
-public class FAQReplyImpl implements IFAQReplyService{
+public class FAQReplyServiceImpl implements IFAQReplyService{
 
 	@Inject
 	IFAQReplyDAOMapper faqReplyDAOMapper;

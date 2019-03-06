@@ -61,22 +61,22 @@ function setDateTimePicker() {
 	});
 }
 
-// 모달 내용 생성
+/*// 모달 내용 생성
 function modalContentCreate(i){
 	var contentString = [
-		'<h1 style="margin-top:10px; width:80%;"><span class="badge badge-danger" >'+ add[i] +'</span></h1>' ,
+		'<h1 style=""><span class="badge badge-danger" >'+ add[i] +'</span></h1>' ,
 		'<table style="width:100%; height:40%;" >',
 		'<tr style="border-top: 1px solid #444444;">',
-		'<td style="width:50%; height:auto; vertical-align: top; padding-top: 10px; padding-left:10px;"><h2 style="display:inline-block;"><span class="badge badge-danger" >기간 선택</span></h2><font style="font-size: 12px; font-weight:bold;">&nbsp;&nbsp;① 원하는 날짜와 시간을 선택한 후 검색을 누르세요.</font> <br><input type="text" style="width:70%;  display: inline-block;" class="datetimes form-control" name="datetimes" onchange="resetSearchList();" />&nbsp;&nbsp;<input type="button" class="btn btn-outline-primary" style=" display: inline-block;"value="검색" onclick="searchList();"></td>',
-		'<td style="border-left: 1px solid #444444; width:50%; vertical-align: top; padding-top: 10px; padding-left:10px;padding-right:10px;" rowspan="2"><div id="pano" style="width:100%;height:50%;"></div></td>',
+		'<td style="width:50%; height:auto; vertical-align: top; padding-top: 10px; padding-left:10px; text-align:left;"><font style="font-size: 12px; font-weight:bold;">&nbsp;&nbsp;① 원하는 날짜와 시간을 선택한 후 검색을 누르세요.</font> <br><input type="text" style="width:70%;  display: inline-block;" class="datetimes form-control" name="datetimes" onchange="resetSearchList();" />&nbsp;&nbsp;<input type="button" class="btn btn-outline-primary" style=" display: inline-block;"value="검색" onclick="searchList();"></td>',
+		'<td style="border-left: 1px solid #444444; width:50%; height:500px; vertical-align: top; padding-top: 10px; padding-left:10px;padding-right:10px;" rowspan="2"><div id="pano" style="width:100%;height:100%;"></div></td>',
 		'</tr>',
 	    '<tr>',
-	    '<td style="border-top: 1px solid #444444; vertical-align: top; padding-top: 10px; padding-left:10px; height:20%;" align="top"><h2 style="display:inline-block;"><span class="badge badge-danger" >자리 선택</span></h2><font style="font-size: 12px; font-weight:bold;">&nbsp;&nbsp;② 희망 자리를 우측 로드뷰에서 확인 후 선택하세요.</font><br><div style="overflow-y:scroll; margin:10px; margin-top:15px; height:10%; width:100%; display:inline-block;" class="reservationList"></div></td>',
+	    '<td style="border-top: 1px solid #444444; vertical-align: top; padding-top: 10px; padding-left:10px; height:20%; text-align:left;" align="top" ><font style="font-size: 12px; font-weight:bold;">&nbsp;&nbsp;② 희망 자리를 우측 로드뷰에서 확인 후 선택하세요.</font><br><div style="overflow-y:scroll; margin:10px; margin-top:15px; height:10%; width:100%; display:inline-block;" class="reservationList"></div></td>',
 	    '</tr>',
 	    '</table>'
 	].join('');
 	return contentString;
-}
+}*/
 
 function resetSearchList(){
 	$(".reservationList").html("");
@@ -98,10 +98,8 @@ function searchList() {
 			} else {
 				var s = "";
 				jQuery.each(list, function(index, entry) {
-					var b = "<input type='button'  class='btn btn-success' id='" + entry["pap_host"] + "' onclick='modalRequestOpen(this);' data-toggle='modal' data-target='#exampleModal1' value='" + entry["pap_area"] +"'>&nbsp;&nbsp;";
-					if((index+1)%4 == 0) {
-						b += "<br><br>";
-					}
+					var b = "<input type='button' style='margin-right:10px; width:20%; margin-bottom:10px;' class='btn btn-success' id='" + entry["pap_host"] + "' onclick='modalRequestOpen(this);' data-toggle='modal' data-target='#exampleModal1' value='" + entry["pap_area"] +"'>";
+					
 					s += b;
 				});
 				for(var i = 0; i<list.length;i++){
@@ -124,6 +122,7 @@ function modalRequestOpen(t) {
 	var from = document.getElementsByName('datetimes')[0].value.split(' - ')[0].trim();
 	var to = document.getElementsByName('datetimes')[0].value.split(' - ')[1].trim();
 	var date = from + " ~ " + to;
+	$('#exampleModal').css("z-index","1040");
 	$('.hostName').val(host);
 	$('#exampleModal1').modal('show');
 	$('.requestArea').html(s);
@@ -132,13 +131,13 @@ function modalRequestOpen(t) {
 }
 
 // 로드뷰 호출
+var pano = null;
 function roadView(seq) {	
-	var pano = null;
     pano = new naver.maps.Panorama("pano", {
         position: new naver.maps.LatLng(lat[seq], lon[seq]),
         pov: {
             pan: -135,
-            tilt: -20,
+            tilt: -29,
             fov: 100
         }
     });
@@ -180,36 +179,80 @@ function inputMarker(ad) {
 		}
 		markers.push(marker);
 		marker.setMap(map);
-		var infoWindow = new naver.maps.InfoWindow({
+		/*var infoWindow = new naver.maps.InfoWindow({
 			content: modalContentCreate(i),
 		    backgroundColor: '#ddd ',
 		    borderColor: '#190707',
 		    anchorColor: '#333',
 		    borderWidth: 3
 		});
-		this.infoWindows.push(infoWindow);
+		this.infoWindows.push(infoWindow);*/
 	}
 }
 
 // 마커 이벤트 핸들러
 function getClickHandler(seq) {
     return function(e) {
-        var marker = markers[seq],
+    	if(session == null || session == "") {
+    		swal('예약오류','로그인을 먼저 진행해주세요.','error');
+    		return;
+    	}
+    	$('#exampleModal').modal('show');
+    	$('.searchModalTitle').html(add[seq]);
+    	roadView(seq);
+    	setRoadViewSize();
+    	selectNum = seq;
+    	setDateTimePicker();
+        /*var marker = markers[seq],
             infoWindow = infoWindows[seq];
         if (infoWindow.getMap()) {
             infoWindow.close();
         } else {
-        	if(session == null || session == "") {
-        		swal('예약오류','로그인을 먼저 진행해주세요.','error');
-        	} else {
+        	 else {
 	            infoWindow.open(map, marker);
-	            roadView(seq);
-	        	selectNum = seq;
-	        	setDateTimePicker();
+	            
+	        	
         	}
-        }
+        }*/
     }
 }
+
+function setRoadViewSize() {
+	var tdwidth = window.innerWidth *0.8 * 0.5;
+	var tdheight = $('.panotd').height();
+	
+	var targetSize = new naver.maps.Size(parseInt(tdwidth, 10), parseInt(tdheight, 10));
+	var newSize = new naver.maps.Size();
+	
+	$("#pano").stop().animate({
+        width: targetSize.width,
+        height: targetSize.height
+    }, {
+        duration: 500,
+        step: function(value, tween) {
+            if (tween.prop === "width") {
+                newSize.width = Math.round(value);
+                return;
+            }
+
+            if (tween.prop === "height") {
+                newSize.height = Math.round(value);
+                return;
+            }
+        },
+
+        progress: function() {
+            pano.setSize(newSize.clone());
+        }
+    });
+}
+
+function setOriginMarkerPosition(panoSize) {
+    originMarker.css({
+        "left": panoSize.width / 2 - 5,
+        "top": panoSize.height / 2 - 5
+    });
+};
 
 // 예약신청
 function requestReservation() {
@@ -236,7 +279,6 @@ function requestReservation() {
 					icon : "success"
 				}).then((willDelete) => {
 					if(willDelete) {
-						swal('예약완료후 내정보 페이지로 이동');
 						reservationRequestAlram(t.result);
 						// location.href = './reservation_searchboard.do?';
 					}

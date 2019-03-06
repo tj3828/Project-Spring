@@ -13,8 +13,8 @@
 <div class="wrap">
 	<jsp:include page="../common/top.jsp"></jsp:include>
 	<div class="container">
-		<div class="title_label_div">
-			<span class="fas fa-align-justify"></span>
+		<div class="title_label_div" style="background: #FF8000;">
+			<span class="fas fa-question-circle"></span>
 			<font class="title_label" >FAQ</font>
 			<form name="myform" action="../freeboard/freeboard.do" style="display: none; right: 0; text-align:center; width:50%; float: right; margin-top: 0.7%;">
 		  	 	<select class="selectpicker" name="keyfield" onchange="changeclear();" style="height: calc(2.25rem + 2px); width: 15%;">

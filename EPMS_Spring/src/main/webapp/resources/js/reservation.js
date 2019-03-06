@@ -25,10 +25,10 @@ function mainSearchAjax(pageNUM) {
 		dataType: "json",
 		success: function(data) {
 			if(data.list.length == 0) {
-				$('tbody').empty();
+				$('.tbody').empty();
 				$('.pagination').empty();
 				$('tfoot').empty();
-				$('tbody').append('<tr>' +
+				$('.tbody').append('<tr>' +
 				   		'<td>"' + $('#searchAreaText').val() + '"에 대한 장소가 없습니다.</td>' +
 				   '</tr>');
 				return false;
@@ -42,7 +42,7 @@ function mainSearchAjax(pageNUM) {
 function setSearchListPaging(paging) {
 	$('.pagination').empty();
 	$('tfoot').empty();
-	$('table').append('<tfoot>' +
+	$('.table').append('<tfoot>' +
 					  	'<tr>' +
 							'<td>' +
 								'<nav aria-label="..." >' +
@@ -86,10 +86,10 @@ function setSearchListPaging(paging) {
 }
 
 function setSearchList(list) {
-	$('tbody').empty();
+	$('.tbody').empty();
 	jQuery.each(list, function(index, entry) {
 		lat.push(entry["pa_lat"]);lon.push(entry["pa_lon"]);add.push(entry["pa_address"]);
-		$('tbody').append('<tr>' +
+		$('.tbody').append('<tr>' +
 						   		'<td>' + 
 						   			'<a href="javascript:modalMap(' + entry["pa_lat"] + ', ' + entry["pa_lon"] + ', \'' +  entry["pa_address"] + '\' )">' +  
 						   				entry["pa_address"] +
@@ -137,5 +137,9 @@ function fe_mapSelectSeoul(){
 		});
 	});
 }
-		
+
+$(document).on('hide.bs.modal','#exampleModal1', function () {
+	$('#exampleModal').css('z-index','1050');	
+});
+
 		

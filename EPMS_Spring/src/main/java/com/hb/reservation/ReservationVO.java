@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ReservationVO {
+	private int rn;
 	private int r_no;
 	private String r_guest;
 	private String r_guest_profileImg;

@@ -10,14 +10,57 @@
 <link rel="stylesheet" href="../resources/css/reservation.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<jsp:include page="../common/top.jsp"></jsp:include>
+<style>/
+	/* #pano{
+		width:100% !important;
+		height: 100% !important;
+	} */
+</style>
 <body style="height: inherit; padding: 0; margin: 0; position: relative;">
 	<div class="main-body">
-		<!-- ModalRequest -->
-		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-		  <div class="modal-dialog modal-lg" style="left:50%; top:50%; transform:translate(-50%,-50%); margin: 0;" role="document"> 
+		<!-- ModalSearchRequest -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" style="left:50%; top:50%; transform:translate(-50%,-50%); margin: 0; max-width: 80%;" role="document"> 
 		    <div class="modal-content"> 
 		      <div class="modal-header">
-		        <h3 class="modal-title" style="font-family: sangsangBody;" id="exampleModalLabel1">예약 요청하기</h3>
+		        <h3 class="modal-title" style="font-family: sangsangBody;" id="exampleModalLabel1">지역 검색</h3>
+		       	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" style="text-align: left; font-family: sangsangBody; font-size: 1rem;">
+		      	<h1 style="text-align: center"><span class="badge badge-danger searchModalTitle" ></span></h1>
+				<table style="width:100%; height:40%;" >
+					<tr style="border-top: 1px solid #444444;">
+						<td style="width:50%; height:20%; vertical-align: top; padding:10px; text-align:left;">
+							<h2 style="display:inline-block;"><span class="badge badge-danger" >기간 선택</span></h2>
+							<font style="font-size: 1.5rem; font-weight:bold;">&nbsp;&nbsp;① 원하는 날짜와 시간을 선택한 후 검색을 누르세요.</font> <br>
+							<input type="text" style="width:70%;  display: inline-block;" class="datetimes form-control" name="datetimes" onchange="resetSearchList();" />&nbsp;&nbsp;
+							<input type="button" class="btn btn-outline-primary" style=" display: inline-block;"value="검색" onclick="searchList();">
+						</td>
+						<td class="panotd" style="border-left: 1px solid #444444; width:50%; height:500px; vertical-align: top; padding-top: 10px; padding-left:10px;padding-right:10px;" rowspan="2">
+							<div id="pano" style="width:100% !important;height:100% !important;"></div>
+						</td>
+					</tr>
+	    			<tr>
+		    			<td style="border-top: 1px solid #444444; vertical-align: top; padding: 10px;  text-align:left;" align="top" >
+		    				<h2 style="display:inline-block;"><span class="badge badge-danger" >자리 선택</span></h2>
+		    				<font style="font-size: 1.5rem; font-weight:bold;">&nbsp;&nbsp;② 희망 자리를 우측 로드뷰에서 확인 후 선택하세요.</font><br>
+		    				<div style="overflow-y:scroll; margin:10px; margin-top:15px; padding:10px; border: 1px solid gray; display:inline-block;" class="reservationList"></div>
+		    			</td>
+	    			</tr>
+	   			</table>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	
+		<!-- ModalRequest -->
+		<div class="modal fade" id="exampleModal1" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+		  <div class="modal-dialog modal-sm" style="left:50%; top:50%; transform:translate(-50%,-50%); margin: 0; max-width: 50%;" role="document"> 
+		    <div class="modal-content"> 
+		      <div class="modal-header">
+		        <h3 class="modal-title" style="font-family: sangsangBody;" id="exampleModalLabel1">예약 요청</h3>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -27,7 +70,7 @@
 			      	<strong style="font-family: sangsangBody;">요청 시간 : </strong><span class="requestTime" style="font-family: sangsangBody;"></span><br><br>
 			      	<strong style="font-family: sangsangBody;">요청 지역 : </strong><span class="requestAddress" style="font-family: sangsangBody;"></span><br><br>
 			      	<strong style="font-family: sangsangBody;">주차 구역 : </strong><span class="requestArea" style="font-family: sangsangBody;"></span><br> <br>
-			      	<strong style="font-family: sangsangBody;">메시지 : </strong><textarea class="requestMessage" style="font-family: sangsangBody; width: 100%; resize: none;" rows="3" placeholder="전송하고자하는 메시지를 입력하세요."></textarea><br><br>
+			      	<strong style="font-family: sangsangBody;">메시지 : </strong> &nbsp;<textarea class="requestMessage" style="font-family: sangsangBody; width: 100%; resize: none; border: 1px solid;" rows="3" placeholder="전송하고자하는 메시지를 입력하세요."></textarea><br><br>
 			      	<input type="button" class="btn btn-primary" value="예약 요청하기" style="font-family: sangsangBody; float:right;" onclick="requestReservation();">
 		      </div>
 		    </div>
@@ -108,7 +151,7 @@
 					<div class="main_right" style="width: 60%; padding-left: 10%; font-family: sangsangBody;"> 
 						<input type="text" class="form-control" placeholder="찾으시는 장소를 입력하세요." id="searchAreaText" name="searchAreaText" value="" style="width:100%; margin-bottom: 0.5rem; margin-top: 0.5rem; display:unset;">
 						<table class="table table-striped table-hover" style="border-radius: 10px;">
-							<tbody>
+							<tbody class="tbody">
 							</tbody>
 							<tfoot>
 								<tr>

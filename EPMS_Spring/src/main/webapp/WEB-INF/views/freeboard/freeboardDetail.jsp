@@ -13,6 +13,52 @@
 	p {
 		margin-bottom: 0 !important;
 	}
+	
+	.like-content {
+	    display: inline-block;
+	    width: 100%;
+	    font-size: 18px;
+	    text-align: center;
+	}
+	.like-content span {
+		color: #9d9da4;
+		font-family: monospace;
+	}
+	.like-content .btn-secondary {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	    text-align: center;
+	    background: #ed2553;
+	    border-radius: 3px;
+	    box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+	    padding: 10px 17px;
+	    font-size: 18px;
+	    cursor: pointer;
+	    border: none;
+	    outline: none;
+	    color: #ffffff;
+	    text-decoration: none;
+	    -webkit-transition: 0.3s ease;
+	    transition: 0.3s ease;
+	}
+	.like-content .btn-secondary:hover {
+		  background: #ed2553 !important;
+		  transform: translateY(-3px);
+	}
+	.like-content .btn-secondary .fa {
+		  margin-right: 5px;
+	}
+	.animate-like {
+		animation-name: likeAnimation;
+		animation-iteration-count: 1;
+		animation-fill-mode: forwards;
+		animation-duration: 0.65s;
+	}
+	@keyframes likeAnimation {
+	  0%   { transform: scale(30); color:red; }
+	  100% { transform: scale(1); color: white;}
+	}
 </style>
 <body>
 	<div class="wrap">
@@ -26,7 +72,7 @@
 				<div class="panel-body">
 					<div class="container container-out">  
 						<div class="form-group" style="font-size: 2.5vmin;">
-							<strong>작성자 :</strong> <img src="${pageContext.request.contextPath}/resources/upload/${dto.profile_img}" width="50px;" height="50px;">&nbsp;${dto.nickname} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>작성일 :</strong> ${dto.writeDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>조회수 :</strong> ${dto.viewCnt}
+							<strong>작성자 :</strong> <img src="${pageContext.request.contextPath}/resources/upload/${dto.profile_img}" width="50px;" height="50px;">&nbsp;${dto.nickname} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>작성일 :</strong> ${dto.writeDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>조회수 :</strong> ${dto.viewCnt}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong >좋아요 :</strong> <font class="detailLikeCnt">${dto.likeCnt}</font>
 						</div>
 						<hr>
 						<div class="form-group content-div"> 
@@ -37,7 +83,19 @@
 							<label for="File">File input : &nbsp;</label> <a href="../freeboardDetail/download.do?fidx=${dto.upload_file}&idx=${dto.num}&sidx=${dto.store_upload_file}">${dto.upload_file}</a> (${dto.upload_file_size}kb)
 						</c:if>
 						<br>
-						<div style="border: 1px; text-align: center;">
+						
+						<div class="like-content"> 
+						  
+						  <button class="btn-secondary likebt">
+						    <i class="fa fa-heart" aria-hidden="true"></i> 
+						    <font class="likeMsg">
+							    <c:if test="${checkLike != 1 || sessionScope.dto.id == null}">Like</c:if>
+								<c:if test="${checkLike == 1 && sessionScope.dto.id != null}">You liked this</c:if>
+						  	</font>
+						  </button>
+						  <input type="hidden" id="checkLike" class="checkLike" value="${checkLike}">
+						</div>
+						<%-- <div style="border: 1px; text-align: center;">
 							<button type="button" class="likebt" style="display: inline-block; border: 2px solid red; padding:0.7vmin; border-radius: 15px; background-color: white; cursor: pointer; outline: none;">
 								<span style="display: inline-flex ; height: auto;">
 									<i class="fas <c:if test="${checkLike == 1 && id != null}">fa-heart-broken</c:if><c:if test="${checkLike != 1 || id == null}">fa-heart</c:if> likeicon" style="color: red;"></i>&nbsp;
@@ -49,7 +107,8 @@
 								<font style="font-size: 2.5vmin; ">&nbsp;[<span class="likecnt">${dto.likeCnt}</span>]</font>
 							</button>
 							<input type="hidden" id="checkLike" class="checkLike" value="${checkLike}">
-						</div> 
+						</div>  --%>
+						<br>
 						<br>
 						<div align="center"> 
 							<c:if test="${sessionScope.dto.nickname == dto.nickname}">
@@ -323,7 +382,7 @@
 
 		}
 		
-		$('.likebt').mouseover(function() {
+		/* $('.likebt').mouseover(function() {
 			$('.likebt').css('background-color','rgba(255, 0, 0, 0.11)');
 		});
 		
@@ -337,16 +396,16 @@
 		
 		$('.likebt').mouseup(function() {
 			$('.likebt').css('background-color','rgba(255, 0, 0, 0.11)');
-		});
+		}); */
 		
 		$('.likebt').click(function() {
-			if(${id == null}) {
+			var id = "${sessionScope.dto.id}";
+			if(id == "" || id == null) {
 				swal('로그인','로그인을 해주세요.','error');
 				return false;
 			}
 			else {
 				var fr_idx = $('#fr_idx').val();
-				var id = "${id}";
 				var like = $('#checkLike').val();
 				$.ajax({
 					url:"../like/change.do",
@@ -365,14 +424,22 @@
 		
 		$('.checkLike').change(function(){
 			var checkLike = $('#checkLike').val();
+			var cnt = $('.detailLikeCnt').html()*1;
+
 			if(checkLike == 1) {
-				$('.likeicon').removeClass('fa-heart');
-				$('.likeicon').addClass('fa-heart-broken');
-				$('.likeMsg').html('좋아요 취소');
+				$('.likeMsg').html('You liked this');
+				$('.likebt').children('.fa-heart').addClass('animate-like');
+				$('.detailLikeCnt').html(cnt+1);
+				setTimeout(function() {
+					$('.likebt').children('.fa-heart').removeClass('animate-like');
+					}, 650);
 			} else {
-				$('.likeicon').removeClass('fa-heart-broken');
-				$('.likeicon').addClass('fa-heart');
-				$('.likeMsg').html('좋아요 ');
+				$('.likeMsg').html('Like');
+				$('.likebt').children('.fa-heart').addClass('animate-like');
+				$('.detailLikeCnt').html(cnt-1);
+				setTimeout(function() {
+					$('.likebt').children('.fa-heart').removeClass('animate-like');
+					}, 650);
 			}
 		});
 	</script>
