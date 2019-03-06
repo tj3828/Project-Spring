@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나에게 온 예약내역</title>
+<title>내가 신청한 예약내역</title>
 	<link rel="stylesheet" href="../resources/css/freeboard.css">
 </head>
 <style>
@@ -20,17 +20,17 @@
 	<div class="container">
 		<div class="title_label_div">
 			<span class="fas fa-align-justify"></span>
-			<font class="title_label" >나에게 온 예약내역</font>
+			<font class="title_label" >내가 신청한 예약내역</font>
 		</div>
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th class="th-xs">No.</th>
-					<th class="th-xs">신청자</th>
+					<th class="th-xs">대여자</th>
 					<th class="th-l">주소</th>
 					<th class="th-xs">주차공간</th>
 					<th class="th-s">대여기간</th>
-					<th class="th-xs">요청시간</th>
+					<th class="th-xs">승인시간</th>
 					<th class="th-xs">상태</th>
 				</tr>
 			</thead>
@@ -38,11 +38,11 @@
 				<c:forEach var="list" items="${list}" begin="0" end="${list.size()}">
 					<tr>
 						<td class="th-xs">${list.rn}</td>
-						<td class="th-xs"><img src="${pageContext.request.contextPath}/resources/upload/${list.r_guest_profileImg}" width="30px;" height="30px;"> &nbsp;${list.r_guest}</td>
+						<td class="th-xs"><img src="${pageContext.request.contextPath}/resources/upload/${list.r_host_profileImg}" width="30px;" height="30px;"> &nbsp;${list.r_host}</td>
 						<td class="th-l">${list.r_address}</td>
 						<td class="th-xs">${list.r_area}</td>
 						<td class="th-s">${list.r_from} ~ <br>${list.r_to}</td>
-						<td class="th-xs">${list.r_request}</td>
+						<td class="th-xs">${list.r_agree}</td>
 						<td class="th-xs">
 							<c:if test="${list.r_status == '예약중'}"><font color="red">승인대기중</font></c:if>
 							<c:if test="${list.r_status == '예약완료'}"><font color="blue">승인완료</font></c:if>

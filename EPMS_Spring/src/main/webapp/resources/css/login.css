@@ -64,6 +64,7 @@ a.btn:hover, input.textInput:hover {
 
 a.btn1 {
     background-color: #ffc107;
+    color: black;
 }
 a.btn2 {
     background-color: #898c9b;
@@ -75,7 +76,8 @@ a.btn4 {
     background-color: #0076fe;
 }
 a.btn5 {
-    background-color: #00C026;
+    background-color: yellow;
+    color: black;
 }
 
 /*
@@ -122,10 +124,10 @@ a.btn4:before {
     top: 12px;
 }
 a.btn5:before {
-    content: url(../images/logo-line.png);
+    content: url(../images/logo-kakao.png);
     position: absolute;
-    left: 12px;
-    top: 10px;
+    left: 15px;
+    top: 12px;
 }
 
 span.or-txt {

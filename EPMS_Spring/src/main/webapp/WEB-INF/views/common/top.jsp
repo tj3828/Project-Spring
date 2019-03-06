@@ -208,8 +208,8 @@
 						      <ul class="menu-dropdown" style="z-index: 9000;">
 						        <li>내 정보</li>
 						        <li><span onclick="location.href='../myInfo/myHostPage.do'">나에게 온 예약내역</span></li>
-						        <li>내가 보낸 예약내역</li>
-						        <li>만료내역</li>
+						        <li><span onclick="location.href='../myInfo/myGuestPage.do'">내가 보낸 예약내역</span></li>
+						        <li><span onclick="location.href='../myInfo/myExpirationPage.do'">만료내역</span></li>
 						      </ul>
 						    </a>
 						</li>&nbsp;&nbsp;
@@ -226,26 +226,28 @@
 
 	<!-- 네비게이션 바 -->
 	<nav class="navbar nav navbar-expand-xl navbar-light bg-dark" style="z-index: 3000 !important">
-		<a class="navbar-brand mb-0 text-warning" href="../main/main.do"><img class="img-fluid" src="../resources/images/mainIcon/navlogo_ch2.png" width="250"></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    	<span class="navbar-toggler-icon"></span>
-		</button>
-		
-	  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    	<ul class="navbar-nav mr-auto">
-	     		<li class="nav-item active">
-	     			<a class="nav-link text-muted">소개</a>
-	      		</li>
-				<li class="nav-item active">
-					<a class="nav-link text-white" href="../reservationPage/showPage.do">주차예약</a>
-	      		</li>
-				<li class="nav-item active">
-					<a class="nav-link text-white" href="../freeboard/freeboard.do">공지사항</a>
-	      		</li>
-	      		<li class="nav-item active">
-	        		<a class="nav-link text-white" href="../faq/faq.do">FAQ</a>
-	      		</li>
-	    	</ul>
+		<div class="container">
+			<a class="navbar-brand mb-0 text-warning" href="../main/main.do"><img class="img-fluid" src="../resources/images/mainIcon/navlogo_ch2.png" width="250"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    	<span class="navbar-toggler-icon"></span>
+			</button>
+			
+		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    	<ul class="navbar-nav mr-auto">
+		     		<li class="nav-item active">
+		     			<a class="nav-link text-muted">소개</a>
+		      		</li>
+					<li class="nav-item active">
+						<a class="nav-link text-white" href="../reservationPage/showPage.do">주차예약</a>
+		      		</li>
+					<li class="nav-item active">
+						<a class="nav-link text-white" href="../freeboard/freeboard.do">공지사항</a>
+		      		</li>
+		      		<li class="nav-item active">
+		        		<a class="nav-link text-white" href="../faq/faq.do">FAQ</a>
+		      		</li>
+		    	</ul>
+		  	</div>
 	  	</div>
 	</nav>
 	

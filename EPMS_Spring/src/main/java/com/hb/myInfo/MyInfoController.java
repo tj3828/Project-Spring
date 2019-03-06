@@ -30,4 +30,22 @@ public class MyInfoController {
 		
 		return "/myPage/myHost";
 	}
+	
+	@GetMapping("/myGuestPage.do") 
+	public String showMyInfoGuestPage(HttpSession session, Paging paging, Model model) {
+		AccountVO vo =  (AccountVO)session.getAttribute("dto");
+		ArrayList<ReservationVO> list = myInfoService.selectMyGuestInfoList(vo.getNickname(), paging);
+		model.addAttribute("list", list);
+		
+		return "/myPage/myGuest";
+	}
+	
+	@GetMapping("/myExpirationPage.do") 
+	public String showMyInfoExpirationPage(HttpSession session, Paging paging, Model model) {
+		AccountVO vo =  (AccountVO)session.getAttribute("dto");
+		ArrayList<ReservationVO> list = myInfoService.selectMyExpirationInfoList(vo.getNickname(), paging);
+		model.addAttribute("list", list);
+		
+		return "/myPage/myExpiration";
+	}
 }

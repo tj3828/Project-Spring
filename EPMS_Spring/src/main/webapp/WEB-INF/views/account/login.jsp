@@ -101,8 +101,9 @@
    
    <div class="container">
        <div class="inner">
-           <div class="header">
-               <a class="top-header" >Navbar</a>
+           <div class="header" style="background: gray;">
+           			
+               <a class="top-header"  href="../main/main.do"><img class="img-fluid" src="../resources/images/mainIcon/navlogo_ch2.png" width="250"></a>
            </div>
            <div class="login">
                <div class="login-type">
@@ -116,7 +117,7 @@
                    <a class="btn btn2" href="#">이메일로 로그인</a>
                    <a class="btn btn3" href="#">네이버로 로그인</a>
                    <a class="btn btn4" href="#">페이스북으로 로그인</a>
-                   <a class="btn btn5" href="#">라인으로 로그인</a>
+                   <a class="btn btn5" href="#">카카오톡으로 로그인</a> 
                </div>
                <div class="footer">
                    <p class="band-first">
