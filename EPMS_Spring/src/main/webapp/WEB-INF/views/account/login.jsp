@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
     <script src="../resources/js/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="../resources/js/login.js"></script>
 </head>
 <style>
 .ch, .ch1{
@@ -114,10 +117,9 @@
                    <input class="ch1"  id="ch1" type="checkbox" <c:if test="${cookie.autoLogin.value != null }">checked="checked"</c:if>><label for="ch1"></label><font style="font-weight: bolder">&nbsp;자동 로그인</font><p>
                    <a class="btn btn1" href="javascript:checkVal();">일반 로그인</a>
                    <span class="or-txt">또는</span>
-                   <a class="btn btn2" href="#">이메일로 로그인</a>
-                   <a class="btn btn3" href="#">네이버로 로그인</a>
-                   <a class="btn btn4" href="#">페이스북으로 로그인</a>
-                   <a class="btn btn5" href="#">카카오톡으로 로그인</a> 
+                   <a class="btn btn3" id="naver_id_login" href="${naverUrl}">네이버로 로그인</a>
+                   <a class="btn btn4" style="cursor: pointer;" onclick="facebookLogin();">페이스북으로 로그인</a>
+                   <a class="btn btn5" style="cursor: pointer;" onclick="kakaoLogin();">카카오톡으로 로그인</a> 
                </div>
                <div class="footer">
                    <p class="band-first">
@@ -126,7 +128,6 @@
                </div>
            </div>
        </div>
-   </div>
-    
+   </div>  
 </body>
 </html>

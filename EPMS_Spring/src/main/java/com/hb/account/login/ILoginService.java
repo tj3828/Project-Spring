@@ -8,4 +8,5 @@ public interface ILoginService {
 	int loginReq(AccountVO dto);
 	AccountVO autoLoginReq(AccountVO dto);
 	void logout(String id);
+	AccountVO snsLoginCheck(AccountVO dto);
 }

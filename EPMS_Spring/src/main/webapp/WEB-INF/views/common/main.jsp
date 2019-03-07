@@ -131,7 +131,8 @@
    		<input type="button" class="btn-login" value="LOGIN" onclick="location.href='../login/login.do';">
    </c:if>
    <c:if test="${sessionScope.dto.id != null }">
-   		<input type="button" class="btn-login" value="LOGOUT" onclick="location.href='../login/logout.do';">
+   		<input type="button" class="btn-login logout" value="LOGOUT" onclick="location.href='../login/logout.do';">
+   		<iframe width='0' height='0' name='test' id='test' frameborder='1' scrolling='yes' align='left' style="visibility:hidden;display:none"></iframe>
    </c:if>
    <div class="main-image" style="left:50%;top:50%;transform: translate(-50%,-70%); position: relative; ">
    		<div class="main-slide-image" style="display: none;">
@@ -158,6 +159,9 @@
  
    <script>
 		$('.main-slide-image').slideDown(1000);
+		$('.logout').click(function() {
+			document.getElementById("test").src = 'http://nid.naver.com/nidlogin.logout';
+		});
    </script>
 </body>
 </html>

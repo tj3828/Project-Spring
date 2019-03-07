@@ -53,6 +53,17 @@ public class LoginServiceImpl implements ILoginService{
 	public void logout(String id) {
 		loginDAOMapper.logout(id);
 	}
+
+	@Override
+	public AccountVO snsLoginCheck(AccountVO dto) {
+		int i = loginDAOMapper.loginId(dto);
+		if(i>0) {
+			loginDAOMapper.login(dto);
+			return loginDAOMapper.accountInfo(dto);
+		} else {
+			return null;
+		}
+	}
 	
 	
 }

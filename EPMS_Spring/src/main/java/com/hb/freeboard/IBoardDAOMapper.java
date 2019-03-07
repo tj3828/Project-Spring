@@ -17,7 +17,7 @@ public interface IBoardDAOMapper {
 			" 	    select rownum as rn, h.* from " + 
 			"   		( select  b.* from freeboard b where ${keyfield} like '%' || #{keyword} || '%' order by writedate asc) h" +
 			" 	   )  where rn between  #{end} and #{start}  " +
-			" )a join account n on a.nickname = n.nickname order by rn desc")
+			" )a left outer join account n on a.nickname = n.nickname order by rn desc")
 	List<FreeBoardVO> dbSelect(Paging paging);
 	
 	@Select("select count(*) from freeboard")

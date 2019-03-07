@@ -214,7 +214,7 @@
 						    </a>
 						</li>&nbsp;&nbsp;
 						<li class="nav-item top_side" style="width: fit-content">
-							<a href="../login/logout.do">로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+							<a style="cursor: pointer;" class="logout">로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 						</li>
 					</c:if>
 					<li class="nav-item top_side" style="width: fit-content;"><a href="#">고객센터</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
@@ -223,7 +223,8 @@
 			</div>
 		</div>		
 	</nav>
-
+	<iframe width='0' height='0' name='test' id='test' frameborder='1' scrolling='yes' align='left' style="visibility:hidden;display:none"></iframe>
+	<iframe width='0' height='0' name='test1' id='test1' frameborder='1' scrolling='yes' align='left' style="visibility:hidden;display:none"></iframe>
 	<!-- 네비게이션 바 -->
 	<nav class="navbar nav navbar-expand-xl navbar-light bg-dark" style="z-index: 3000 !important">
 		<div class="container">
@@ -259,5 +260,13 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="../resources/js/bootstrap/bootstrap.min.js"></script>
 	<script src="../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script src="../resources/js/login.js"></script>
+	<script>
+		$('.logout').click(function() {
+			document.getElementById("test1").src = "https://www.facebook.com/logout.php";
+			document.getElementById("test").src = 'http://nid.naver.com/nidlogin.logout';
+			location.href="../login/logout.do";
+		});
+	</script>
 </body>
 </html>

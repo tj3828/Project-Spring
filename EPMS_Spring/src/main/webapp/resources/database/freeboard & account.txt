@@ -40,14 +40,14 @@ create table freeboard_reply (
 drop table account;
 create table account (
   id varchar2(100) not null,
-  pw varchar2(20) not null,
+  pw varchar2(20),
   name varchar2(50) not null,
   nickname varchar2(50) not null,
-  email varchar2(100) not null,
+  email varchar2(100),
   phone varchar2(50) not null,
   addr1 varchar2(150) not null,
   addr2 varchar2(150) not null,
-  gender varchar2(10) not null,
+  gender varchar2(10),
   profile_img varchar2(150) not null,
   primary key(id)
 );
