@@ -3,6 +3,7 @@
 }
 
 .more .more__header {
+  text-align: center;
   background-color: white;
   padding: 15px;
   display: flex;
@@ -16,7 +17,7 @@
 }
 
 .more__header .more-header__column {
-  display: flex;
+  width:100%;
   align-items: center;
 }
 
@@ -58,7 +59,6 @@
 }
 
 .more__option .more__option-title {
-  margin-top: 10px;
   font-size: 12px;
 }
 

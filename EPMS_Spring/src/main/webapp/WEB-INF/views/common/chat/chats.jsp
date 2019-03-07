@@ -47,7 +47,7 @@
 	var notReadCount; 
 	
 	// 웹소켓 연결
-	var webSocket = new WebSocket("ws://118.130.22.175:8081/b/ws");
+	var webSocket = new WebSocket("ws://localhost:8081/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
