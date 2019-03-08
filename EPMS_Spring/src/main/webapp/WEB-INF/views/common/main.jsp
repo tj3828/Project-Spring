@@ -9,6 +9,7 @@
 <title>주차관리시스템 - EPMS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<link rel="stylesheet" href="../resources/css/bootstrap/bootstrap.min.css">
 <script src="../resources/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <style>
@@ -19,6 +20,7 @@
 	    margin-top: 15px;
 	    margin-right: 0;
 	    position: absolute;
+	    margin-left: 0; 
 	}
 	
 	.swing1 img  {
@@ -146,8 +148,8 @@
     	</div>
 		<br>
 		<div class="main-image-btns" style="width:500px; display: inline-block;" >
-			<hr style="width:350px; height: 10px; border: 0; background-color: #f15e5e;">
-			<figure class="swing1">
+			<hr style="width:350px; height: 10px; border: 0; background-color: #f15e5e; margin-bottom: 0.5em !important;">
+			<figure class="swing1" style="margin-left: 40px !important;">
 				<img src="../resources/images/infoBtn.png" onclick="#" style="cursor:pointer;">
 			</figure> 
 			<figure class="swing2">
@@ -156,12 +158,12 @@
 		</div>
    </div>
    <jsp:include page="../common/chatBt.jsp"></jsp:include>
- 
    <script>
 		$('.main-slide-image').slideDown(1000);
 		$('.logout').click(function() {
-			document.getElementById("test").src = 'http://nid.naver.com/nidlogin.logout';
+			document.getElementById("test").src = 'https://nid.naver.com/nidlogin.logout';
 		});
    </script>
 </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>

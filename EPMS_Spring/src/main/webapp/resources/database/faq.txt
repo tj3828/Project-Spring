@@ -6,7 +6,7 @@ create sequence faqboard_seq;
 drop table faqboard;
 create table faqboard(
 	num number(7) not null primary key,
-	nickname varchar2(20) not null,
+	nickname varchar2(100) not null,
 	profile_img varchar2(150) not null,
 	title varchar2(90) not null,
 	content varchar2(900) not null,

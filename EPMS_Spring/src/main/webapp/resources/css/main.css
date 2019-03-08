@@ -21,7 +21,7 @@ html,body {
 /* 폰트 설정 */
 @font-face { 
 	font-family: MyFont; 
-	src: url(http://myhome.com/fonts/myfont.ttf); 
+	src: url(https://myhome.com/fonts/myfont.ttf); 
 	font-weight: bold; 
 } 
 

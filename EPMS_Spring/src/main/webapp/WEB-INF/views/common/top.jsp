@@ -7,12 +7,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Insert title here</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <style>
+	table {
+		background-color: white !important;
+	}
 	.collapse .nav-item {
 		margin-left: 20%; 
 	}
@@ -217,7 +221,7 @@
 							<a style="cursor: pointer;" class="logout">로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 						</li>
 					</c:if>
-					<li class="nav-item top_side" style="width: fit-content;"><a href="#">고객센터</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+					<li class="nav-item top_side" style="width: fit-content;"><a href="javascript:swal('고객센터','준비중입니다. \n빠른 시일내에 찾아뵙겠습니다.','error');">고객센터</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
 					<li class="nav-item top_side" style="width: fit-content;"><a href="#">이용안내</a> </li>
 				</ul>
 			</div>
@@ -236,7 +240,7 @@
 		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    	<ul class="navbar-nav mr-auto">
 		     		<li class="nav-item active">
-		     			<a class="nav-link text-muted">소개</a>
+		     			<a class="nav-link text-white">소개</a>
 		      		</li>
 					<li class="nav-item active">
 						<a class="nav-link text-white" href="../reservationPage/showPage.do">주차예약</a>
@@ -257,14 +261,14 @@
 <!-- script -->
  	<script src="../resources/js/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 	<script src="../resources/js/bootstrap/bootstrap.min.js"></script>
 	<script src="../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script src="../resources/js/login.js"></script>
 	<script>
 		$('.logout').click(function() {
 			document.getElementById("test1").src = "https://www.facebook.com/logout.php";
-			document.getElementById("test").src = 'http://nid.naver.com/nidlogin.logout';
+			document.getElementById("test").src = 'https://nid.naver.com/nidlogin.logout';
 			location.href="../login/logout.do";
 		});
 	</script>

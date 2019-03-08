@@ -41,7 +41,7 @@
 		}
 	});
 	
-	var webSocket = new WebSocket("ws://localhost:8081/b/ws");
+	var webSocket = new WebSocket("wss://118.130.22.175:8443/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {

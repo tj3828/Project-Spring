@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="../resources/js/jquery-3.3.1.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../resources/chat/css/styles.css">
   <link rel="stylesheet" href="../resources/chat/css/weather.css">
@@ -49,7 +50,7 @@
 		}
 	});
 	
-	var webSocket = new WebSocket("ws://localhost:8081/b/ws");
+	var webSocket = new WebSocket("wss://118.130.22.175:8443/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -102,122 +103,42 @@
       </div>
     </header>
     <section class="more__options" style="background: gainsboro">
-      <!-- <div class="more__option">
-        <i class="fa fa-smile-o fa-2x"></i>
-        <span class="more__option-title">Temperature</span>
-      </div> -->
       <div class="more__option" style="padding:0; padding-bottom: 20px; margin-left: auto; margin-right: auto;">
          	<div class="weather">
-		      <h3>Cloudy</h3>
-		      <div class="cloudy">
-		        <div class="eyes"></div>
-		      </div>
-		    </div><!-- 
-		    <div class="weather">
-		      <h3>Rainy</h3>
-		      <div class="rainy">
-		        <div class="eyes"></div>
+		      <h3 class="weather_status_Title">Cloudy</h3>
+		      <div class="weather_status" style="display: contents;">
+			      <!-- <div class="cloudy">
+			        <div class="eyes"></div>
+			      </div>  -->
 		      </div>
 		    </div>
-		    <div class="weather">
-		      <h3>Stormy</h3>
-		      <div class="stormy">
-		        <div class="eyes"></div>
-		      </div>
-		    </div>
-		    <div class="weather">
-		      <h3>Sunny</h3>
-		      <br />
-		      <div class="sunny">
-		        <div class="eyes"></div>
-		      </div>
-		      <br />
-		    </div>
-		    <div class="weather">
-		      <h3>Snowy</h3>
-		      <div class="snowy">
-		        <div class="eyes"></div>
-		      </div>
-		    </div>
-		    <div class="weather">
-		      <h3>Starry</h3>
-		      <div class="starry">
-		        <div class="eyes"></div>
-		      </div>
-		    </div>
-		    <div class="weather">
-		      <h3>Super Sad Error Cloud</h3>
-		      <div class="cloudy">
-		        <div class="eyes"></div>
-		        <div class="tear"></div>
-		      </div>
-		    </div> -->
         <span class="more__option-title">Weather</span>
       </div>
-      <!-- <div class="more__option">
-        <i class="fa fa-hand-peace-o fa-2x"></i>
-        <span class="more__option-title">Micro Dust</span>
-      </div> -->
     </section>
-    <!-- 
     <section class="more__plus-friends">
       <header class="plus-friends__header">
-        <h2 class="plus-friends__title">Plus Friends</h2>
-        <span class="plus-friends__learn-more">
-          <i class="fa fa-info-circle"></i>
-          Learn More
-        </span>
+        <h2 class="plus-friends__title">Plus Weather</h2>
       </header>
       <div class="plus-friends__items">
         <div class="plus-friends__item">
-          <i class="fa fa-cutlery"></i>
-          <span class="plus-friends__item-title">Order</span>
+          <i class="fas fa-wind"></i>
+          <span class="plus-friends__item-title wind">바람</span>
         </div>
         <div class="plus-friends__item">
-          <i class="fa fa-home"></i>
-          <span class="plus-friends__item-title">Store</span>
+          <i class="fas fa-water"></i>
+          <span class="plus-friends__item-title dust">미세먼지</span>
         </div>
         <div class="plus-friends__item">
-          <i class="fa fa-television"></i>
-          <span class="plus-friends__item-title">TV Channel/Radio...</span>
+          <i class="fas fa-sun"></i>
+          <span class="plus-friends__item-title sunrise">일출</span>
         </div>
         <div class="plus-friends__item">
-          <i class="fa fa-pencil"></i>
-          <span class="plus-friends__item-title">Creation</span>
-        </div>
-        <div class="plus-friends__item">
-          <i class="fa fa-graduation-cap"></i>
-          <span class="plus-friends__item-title">Education</span>
-        </div>
-        <div class="plus-friends__item">
-          <i class="fa fa-university"></i>
-          <span class="plus-friends__item-title">Politics/Society</span>
-        </div>
-        <div class="plus-friends__item">
-          <i class="fa fa-krw"></i>
-          <span class="plus-friends__item-title">Finance</span>
-        </div>
-        <div class="plus-friends__item">
-          <i class="fa fa-video-camera"></i>
-          <span class="plus-friends__item-title">Movies/Music</span>
+          <i class="fas fa-moon"></i>
+          <span class="plus-friends__item-title sunset">일몰</span>
         </div>
       </div>
     </section>
-    <section class="more__links">
-      <div class="more__option">
-        <img src="images/kakaoStory.png" alt="" class="more__options-image">
-        <span class="more__options-title">Kakao Story</span>
-      </div>
-      <div class="more__option">
-        <img src="images/path.png" alt="" class="more__options-image">
-        <span class="more__options-title">Path</span>
-      </div>
-      <div class="more__option">
-        <img src="images/kakaoFriends.png" alt="" class="more__options-image">
-        <span class="more__options-title">Kakao friends</span>
-      </div>
-    </section>
-  </main> -->
+  </main> 
   <nav class="tab-bar">
     <a href="javascript:location.replace('../chat/friend.do')" class="tab-bar__tab">
       <i class="fa fa-user"></i>
@@ -254,7 +175,7 @@
 		    }, function(error) {
 		      console.error(error);
 		    }, {
-		      enableHighAccuracy: false,
+		      enableHighAccuracy: true,
 		      maximumAge: 0,
 		      timeout: Infinity
 		    });
@@ -279,13 +200,14 @@
 			success: function (data) {
 				var temp = data.results[0].formatted_address;
 				var add = temp.substring(temp.indexOf(' ') +1);
-				 $('.more-header__title').html(add.replaceAt(add.indexOf(' ', add.indexOf(' ') +1 ), '<br>'));
+				var add1 = add.replaceAt(add.indexOf(' ', add.indexOf(' ')), '<br>');
+				$('.more-header__title').html(add);
 			}
 		});
 	}
 				
 	function getWeather(lat, lon) {
-		var apiURI = "http://api.openweathermap.org/data/2.5/weather?&APPID=1ef5e68a2c7c6690cc4b8252c545cfd1&lat="+lat+"&lon="+lon;
+		var apiURI = "https://api.openweathermap.org/data/2.5/weather?&APPID=1ef5e68a2c7c6690cc4b8252c545cfd1&lat="+lat+"&lon="+lon;
 		$.ajax({
 			url: apiURI,
 			dataType: "json",
@@ -293,6 +215,40 @@
 			async: "false",
 			success: function (resp) {
 				console.log(resp);
+				var icon = resp.weather[0].icon;
+				if(icon == "50d" || icon == "50n") {
+					$('.weather_status_Title').html("Haze");
+					$('.weather_status').html('<div class="cloudy"><div class="eyes"></div></div>');
+				} else if(icon == "01d" || icon == "02d") {
+					$('.weather_status_Title').html("Sunny");
+					$('.weather_status').html('<br/><div class="sunny"><div class="eyes"></div></div><br/>');
+				} else if(icon == "03d" || icon == "04d" || icon == "03n" || icon == "04d") {
+					$('.weather_status_Title').html("Cloudy");
+					$('.weather_status').html('<div class="cloudy"><div class="eyes"></div></div>');
+				} else if(icon == "09d" || icon == "09n" || icon == "10d" || icon == "10n") {
+					$('.weather_status_Title').html("Rainy");
+					$('.weather_status').html('<div class="Rainy"><div class="eyes"></div></div>');
+				} else if(icon == "11d" || icon == "11n") {
+					$('.weather_status_Title').html("ThunderStorm");
+					$('.weather_status').html('<div class="stormy"><div class="eyes"></div></div>');
+				} else if(icon == "13d" || icon == "13n") {
+					$('.weather_status_Title').html("Snowy");
+					$('.weather_status').html('<div class="snowy"><div class="eyes"></div></div>');
+				} else if(icon == "01n" || icon == "02n") {
+					$('.weather_status_Title').html("Starry");
+					$('.weather_status').html('<div class="starry"><div class="eyes"></div></div>');
+				} else {
+					$('.weather_status_Title').html("Error Cloud");
+					$('.weather_status').html('<div class="cloudy"><div class="eyes"></div><div class="tear"></div></div>');
+				}
+				
+				$('.wind').html("바람 : " + resp.wind.speed + " m/s");
+				var sunrise = new Date(resp.sys.sunrise*1000).toString().split(" ")[4];
+				var sunset = new Date(resp.sys.sunset*1000).toString().split(" ")[4];
+				$('.sunrise').html("일출 : " + sunrise);
+				$('.sunset').html("일몰 : " + sunset);
+					
+			
 				$('.more__option-title').html((resp.main.temp- 273.15).toFixed(1)+ " ℃  / "+ resp.main.humidity +" %");
                 console.log("현재온도 : "+ (resp.main.temp- 273.15) );
                 console.log("현재습도 : "+ resp.main.humidity);
@@ -315,7 +271,22 @@
 			type: "GET",
 			async: "false",
 			success: function (resp) {
-				var name = resp.data.city.name;
+				var aqi = resp.data.aqi;
+				var status = "";
+				if(aqi >=0 && aqi <=50) {
+					status += "좋음";
+				} else if(aqi >=51 && aqi <=100) {
+					status += "보통";
+				} else if(aqi >=101 && aqi <=150) {
+					status += "민감군영향";
+				} else if(aqi >=151 && aqi <=200) {
+					status += "나쁨";
+				} else if(aqi >=201 && aqi <=300) {
+					status += "매우나쁨";
+				} else if(aqi >300 ) {
+					status += "위험";
+				}
+				$('.dust').html("미세먼지 : " + resp.data.aqi + " " + status);
 			}
 		})
 	}

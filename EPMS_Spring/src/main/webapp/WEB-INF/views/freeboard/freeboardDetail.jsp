@@ -445,3 +445,4 @@
 	</script>
 </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>

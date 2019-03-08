@@ -108,3 +108,4 @@
 <jsp:include page="../common/chatBt.jsp"></jsp:include>
 </body>
 </html>
+<jsp:include page="../common/footer.jsp"></jsp:include>
