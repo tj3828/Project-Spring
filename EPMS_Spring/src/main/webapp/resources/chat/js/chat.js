@@ -57,3 +57,7 @@ function chatReading(fromNick, toNick, opponentNick) {
 		}
 	});
 }
+
+$('.chatReservationBt').click(function() {
+	location.replace('../chat/find.do');
+});

@@ -1,6 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400);
+@font-face {
+	font-family: 'sangsangBody';
+	src: url('../font/SangSangBodyL.ttf');
+}
+
 .footer{
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'sangsangBody';
   font-weight:300;
   background-color: transparent;
   color:#FFF;
@@ -76,7 +80,7 @@ height:100%;
   text-align:center;
 }
 .footer h3{
-	font-family: 'Helvetica';
+	font-family: sangsangBody;
 	font-size: 30px;
 	font-weight: 100;
 	margin-top:70px;

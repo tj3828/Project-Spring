@@ -50,11 +50,11 @@ public class MvcConfig implements WebMvcConfigurer {
 		registry.addInterceptor(loggerInterceptor())
 			.addPathPatterns("/**/*.do");
 		registry.addInterceptor(autoLoginInterceptor())
-			.addPathPatterns("/freeboard/**.do")
-			.excludePathPatterns("/freeboard/replyEdit.do","/freeboard/delete.do","/freeboard/replyDelete.do","/freeboard/write.do");
+			.addPathPatterns("/freeboard/**.do","/faq/**.do")
+			.excludePathPatterns("/freeboard/replyEdit.do","/faq/faqWrite.do","/freeboard/delete.do","/freeboard/replyDelete.do","/freeboard/write.do");
 		registry.addInterceptor(loginCheckInterceptor())
-			.addPathPatterns("/freeboard/**.do","/chat/**.do","/chatting/**.do")
-			.excludePathPatterns("/freeboard/freeboard.do","/freeboard/detail.do");
+			.addPathPatterns("/freeboard/**.do","/chat/**.do","/chatting/**.do","/faq/**.do")
+			.excludePathPatterns("/freeboard/freeboard.do","/freeboard/detail.do","/faq/faq.do");
 		registry.addInterceptor(chatNotReadCheckInterceptor())
 			.addPathPatterns("/chat/**.do","/chatting/**.do")
 			.excludePathPatterns("/chatting/chatReading.do", "/chatting/chatUserSearch.do");

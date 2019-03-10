@@ -1,4 +1,7 @@
-@charset "UTF-8";
+@font-face {
+	font-family: 'sangsangBody';
+	src: url('../font/SangSangBodyL.ttf');
+}
 
 /* list */
 tbody::before {

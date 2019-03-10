@@ -16,7 +16,7 @@
 	 <div class="container">
             <br>
             <div class="row">
-                <div class="col-sm-5" style="text-align: center; align-self: center;">
+                <div class="col-sm-5" style="text-align: center; align-self: center; ">
                     <h5>Copyright &copy; 2019 Tak</h5> 
                 </div>
                 <div class="col-sm-5" style="text-align: center; align-self: center;">

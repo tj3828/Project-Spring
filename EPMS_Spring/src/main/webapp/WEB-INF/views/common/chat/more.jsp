@@ -24,20 +24,10 @@
 			$(window).scrollTop(chatScroll);
 		}
 		
-		var notReadCount = "${notReadCount}";
-		
-		if(notReadCount != "0" && notReadCount != null && notReadCount != "" && notReadCount != 0)	{
-			if(parent.$('body').find('.chatBt_notReadCounter').length == 0) {
-				parent.$('button.chatBt').after('<span class="chatBt_notReadCounter">' + notReadCount + '</span>');
-			} else {
-				parent.$('.chatBt_notReadCounter').html(notReadCount);
-			}
-			$('.fa-comment').after('<span class="Bottom_notReadCounter">' + notReadCount + '</span>');
-		} else {
-			if(parent.$('body').find('.chatBt_notReadCounter').length == 1) {
-				parent.$('.chatBt_notReadCounter').remove();
-			}
-		}
+		// 읽지않은 쪽지 갯수 체크
+		var notReadCount = "${notReadCount}"*1;
+		var reservationNotReadCount = "${reservationNotReadCount}"*1;
+		initNotReadCount(notReadCount, reservationNotReadCount);
 	});
 	
 	$(window).on('beforeunload', function() {
@@ -50,7 +40,7 @@
 		}
 	});
 	
-	var webSocket = new WebSocket("wss://118.130.22.175:8443/b/ws");
+	var webSocket = new WebSocket("wss://192.168.0.2:8443/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -58,22 +48,106 @@
 	} 
 	webSocket.onmessage = function(data) {
 		if(data.data != "connected Opponent") {
+			// 메세지형태 일 때만 처리
 			var msg = JSON.parse(data.data);
 			var nickname = "${sessionScope.dto.nickname}";
-			if(msg.toNick == nickname && msg.content != '#$%Room Out#$%') {
+			var path = "${pageContext.request.contextPath}";
+			var notReadCount = 1; 
+			
+			// 메세지가 예약관련 메세지 일 떄
+			if(msg.message_type == "reservation") {
 				
-				var Bottom_notReadCounter = $('.Bottom_notReadCounter').html() *1;
-				if(Bottom_notReadCounter == null || Bottom_notReadCounter == "" || Bottom_notReadCounter == 0 || isNaN(Bottom_notReadCounter)) {
-					$('.fa-comment').after('<span class="Bottom_notReadCounter"></span>');
-					parent.$('button.chatBt').after('<span class="chatBt_notReadCounter"></span>');
-					Bottom_notReadCounter = 0;
+				// 내가 예약 요청한 메세지 일 때
+				if(msg.r_guest == nickname) {
+					
+					if(msg.r_status == "예약중") {
+						
+					} else if(msg.r_status == "예약완료") {
+						
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+					} else if(msg.r_status == "예약취소") {
+						if(msg.r_agree != "") {
+							if(msg.r_hostRead == 'false') {
+								
+							} else if(msg.r_guestRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							}
+							
+						} else {
+							if(msg.r_hostRead == 'false') {
+								
+							} else if(msg.r_guestRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							}
+						}
+					} else if(msg.r_status == "사용완료") {
+						
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+					}
+						
+				// 다른 사람이 요청했을 경우
+				} else if(msg.r_host == nickname ) {
+					
+					if(msg.r_status == "예약중") {
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+						
+					} else if(msg.r_status == "예약완료") {
+						
+					} else if(msg.r_status == "예약취소") {
+						if(msg.r_agree != "") {
+							if(msg.r_hostRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							} else if (msg.r_guestRead == 'false') {
+								
+							}
+							
+						} else {
+							if(msg.r_hostRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							} else if(msg.r_guestRead == 'false') {
+								
+							}
+						}
+					} else if(msg.r_status == "사용완료") {
+						
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+					}
 				}
-				Bottom_notReadCounter += 1;
-				parent.$('.chatBt_notReadCounter').html(Bottom_notReadCounter);
-				$('.Bottom_notReadCounter').html(Bottom_notReadCounter);
 				
+			// 일반 메세지 타입일 경우
+			} else {
+				// 채팅방에서의 상황은 내가 받는 경우 밖에 없기 떄문에
+				if(msg.toNick == nickname) {
+					
+					// 메세지이지만 방나간 메세지를 제외하고
+					if(msg.content != '#$%Room Out#$%') {
+						changeChatBtnCounter(1);
+						changeChatsReadCounter();
+						
+					}
+				}
 			}
-		} 
+		}
 	}
 </script>
 <body style="padding-top: 46px; height: 100%; padding-bottom: 50px;">
@@ -158,138 +232,6 @@
     </a>
   </nav>
 </body>
-<script type="text/javascript">
-
-	$(document).ready(function(){
-		
-		var lat, lon;
-		
-		function getLocation() {
-		  if (navigator.geolocation) { // GPS를 지원하면
-		    navigator.geolocation.getCurrentPosition(function(position) {
-		      lat = position.coords.latitude;
-		      lon = position.coords.longitude;
-		      getWeather(lat, lon);
-			  getMicroDust(lat, lon);
-			  getAddress(lat, lon);
-		    }, function(error) {
-		      console.error(error);
-		    }, {
-		      enableHighAccuracy: true,
-		      maximumAge: 0,
-		      timeout: Infinity
-		    });
-		  } else {
-		    alert('GPS를 지원하지 않습니다');
-		  }
-		}
-		getLocation();
-		
-	});
-	
-	String.prototype.replaceAt=function(index, character) {
-	    return this.substr(0, index) + character + this.substr(index+character.length);
-	}
-	
-	function getAddress(lat, lon) {
-		var apiURI = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lon+'&key=AIzaSyBiUoURrhWuQ316Nhzs9-VxhSND-j2eaEU';
-		$.ajax({
-			url: apiURI,
-			dataType: "json",
-			type: "GET",
-			success: function (data) {
-				var temp = data.results[0].formatted_address;
-				var add = temp.substring(temp.indexOf(' ') +1);
-				var add1 = add.replaceAt(add.indexOf(' ', add.indexOf(' ')), '<br>');
-				$('.more-header__title').html(add);
-			}
-		});
-	}
-				
-	function getWeather(lat, lon) {
-		var apiURI = "https://api.openweathermap.org/data/2.5/weather?&APPID=1ef5e68a2c7c6690cc4b8252c545cfd1&lat="+lat+"&lon="+lon;
-		$.ajax({
-			url: apiURI,
-			dataType: "json",
-			type: "GET",
-			async: "false",
-			success: function (resp) {
-				console.log(resp);
-				var icon = resp.weather[0].icon;
-				if(icon == "50d" || icon == "50n") {
-					$('.weather_status_Title').html("Haze");
-					$('.weather_status').html('<div class="cloudy"><div class="eyes"></div></div>');
-				} else if(icon == "01d" || icon == "02d") {
-					$('.weather_status_Title').html("Sunny");
-					$('.weather_status').html('<br/><div class="sunny"><div class="eyes"></div></div><br/>');
-				} else if(icon == "03d" || icon == "04d" || icon == "03n" || icon == "04d") {
-					$('.weather_status_Title').html("Cloudy");
-					$('.weather_status').html('<div class="cloudy"><div class="eyes"></div></div>');
-				} else if(icon == "09d" || icon == "09n" || icon == "10d" || icon == "10n") {
-					$('.weather_status_Title').html("Rainy");
-					$('.weather_status').html('<div class="Rainy"><div class="eyes"></div></div>');
-				} else if(icon == "11d" || icon == "11n") {
-					$('.weather_status_Title').html("ThunderStorm");
-					$('.weather_status').html('<div class="stormy"><div class="eyes"></div></div>');
-				} else if(icon == "13d" || icon == "13n") {
-					$('.weather_status_Title').html("Snowy");
-					$('.weather_status').html('<div class="snowy"><div class="eyes"></div></div>');
-				} else if(icon == "01n" || icon == "02n") {
-					$('.weather_status_Title').html("Starry");
-					$('.weather_status').html('<div class="starry"><div class="eyes"></div></div>');
-				} else {
-					$('.weather_status_Title').html("Error Cloud");
-					$('.weather_status').html('<div class="cloudy"><div class="eyes"></div><div class="tear"></div></div>');
-				}
-				
-				$('.wind').html("바람 : " + resp.wind.speed + " m/s");
-				var sunrise = new Date(resp.sys.sunrise*1000).toString().split(" ")[4];
-				var sunset = new Date(resp.sys.sunset*1000).toString().split(" ")[4];
-				$('.sunrise').html("일출 : " + sunrise);
-				$('.sunset').html("일몰 : " + sunset);
-					
-			
-				$('.more__option-title').html((resp.main.temp- 273.15).toFixed(1)+ " ℃  / "+ resp.main.humidity +" %");
-                console.log("현재온도 : "+ (resp.main.temp- 273.15) );
-                console.log("현재습도 : "+ resp.main.humidity);
-                console.log("날씨 : "+ resp.weather[0].main );
-                console.log("상세날씨설명 : "+ resp.weather[0].description );
-                console.log("날씨 이미지 : "+ resp.weather[0].icon );
-                console.log("바람   : "+ resp.wind.speed );
-                console.log("나라   : "+ resp.sys.country );
-                console.log("도시이름  : "+ resp.name );
-                console.log("구름  : "+ (resp.clouds.all) +"%" ); 
-			}
-		});
-	}
-	
-	function getMicroDust(lat, lon) {
-		var apiURI = "https://api.waqi.info/feed/geo:" + lat + ";" + lon + "/?token=d8af30a72a6589f0d73c7f749cad04fc9125b741"
-		$.ajax({
-			url: apiURI,
-			dataType: "json",
-			type: "GET",
-			async: "false",
-			success: function (resp) {
-				var aqi = resp.data.aqi;
-				var status = "";
-				if(aqi >=0 && aqi <=50) {
-					status += "좋음";
-				} else if(aqi >=51 && aqi <=100) {
-					status += "보통";
-				} else if(aqi >=101 && aqi <=150) {
-					status += "민감군영향";
-				} else if(aqi >=151 && aqi <=200) {
-					status += "나쁨";
-				} else if(aqi >=201 && aqi <=300) {
-					status += "매우나쁨";
-				} else if(aqi >300 ) {
-					status += "위험";
-				}
-				$('.dust').html("미세먼지 : " + resp.data.aqi + " " + status);
-			}
-		})
-	}
-	
-	</script>
+	<script src="../resources/chat/js/more.js"></script>
+	<script src="../resources/chat/js/navigation.js"></script>
 </html>

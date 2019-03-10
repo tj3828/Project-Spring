@@ -280,7 +280,7 @@ function requestReservation() {
 				}).then((willDelete) => {
 					if(willDelete) {
 						reservationRequestAlram(t.result);
-						// location.href = './reservation_searchboard.do?';
+						location.href = '../myInfo/myGuestPage.do';
 					}
 				})
 			} else {

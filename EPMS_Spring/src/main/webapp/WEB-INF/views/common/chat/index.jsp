@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,20 +23,10 @@
 			$(window).scrollTop(chatScroll);
 		}
 		
-		var notReadCount = "${notReadCount}";
-		
-		if(notReadCount != "0" && notReadCount != null && notReadCount != "" && notReadCount != 0)	{
-			if(parent.$('body').find('.chatBt_notReadCounter').length == 0) {
-				parent.$('button.chatBt').after('<span class="chatBt_notReadCounter">' + notReadCount + '</span>');
-			} else {
-				parent.$('.chatBt_notReadCounter').html(notReadCount);
-			}
-			$('.fa-comment').after('<span class="Bottom_notReadCounter">' + notReadCount + '</span>');
-		} else {
-			if(parent.$('body').find('.chatBt_notReadCounter').length == 1) {
-				parent.$('.chatBt_notReadCounter').remove();
-			}
-		}
+		// 읽지않은 쪽지 갯수 체크
+		var notReadCount = "${notReadCount}"*1;
+		var reservationNotReadCount = "${reservationNotReadCount}"*1;
+		initNotReadCount(notReadCount, reservationNotReadCount);
 	});
 	
 	$(window).on('beforeunload', function() {
@@ -48,7 +39,7 @@
 		}
 	});
 	
-	var webSocket = new WebSocket("wss://118.130.22.175:8443/b/ws");
+	var webSocket = new WebSocket("wss://192.168.0.2:8443/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {
@@ -56,22 +47,106 @@
 	} 
 	webSocket.onmessage = function(data) {
 		if(data.data != "connected Opponent") {
+			// 메세지형태 일 때만 처리
 			var msg = JSON.parse(data.data);
 			var nickname = "${sessionScope.dto.nickname}";
-			if(msg.toNick == nickname && msg.content != '#$%Room Out#$%') {
+			var path = "${pageContext.request.contextPath}";
+			var notReadCount = 1; 
+			
+			// 메세지가 예약관련 메세지 일 떄
+			if(msg.message_type == "reservation") {
 				
-				var Bottom_notReadCounter = $('.Bottom_notReadCounter').html() *1;
-				if(Bottom_notReadCounter == null || Bottom_notReadCounter == "" || Bottom_notReadCounter == 0 || isNaN(Bottom_notReadCounter)) {
-					$('.fa-comment').after('<span class="Bottom_notReadCounter"></span>');
-					parent.$('button.chatBt').after('<span class="chatBt_notReadCounter"></span>');
-					Bottom_notReadCounter = 0;
+				// 내가 예약 요청한 메세지 일 때
+				if(msg.r_guest == nickname) {
+					
+					if(msg.r_status == "예약중") {
+						
+					} else if(msg.r_status == "예약완료") {
+						
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+					} else if(msg.r_status == "예약취소") {
+						if(msg.r_agree != "") {
+							if(msg.r_hostRead == 'false') {
+								
+							} else if(msg.r_guestRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							}
+							
+						} else {
+							if(msg.r_hostRead == 'false') {
+								
+							} else if(msg.r_guestRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							}
+						}
+					} else if(msg.r_status == "사용완료") {
+						
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+					}
+						
+				// 다른 사람이 요청했을 경우
+				} else if(msg.r_host == nickname ) {
+					
+					if(msg.r_status == "예약중") {
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+						
+					} else if(msg.r_status == "예약완료") {
+						
+					} else if(msg.r_status == "예약취소") {
+						if(msg.r_agree != "") {
+							if(msg.r_hostRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							} else if (msg.r_guestRead == 'false') {
+								
+							}
+							
+						} else {
+							if(msg.r_hostRead == 'false') {
+								
+								changeChatBtnCounter(2);
+								changeChatsReadCounter();
+								changeReservationReadCounter(1);
+							} else if(msg.r_guestRead == 'false') {
+								
+							}
+						}
+					} else if(msg.r_status == "사용완료") {
+						
+						changeChatBtnCounter(2);
+						changeChatsReadCounter();
+						changeReservationReadCounter(1);
+					}
 				}
-				Bottom_notReadCounter += 1;
-				parent.$('.chatBt_notReadCounter').html(Bottom_notReadCounter);
-				$('.Bottom_notReadCounter').html(Bottom_notReadCounter);
 				
+			// 일반 메세지 타입일 경우
+			} else {
+				// 채팅방에서의 상황은 내가 받는 경우 밖에 없기 떄문에
+				if(msg.toNick == nickname) {
+					
+					// 메세지이지만 방나간 메세지를 제외하고
+					if(msg.content != '#$%Room Out#$%') {
+						changeChatBtnCounter(1);
+						changeChatsReadCounter();
+						
+					}
+				}
 			}
-		} 
+		}
 	}
 </script>
 <body style="padding-top: 50px;">
@@ -100,13 +175,9 @@
       <div class="friends__section-rows">
         <div class="friends__section-row">
           <a href="javascript:location.replace('../chat/profile.do')">
-            <img src="../resources/chat/images/avatar.png" alt="">  
-            Seungyong Lee
+            <img src="${pageContext.request.contextPath}/resources/upload/${sessionScope.dto.profile_img}">  
+            ${sessionScope.dto.nickname}
           </a>
-        </div>
-        <div class="friends__section-row">
-          <img src="../resources/chat/images/avatar.png" alt="">
-          <span class="friends__section-name">Friends'Names Display</span>
         </div>
       </div>
     </section>
@@ -115,13 +186,14 @@
         <h6 class="friends__section-title">Friends</h6>
       </header>
       <div class="friends__section-rows">
-        <div class="friends__section-row with-tagline">
+      	<div style="padding-top: 30px; text-align: center;">친구기능 준비중입니다.</div>
+        <!-- <div class="friends__section-row with-tagline">
           <div class="friends__section-column">
             <img src="../resources/chat/images/avatar.png" alt="">
             <span class="friends__section-name">Minji Lee</span>
           </div>
             <span class="friends__section-tagline">Life is short. so live your life.</span>
-        </div>
+        </div> -->
       </div>
     </section>
   </main>
@@ -143,8 +215,6 @@
       <span class="tab-bar__title">More</span>
     </a>
   </nav>
-  <div class="bigScreenText">
-    Please make your screen smaller
-  </div>
+  <script src="../resources/chat/js/navigation.js"></script>
 </body>
 </html>

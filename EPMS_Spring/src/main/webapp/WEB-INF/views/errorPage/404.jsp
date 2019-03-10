@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../b/resources/css/error.css">
+<link rel="stylesheet" href="../resources/css/error.css">
 <title>에러 페이지</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
           <br><br><br>
           <div class='_2'>페이지를 찾을 수 없습니다.</div>
           <br><br>
-          <a class='btn' href='https://118.130.22.175:8443/b/main/main.do'></a>
+          <a class='btn' href='https://118.130.22.175:8443/b/main/main.do'>홈페이지로 이동하기</a>
       </div>
 </body>
 </html>

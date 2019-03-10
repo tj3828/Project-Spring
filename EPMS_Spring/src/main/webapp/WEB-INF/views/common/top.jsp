@@ -21,6 +21,12 @@
 		margin-left: 20%; 
 	}
 	
+	@media only screen and (max-width:1200px) {
+		.collapse .nav-item {
+			margin-left: 0; 
+		}
+	}
+	
 	.collapse .nav-item a {
 		width: max-content;
 	}
@@ -222,7 +228,7 @@
 						</li>
 					</c:if>
 					<li class="nav-item top_side" style="width: fit-content;"><a href="javascript:swal('고객센터','준비중입니다. \n빠른 시일내에 찾아뵙겠습니다.','error');">고객센터</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-					<li class="nav-item top_side" style="width: fit-content;"><a href="#">이용안내</a> </li>
+					<li class="nav-item top_side" style="width: fit-content;"><a href="javascript:swal('이용안내','준비중입니다. \n빠른 시일내에 찾아뵙겠습니다.','error');">이용안내</a> </li>
 				</ul>
 			</div>
 		</div>		
@@ -240,7 +246,7 @@
 		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    	<ul class="navbar-nav mr-auto">
 		     		<li class="nav-item active">
-		     			<a class="nav-link text-white">소개</a>
+		     			<a class="nav-link text-white" href="../main/intro.do">소개</a>
 		      		</li>
 					<li class="nav-item active">
 						<a class="nav-link text-white" href="../reservationPage/showPage.do">주차예약</a>

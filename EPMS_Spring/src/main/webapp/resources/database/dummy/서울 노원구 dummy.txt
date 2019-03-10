@@ -1,0 +1,210 @@
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 공릉1동 557-22',37.624489, 127.076786);
+
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-1','test181');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-2','test182');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-3','test183');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-4','test184');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-5','test185');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-6','test186');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-7','test187');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-8','test188');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-9','test189');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-10','test190');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-11','test191');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-12','test192');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-13','test193');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-14','test194');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-15','test195');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-16','test196');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-17','test197');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-18','test198');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-19','test199');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 557-22','2-가-20','test200');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 공릉1동 동일로186길 36-10',37.624509, 127.074676);
+
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-1','test201');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-2','test202');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-3','test203');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-4','test204');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-5','test205');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-6','test206');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-7','test207');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-8','test208');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-9','test209');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-10','test210');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-11','test211');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-12','test212');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-13','test213');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-14','test214');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-15','test215');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-16','test216');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-17','test217');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-18','test218');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-19','test219');
+insert into parking_area_personal values('서울특별시 노원구 공릉1동 동일로186길 36-10','2-나-20','test220');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 공릉동 222-3',37.624922, 127.080597);
+
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-1','test221');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-2','test222');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-3','test223');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-4','test224');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-5','test225');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-6','test226');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-7','test227');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-8','test228');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-9','test229');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-10','test230');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-11','test231');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-12','test232');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-13','test233');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-14','test234');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-15','test235');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-16','test236');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-17','test237');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-18','test238');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-19','test239');
+insert into parking_area_personal values('서울특별시 노원구 공릉동 222-3','2-다-20','test240');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 하계동 208-12',37.638947, 127.070434);
+
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-1','test241');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-2','test242');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-3','test243');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-4','test244');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-5','test245');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-6','test246');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-7','test247');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-8','test248');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-9','test249');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-10','test250');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-11','test251');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-12','test252');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-13','test253');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-14','test254');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-15','test255');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-16','test256');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-17','test257');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-18','test258');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-19','test259');
+insert into parking_area_personal values('서울특별시 노원구 하계동 208-12','2-라-20','test260');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 하계1동 256-22',37.641647, 127.072513);
+
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-1','test261');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-2','test262');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-3','test263');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-4','test264');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-5','test265');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-6','test266');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-7','test267');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-8','test268');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-9','test269');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-10','test270');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-11','test271');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-12','test272');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-13','test273');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-14','test274');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-15','test275');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-16','test276');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-17','test277');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-18','test278');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-19','test279');
+insert into parking_area_personal values('서울특별시 노원구 하계1동 256-22','2-마-20','test280');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 중계2.3동 111 중계그린아파트',37.641492, 127.064221);
+
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-1','test281');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-2','test282');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-3','test283');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-4','test284');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-5','test285');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-6','test286');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-7','test287');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-8','test288');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-9','test289');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-10','test290');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-11','test291');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-12','test292');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-13','test293');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-14','test294');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-15','test295');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-16','test296');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-17','test297');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-18','test298');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-19','test299');
+insert into parking_area_personal values('서울특별시 노원구 중계2.3동 111 중계그린아파트','2-바-20','test300');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 상계2동 358-28',37.657628, 127.062508);
+
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-1','test301');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-2','test302');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-3','test303');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-4','test304');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-5','test305');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-6','test306');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-7','test307');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-8','test308');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-9','test309');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-10','test310');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-11','test311');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-12','test312');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-13','test313');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-14','test314');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-15','test315');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-16','test316');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-17','test317');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-18','test318');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-19','test319');
+insert into parking_area_personal values('서울특별시 노원구 상계2동 358-28','2-사-20','test320');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 상계동 389-395',37.659636, 127.067906);
+
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-1','test321');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-2','test322');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-3','test323');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-4','test324');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-5','test325');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-6','test326');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-7','test327');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-8','test328');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-9','test329');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-10','test330');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-11','test331');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-12','test332');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-13','test333');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-14','test334');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-15','test335');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-16','test336');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-17','test337');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-18','test338');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-19','test339');
+insert into parking_area_personal values('서울특별시 노원구 상계동 389-395','2-아-20','test340');
+
+insert into parking_area values(pa_seq.nextval,'서울','노원','서울특별시 노원구 상계동 한글비석로31가길',37.660834, 127.068807);
+
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-1','test341');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-2','test342');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-3','test343');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-4','test344');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-5','test345');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-6','test346');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-7','test347');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-8','test348');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-9','test349');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-10','test350');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-11','test351');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-12','test352');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-13','test353');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-14','test354');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-15','test355');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-16','test356');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-17','test357');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-18','test358');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-19','test359');
+insert into parking_area_personal values('서울특별시 노원구 상계동 한글비석로31가길','2-자-20','test360');
+
+
+
+commit;

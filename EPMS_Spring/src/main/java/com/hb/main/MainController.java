@@ -12,4 +12,9 @@ public class MainController {
 	public String viewMainPage() {
 		return "/common/main";
 	}
+
+	@GetMapping("/intro.do")
+	public String viewIntroPage() {
+		return "/common/intro";
+	}
 }
