@@ -16,6 +16,15 @@
 	</div>
 	<button class="chatBt circle"><i class="fas fa-comment"></i></button>
 	<script type="text/javascript">
+		var login = "${sessionScope.dto.id}";
+		if(login != "" || login != null) {
+			var webSocket = new WebSocket("wss://15.164.1.35:8443/b/wsAutoLogout");
+			webSocket.onopen = function(message) {
+			}
+			webSocket.onerror = function() {
+				alert('웹소켓 에러');
+			} 
+		}
 	
 		window.onpageshow = function(event) {
 		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {

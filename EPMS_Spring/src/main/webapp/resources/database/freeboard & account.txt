@@ -17,7 +17,7 @@ create table chatting (
 	content varchar2(1000) not null,
 	readCheck number not null,
 	primary key(num)
-)
+);
 
 drop table freeboard_like;
 create table freeboard_like (

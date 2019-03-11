@@ -24,7 +24,7 @@
           <div class='_2'>서버에 문제가 있습니다.</div>
           <div class='_2'>관리자에게 문의하세요.</div>
           <br><br>
-          <a class='btn' href='https://118.130.22.175:8443/b/main/main.do'>홈페이지로 이동하기</a>
+          <a class='btn' href='https://15.164.1.35:8443/b/main/main.do'>홈페이지로 이동하기</a>
       </div>
 </body>
 </html>

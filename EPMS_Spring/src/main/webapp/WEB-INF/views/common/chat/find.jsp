@@ -41,7 +41,7 @@
 		}
 	});
 	
-	var webSocket = new WebSocket("wss://192.168.0.2:8443/b/ws");
+	var webSocket = new WebSocket("wss://15.164.1.35:8443/b/ws");
 	webSocket.onopen = function(message) {
 	}
 	webSocket.onerror = function() {

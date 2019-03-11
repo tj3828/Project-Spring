@@ -25,9 +25,9 @@ public class DBConfig {
 	public DataSource dataSourceSpied() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@127.0.0.1:1521:XE");
-		dataSource.setUsername("system");
-		dataSource.setPassword("oracle");
+		dataSource.setUrl("jdbc:oracle:thin:@oracle11gr2.cogbzaq9kl6i.ap-northeast-2.rds.amazonaws.com:1521:ORCL");
+		dataSource.setUsername("scott");
+		dataSource.setPassword("dhxkrwhd1!");
 		return dataSource;
 	}
 	

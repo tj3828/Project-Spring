@@ -70,7 +70,7 @@
 	});
 	
 	// 웹소켓 연결
-	var webSocket = new WebSocket("wss://192.168.0.2:8443/b/ws");
+	var webSocket = new WebSocket("wss://15.164.1.35:8443/b/ws");
 	webSocket.onopen = function() {
 		// 상대방의 채팅 메세지에 읽음 표시 삭제
 		var opponentNick = "${opponent}";
