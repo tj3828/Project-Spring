@@ -109,7 +109,6 @@
 				contentType: false,
 				data: formData,
 				success: function(data) {
-					alert(data);
 					location.href="../faq/faq.do";
 				},
 				error: function (request) {

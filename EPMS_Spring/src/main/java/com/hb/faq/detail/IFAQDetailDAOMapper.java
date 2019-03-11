@@ -15,7 +15,7 @@ import config.Mapper;
 public interface IFAQDetailDAOMapper {
 	
 	@Select("select a.num, a.nickname,a.profile_img, a.title, a.content, TO_CHAR(writeDate,'YYYY-MM-DD HH24:MI') as writeDate, a.upload_file, "	+ 
-			"		round(upload_file_size/1024,1) as upload_file_size, a.viewCnt, a.parentNum, a.groupNum, a.lev, " + 
+			"		round(upload_file_size/1024,1) as upload_file_size, a.store_upload_file, a.viewCnt, a.parentNum, a.groupNum, a.lev, " + 
 			"		(select count(*) from faqboard where parentNum = a.num) as childCnt " + 
 			"from ( select  b.*, level as lev from faqboard b " + 
 			"		start with b.parentNum = 0 " + 

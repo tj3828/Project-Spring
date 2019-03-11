@@ -80,7 +80,7 @@
 						</div>
 						<br> 
 						<c:if test="${dto.upload_file != '' }">
-							<label for="File">File input : &nbsp;</label> <a href="../freeboardDetail/download.do?fidx=${dto.upload_file}&idx=${dto.num}&sidx=${dto.store_upload_file}">${dto.upload_file}</a> (${dto.upload_file_size}kb)
+							<label for="File">File input : &nbsp;</label><font style="font-size: 2.5vmin"> <a href="../freeboardDetail/download.do?fidx=${dto.upload_file}&idx=${dto.num}&sidx=${dto.store_upload_file}">${dto.upload_file}</a> (${dto.upload_file_size}kb)</font>
 						</c:if>
 						<br>
 						

@@ -35,7 +35,7 @@
 						</div>
 						<br> 
 						<c:if test="${list[0].upload_file != '' }">
-							<label for="File">File input : &nbsp;</label> <font style="font-size: 2.5vmin"><a href="../freeboardDetail/download.do?fidx=${list[0].upload_file}&idx=${list[0].num}&sidx=${list[0].store_upload_file}">${list[0].upload_file}</a> (${list[0].upload_file_size}kb)</font>
+							<label for="File">File input : &nbsp;</label> <font style="font-size: 2.5vmin"><a href="../faqDetail/faqDownload.do?fidx=${list[0].upload_file}&idx=${list[0].num}&sidx=${list[0].store_upload_file}">${list[0].upload_file}</a> (${list[0].upload_file_size}kb)</font>
 						</c:if>
 						
 						<br>

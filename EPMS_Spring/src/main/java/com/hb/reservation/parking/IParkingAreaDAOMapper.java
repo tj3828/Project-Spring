@@ -18,10 +18,10 @@ public interface IParkingAreaDAOMapper {
 			"	from ( " + 
 			"		select * " + 
 			"		from parking_area "	+ 
-			"		order by pa_address asc ) p " + 
+			"		order by pa_address desc ) p " + 
 			"	where pa_address like '%' || #{keyword} || '%' and pa_address like '%' || #{keyfield} || '%' ) r " + 
 			"where rn " + 
-			"between #{end} and #{start} " )
+			"between #{end} and #{start} order by rn desc" )
 	List<ParkingAreaVO> selectSearchList(Paging paging);
 	
 	@Select("select count(*) from parking_area")

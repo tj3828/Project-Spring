@@ -119,7 +119,6 @@
 		top:20px; right:20px;
 		width: 78px;height: 33px;
 		border: 1px solid #2e4669; 
-		line-height: 35px; 
 		text-align: center; 
 		font-weight: bold;
 	    font-size: 14px;

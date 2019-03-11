@@ -25,12 +25,6 @@
 				alert('웹소켓 에러');
 			} 
 		}
-	
-		window.onpageshow = function(event) {
-		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-		    	window.location.reload();
-		    }
-		}
 		
 		$(window).on('beforeunload', function() {
 			var login = "${sessionScope.dto.id}";

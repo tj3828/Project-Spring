@@ -193,6 +193,10 @@
 	  z-index: 99;
 	}
 	
+	.logout:hover {
+		text-decoration: underline !important;
+	}
+	
 </style>
 <body>
 	<!-- top 부가기능 -->

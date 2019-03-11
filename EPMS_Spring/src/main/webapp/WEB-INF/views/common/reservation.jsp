@@ -145,8 +145,8 @@
 								<area shape="poly" coords="18,65,16,69,16,73,12,77,10,79,8,83,7,86,7,89,5,91,2,91,0,91,1,94,4,96,17,96,16,96,15,98,15,99,16,101,17,102,20,103,20,98,24,98,29,100,31,99,34,97,36,97,37,101,39,105,40,106,42,108,46,107,49,106,51,105,51,103,51,100,51,96,51,94,54,92,55,95,57,95,56,92,53,90,50,86,42,84,41,83,39,79,35,78,32,75,29,71,25,69,22,67,19,64,18,62"  title="서울특별시 강서구">
 							</map>
 						</div>
-						<h4 style="color: white; margin-top: 30px; font-family: sangsangTitle; font-size: 1.1rem;">* <a href="#" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">로그인</a> 후에 사용하세요.</h4>
-						<h4 style="color: white; bottom:0px; font-family: sangsangTitle; font-size: 1.1rem;">* 처음 이용이시라면 <a href="#" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">이용안내</a>를 먼저 참고하세요.</h4>
+						<h4 style="color: white; margin-top: 30px; font-family: sangsangTitle; font-size: 1.1rem;">* <a href="../login/login.do" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">로그인</a> 후에 사용하세요.</h4>
+						<h4 style="color: white; bottom:0px; font-family: sangsangTitle; font-size: 1.1rem;">* 처음 이용이시라면 <a href="javascript:swal('이용안내','준비중입니다. \n빠른 시일내에 찾아뵙겠습니다.','error');" style="color: #F3C209; font-family: sangsangTitle; text-decoration: underline;">이용안내</a>를 먼저 참고하세요.</h4>
 					</div>
 					<div class="main_right" style="width: 60%; padding-left: 10%; font-family: sangsangBody;"> 
 						<input type="text" class="form-control" placeholder="찾으시는 장소를 입력하세요." id="searchAreaText" name="searchAreaText" value="" style="width:100%; margin-bottom: 0.5rem; margin-top: 0.5rem; display:unset;">
