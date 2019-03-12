@@ -34,9 +34,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
 		jsonView.setPrettyPrint(true);
-		
 		registry.enableContentNegotiation(jsonView);
-		
 		registry.jsp("/WEB-INF/views/", ".jsp");
 	}
 

@@ -34,7 +34,7 @@ public interface IChatDAOMapper {
 			+ ") order by num asc")
 	ArrayList<ChatVO> selectMessageList(@Param("id") String id, @Param("opponent") String opponent);
 	
-	@Select("select c.*, (select profile_img from account where c.toNick = account.nickname) as toNick_profileImg, (select count(*) from chatting where ((fromNick = c.fromNick and toNick = #{id}) or (fromNick = c.toNick and toNick = #{id})) and readCheck = 0) as notReadCheck   " + 
+	@Select("select c.*, (select profile_img from account where c.toNick = account.nickname) as toNick_profileImg, (select count(*) from chatting where ((fromNick = c.fromNick and toNick = #{id}) or (fromNick = c.toNick and toNick = #{id})) and readCheck = 0) as notReadCheck " + 
 			"from (" + 
 			"	select b.num, b.messageType, b.fromNick, b.toNick, to_char(b.writeDate,'YY/MM/DD HH24:MI') as writeDate, b.content, b.readCheck, b.fromNick_profileImg " + 
 			"	from ( " + 

@@ -52,7 +52,7 @@
 	@keyframes swing {
 	    0% { transform: rotate(3deg); }
 	    100% { transform: rotate(-3deg); }
-	}
+	} 
 	
 	.swing2 {
 	    animation: swing ease-in-out 1s infinite alternate;
@@ -150,7 +150,7 @@
 		<div class="main-image-btns" style="width:500px; display: inline-block;" >
 			<hr style="width:350px; height: 10px; border: 0; background-color: #f15e5e; margin-bottom: 0.5em !important;">
 			<figure class="swing1" style="margin-left: 40px !important;">
-				<img src="../resources/images/infoBtn.png" onclick="#" style="cursor:pointer;">
+				<img src="../resources/images/infoBtn.png" onclick="location.href='../main/intro.do'" style="cursor:pointer;">
 			</figure> 
 			<figure class="swing2">
 				<img src="../resources/images/reservationBtn.png" onclick="location.href='../reservationPage/showPage.do'" style="cursor:pointer;">

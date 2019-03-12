@@ -115,8 +115,10 @@
                    <input type="password" class="textInput" id="pw" placeholder="비밀번호를 입력하세요.">
                    <input class="ch" id="ch" type="checkbox" <c:if test="${cookie.id.value != null }">checked="checked"</c:if>><label for="ch"></label><font style="font-weight: bolder">&nbsp;아이디 저장하기</font>&nbsp;&nbsp;&nbsp;
                    <input class="ch1"  id="ch1" type="checkbox" <c:if test="${cookie.autoLogin.value != null }">checked="checked"</c:if>><label for="ch1"></label><font style="font-weight: bolder">&nbsp;자동 로그인</font><p>
+                   <br>
                    <a class="btn btn1" href="javascript:checkVal();">일반 로그인</a>
-                   <span class="or-txt">또는</span>
+                   <br>
+                   <span class="or-txt">또는</span> 
                    <a class="btn btn3" id="naver_id_login" href="${naverUrl}">네이버로 로그인</a>
                    <a class="btn btn4" style="cursor: pointer;" onclick="facebookLogin();">페이스북으로 로그인</a>
                    <a class="btn btn5" style="cursor: pointer;" onclick="kakaoLogin();">카카오톡으로 로그인</a> 

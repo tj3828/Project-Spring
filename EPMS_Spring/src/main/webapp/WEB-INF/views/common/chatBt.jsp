@@ -17,7 +17,7 @@
 	<button class="chatBt circle"><i class="fas fa-comment"></i></button>
 	<script type="text/javascript">
 		var login = "${sessionScope.dto.id}";
-		if(login != "" || login != null) {
+		if(login != "" && login != null) {
 			var webSocket = new WebSocket("wss://15.164.1.35:8443/b/wsAutoLogout");
 			webSocket.onopen = function(message) {
 			}
