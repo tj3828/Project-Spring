@@ -130,7 +130,9 @@
       - 로그인 디자인 수정
       - 다음 postcode https 적용불가 -> src를 http로 시작    
       
-      
+  # 03-13
+      - faq 테이블 reply_seq 수정
+      - 주차블록 뽑아올 때 정렬 문제 발견
       
       
       
