@@ -112,11 +112,13 @@
 						</nav>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="6" align="center">
-						<input type=button class="btn btn-outline-success" value="글쓰기" onclick="return writeForm();">
-					</td>
-				</tr>
+				<c:if test="${sessionScope.dto.id == 'admin'}">
+					<tr>
+						<td colspan="6" align="center">
+							<input type=button class="btn btn-outline-success" value="글쓰기" onclick="return writeForm();">
+						</td>
+					</tr>
+				</c:if>
 			</tfoot>
 		</table>
 	</div>

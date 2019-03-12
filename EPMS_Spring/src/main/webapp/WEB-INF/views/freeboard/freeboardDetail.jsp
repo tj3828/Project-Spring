@@ -111,7 +111,7 @@
 						<br>
 						<br>
 						<div align="center"> 
-							<c:if test="${sessionScope.dto.nickname == dto.nickname}">
+							<c:if test="${sessionScope.dto.id == 'admin'}">
 								<input type="button" class="btn btn-outline-success" id="save" onclick="location.href='../freeboardDetail/editPre.do?num=${dto.num}';" value="수정하기">&nbsp;&nbsp;
 								<input type="reset" class="btn btn-outline-danger" onclick="detail_Del(${dto.num});" value="삭제하기">&nbsp;&nbsp;
 							</c:if>
@@ -243,7 +243,7 @@
 				return false;
 			}
 			 
-			var session_id = "{sessionScope.dto.id}";
+			var session_id = "${sessionScope.dto.id}";
 			if(session_id == undefined || session_id == "null" || session_id == "") {
 				swal('댓글 입력','로그인을 먼저 해주세요.','error');
 				return false;

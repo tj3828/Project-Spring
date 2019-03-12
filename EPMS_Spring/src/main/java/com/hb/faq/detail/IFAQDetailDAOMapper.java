@@ -26,12 +26,13 @@ public interface IFAQDetailDAOMapper {
 	
 	@Update("update faqboard set viewCnt = viewCnt + 1 where num = #{num}")
 	void updateViewCount(FAQVO dto);
+	
 	@Update("Update faqboard set num = #{num} where num = #{num}")
 	@SelectKey(statement="select * from faqboard where num = #{num}", before=false,
 			   keyProperty="num,nickname,profile_img,title,content,writeDate,upload_file,viewCnt,parentNum,groupNum,lev", resultType=FAQVO.class)
 	void selectDetailInfo(FAQVO dto);
 	
-	@Update("update faqboard set title = #{title}, content = #{content} where num = #{num}")
+	@Update("update faqboard set title = #{title}, content = #{content}, upload_file=#{upload_file}, store_upload_file=#{store_upload_file}, upload_file_size=#{upload_file_size} where num = #{num}")
 	void updateFAQEdit(FAQVO dto);
 	
 	@Delete("delete faqboard where groupNum = #{num}")

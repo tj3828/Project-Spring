@@ -1,6 +1,6 @@
 ﻿drop sequence freeboard_seq;
 create sequence freeboard_seq;
-drop sequence freeboard_reply_seq
+drop sequence freeboard_reply_seq;
 create sequence freeboard_reply_seq;
 drop sequence chatting_seq;
 create sequence chatting_seq;
