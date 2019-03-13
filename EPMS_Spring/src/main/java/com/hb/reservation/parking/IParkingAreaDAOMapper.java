@@ -30,7 +30,7 @@ public interface IParkingAreaDAOMapper {
 	@Select("select count(*) from parking_area where pa_address like '%' || #{keyword} || '%' and pa_address like '%' || #{keyfield} || '%' ")
 	int selectSearchParkingAreaListCount(Paging	paging);
 	
-	@Select("select * from (select c.* " + 
+	@Select("select * from (select c.*, substr(c.pap_area,instr(c.pap_area,'-',1,2)+1) as temp " + 
 			"from parking_area_personal c "	+ 
 			"where c.pap_address =  #{r_address} and c.pap_area " + 
 			"not in ( "	+ 
@@ -44,6 +44,6 @@ public interface IParkingAreaDAOMapper {
 			"					r.r_to > To_Date(#{r_from},'yyyy-mm-dd hh24:mi')) " + 
 			"				or (r.r_from < To_Date(#{r_to},'yyyy-mm-dd hh24:mi') and " + 
 			"				    r.r_to >= To_Date(#{r_to},'yyyy-mm-dd hh24:mi'))))) ) "	+ 
-			"order by pap_area asc")
+			"order by temp*1 asc")
 	List<PersonalParkingAreaVO> selectPersonalAreaList(ReservationVO dto);
 }
