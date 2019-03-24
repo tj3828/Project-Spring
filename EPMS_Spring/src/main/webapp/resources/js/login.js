@@ -1,4 +1,4 @@
-Kakao.init('2899ad92021b65bed011b6501b479356');
+Kakao.init('kakao key');
 function kakaoLogin() {
 	Kakao.Auth.loginForm({
         success: function(authObj) {
@@ -42,7 +42,7 @@ function statusChangeCallback(response){
 
 window.fbAsyncInit = function() {
 	FB.init({
-		appId      : '641166546301850',
+		appId      : 'facebook key',
 		cookie     : true,  // enable cookies to allow the server to access 
 		// the session
 		xfbml      : true,  // parse social plugins on this page

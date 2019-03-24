@@ -24,10 +24,9 @@ public static JsonNode getAccessToken(String autorize_code) {
  
         final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
         
-        //포스트 파라미터의 grant_type이라는 명칭에 authorization_code를 추가한다 아래도 동일
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-        postParams.add(new BasicNameValuePair("client_id", "87c469147a85c30ea800cc7ebffd7165"));
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://118.130.22.175:8081/b/login/kakaoLogin.do")); 
+        postParams.add(new BasicNameValuePair("client_id", "kakao key"));
+        postParams.add(new BasicNameValuePair("redirect_uri", "redirect URL")); 
         postParams.add(new BasicNameValuePair("code", autorize_code));
         
         final HttpClient client = HttpClientBuilder.create().build();

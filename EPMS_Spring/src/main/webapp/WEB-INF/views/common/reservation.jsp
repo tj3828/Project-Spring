@@ -178,7 +178,7 @@
 	</div>
 	
 	<jsp:include page="../common/chatBt.jsp"></jsp:include>
-	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n4uke1efwk&submodules=panorama"></script>
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=naver map key&submodules=panorama"></script>
 	<!-- daterangepicker -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

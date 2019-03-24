@@ -30,7 +30,7 @@ String.prototype.replaceAt=function(index, character) {
 }
 
 function getAddress(lat, lon) {
-	var apiURI = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lon+'&key=AIzaSyBiUoURrhWuQ316Nhzs9-VxhSND-j2eaEU';
+	var apiURI = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lon+'&key=geocoding key';
 	$.ajax({
 		url: apiURI,
 		dataType: "json",
@@ -45,7 +45,7 @@ function getAddress(lat, lon) {
 }
 			
 function getWeather(lat, lon) {
-	var apiURI = "https://api.openweathermap.org/data/2.5/weather?&APPID=1ef5e68a2c7c6690cc4b8252c545cfd1&lat="+lat+"&lon="+lon;
+	var apiURI = "https://api.openweathermap.org/data/2.5/weather?&APPID=openweather key&lat="+lat+"&lon="+lon;
 	$.ajax({
 		url: apiURI,
 		dataType: "json",
@@ -102,7 +102,7 @@ function getWeather(lat, lon) {
 }
 
 function getMicroDust(lat, lon) {
-	var apiURI = "https://api.waqi.info/feed/geo:" + lat + ";" + lon + "/?token=d8af30a72a6589f0d73c7f749cad04fc9125b741"
+	var apiURI = "https://api.waqi.info/feed/geo:" + lat + ";" + lon + "/?token=AQI feed key"
 	$.ajax({
 		url: apiURI,
 		dataType: "json",
