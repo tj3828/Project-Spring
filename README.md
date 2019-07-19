@@ -17,6 +17,16 @@
 - ### CHAT & WEATHER
 
 ![CHAT](https://user-images.githubusercontent.com/43510811/61544128-b96ce200-aa7f-11e9-9feb-4869b5526fa9.png)
+
+
+
+## About
+
+EPMS is a system that utilizes resident parking areas. 
+This project can not be serviced independently. Because it requires an external hardware system and a mobile app.
+
+In this project, This project focuse on reservation request, approval, canceliation between user and user and implementation through external API.
+The chat feature mimicked KakaoTalk.
   
   
   
