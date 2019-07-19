@@ -28,7 +28,34 @@ This project can not be serviced independently. Because it requires an external 
 In this project, This project focuse on reservation request, approval, canceliation between user and user and implementation through external API.
 The chat feature mimicked KakaoTalk.
   
-  
+
+
+## Stack
+The project used the jsp for the front-end, and the back-end used Spring.
+
+### Frontend
+
+- JSP / Jstl
+- CSS / bootstrap
+- JQuery / Ajax
+- sweetalart / sweetalart2
+- SNS API (Kakao, Naver, Facebook)
+- Naver API (Map, Panorama)
+- Location & Weather API (Geocoding, OpenWeatherMap, AQI Feed)
+- SmartEditor 2.0
+- Postcode API (Daum) 
+
+### Server
+
+- Spring MVC
+- Tomcat
+- Oracle DB
+- Mybatis
+- Websocket
+
+#### AWS
+- EC2
+- RDS
   
   
   # 문제점
