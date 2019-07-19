@@ -1,3 +1,25 @@
+# EPMS (Efficient Parking Management System)
+
+> EPMS is a system for solving social problems such as illegal parking.
+
+- ### HOME & LOGIN
+
+![HOME_LOGIN](https://user-images.githubusercontent.com/43510811/61543436-71998b00-aa7e-11e9-8dcb-97c9a307adeb.png)
+
+- ### RESERVATION 
+
+![RESERVATION](https://user-images.githubusercontent.com/43510811/61543971-6a26b180-aa7f-11e9-948e-3e97204e5ef3.png)
+
+- ### BOARD
+
+![BOARD](https://user-images.githubusercontent.com/43510811/61544011-80cd0880-aa7f-11e9-8c01-5af7b2c86a07.png)
+
+- ### CHAT & WEATHER
+
+![CHAT](https://user-images.githubusercontent.com/43510811/61544128-b96ce200-aa7f-11e9-9feb-4869b5526fa9.png)
+  
+  
+  
   
   # 문제점
       - 웹소켓 전송시 @inject null 발생 (스프링 컨텍스트와 별개로 생성되는 문제를 발견하고 컨텍스트를 이어줌)
